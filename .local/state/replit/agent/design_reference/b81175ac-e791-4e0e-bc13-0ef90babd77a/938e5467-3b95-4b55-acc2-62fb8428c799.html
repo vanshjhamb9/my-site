@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kody Techno Lab - Digitizing the world with innovation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFD102',
+                        dark: '#111827',
+                        'dark-light': '#1F2937',
+                        'dark-lighter': '#374151',
+                        glass: 'rgba(255, 255, 255, 0.1)',
+                        'glass-border': 'rgba(255, 255, 255, 0.2)',
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'fade-in': 'fadeIn 1s ease-out',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'gradient': 'gradient 8s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px #FFD102, 0 0 10px #FFD102, 0 0 15px #FFD102' },
+                            '100%': { boxShadow: '0 0 10px #FFD102, 0 0 20px #FFD102, 0 0 30px #FFD102' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(50px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        gradient: {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                            '100%': { backgroundPosition: '0% 50%' }
+                        }
+                    },
+                    backdropBlur: {
+                        xs: '2px',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-white font-inter overflow-x-hidden">
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-primary to-yellow-300 z-50 transition-all duration-300" style="width: 0%"></div>
+    
+    <!-- Glassmorphic Navigation -->
+    <!-- @COMPONENT: Navigation [glassmorphic header with blur effects] -->
+    <nav id="navbar" class="fixed top-0 w-full z-40 transition-all duration-500">
+        <div class="backdrop-blur-md bg-glass border-b border-glass-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=40" alt="Kody Techno Lab Logo" class="h-10 w-auto brightness-200">
+                    </div>
+                    
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-8">
+                            <a href="#home" class="nav-link relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-primary">Home</a>
+                            <a href="#services" class="nav-link relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-primary">Services</a>
+                            <a href="#about" class="nav-link relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-primary">About</a>
+                            <a href="#projects" class="nav-link relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-primary">Projects</a>
+                            <a href="#team" class="nav-link relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-primary">Team</a>
+                            <a href="#contact" class="nav-link relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-primary">Contact</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile menu button -->
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button" class="mobile-menu-button p-2 rounded-lg backdrop-blur-sm bg-glass border border-glass-border transition-all duration-300 hover:bg-glass">
+                            <div class="hamburger">
+                                <span class="hamburger-line block w-5 h-0.5 bg-white mb-1 transition-all duration-300"></span>
+                                <span class="hamburger-line block w-5 h-0.5 bg-white mb-1 transition-all duration-300"></span>
+                                <span class="hamburger-line block w-5 h-0.5 bg-white transition-all duration-300"></span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden backdrop-blur-md bg-glass border-t border-glass-border transform -translate-y-full transition-transform duration-500 ease-in-out">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="#home" class="mobile-nav-link block px-3 py-2 text-base font-medium hover:text-primary transition-colors duration-300">Home</a>
+                    <a href="#services" class="mobile-nav-link block px-3 py-2 text-base font-medium hover:text-primary transition-colors duration-300">Services</a>
+                    <a href="#about" class="mobile-nav-link block px-3 py-2 text-base font-medium hover:text-primary transition-colors duration-300">About</a>
+                    <a href="#projects" class="mobile-nav-link block px-3 py-2 text-base font-medium hover:text-primary transition-colors duration-300">Projects</a>
+                    <a href="#team" class="mobile-nav-link block px-3 py-2 text-base font-medium hover:text-primary transition-colors duration-300">Team</a>
+                    <a href="#contact" class="mobile-nav-link block px-3 py-2 text-base font-medium hover:text-primary transition-colors duration-300">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- @END_COMPONENT: Navigation -->
+
+    <!-- Hero Section with Parallax -->
+    <!-- @COMPONENT: HeroSection [full-screen hero with animated elements] -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="floating-blob absolute top-20 left-10 w-72 h-72 bg-primary opacity-20 rounded-full filter blur-3xl animate-float"></div>
+            <div class="floating-blob absolute bottom-20 right-10 w-96 h-96 bg-blue-500 opacity-10 rounded-full filter blur-3xl animate-float" style="animation-delay: -3s;"></div>
+            <div class="floating-blob absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-purple-500 opacity-15 rounded-full filter blur-3xl animate-float" style="animation-delay: -1.5s;"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left space-y-8">
+                    <div class="space-y-4">
+                        <h1 class="hero-title text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
+                            <span class="bg-gradient-to-r from-white via-primary to-white bg-clip-text text-transparent bg-300% animate-gradient">Digitizing</span><br>
+                            <span class="text-white">the world with</span><br>
+                            <span class="text-primary glow-text">innovation</span>
+                        </h1>
+                        <p class="hero-subtitle text-xl sm:text-2xl text-gray-300 max-w-2xl font-light leading-relaxed" data-mock="true">
+                            We help you achieve your business objectives with the right technology, strategy and people.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
+                        <button class="cta-primary group relative px-8 py-4 bg-gradient-to-r from-primary to-yellow-400 text-dark font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/50 hover:scale-105">
+                            <span class="relative z-10">Get in Touch</span>
+                            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-primary to-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-glow"></div>
+                        </button>
+                        <button class="cta-secondary group px-8 py-4 backdrop-blur-sm bg-glass border-2 border-glass-border text-white font-semibold rounded-xl transition-all duration-300 hover:bg-white/20 hover:scale-105">
+                            <span class="flex items-center gap-2">
+                                Explore More
+                                <i class="fas fa-arrow-right transition-transform duration-300 group-hover:translate-x-1"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Hero Illustration -->
+                <div class="relative flex justify-center lg:justify-end">
+                    <!-- Modern tech illustration representing innovation -->
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=600" alt="AI and Technology Innovation" class="hero-image rounded-2xl shadow-2xl w-full max-w-lg animate-float">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-3xl filter blur-2xl opacity-70 animate-pulse"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: HeroSection -->
+
+    <!-- Services Section -->
+    <!-- @COMPONENT: ServicesSection [animated service cards with glassmorphism] -->
+    <section id="services" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-4xl sm:text-5xl font-bold mb-6">
+                    <span class="bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">Our Services</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed" data-mock="true">
+                    We help you achieve your business objectives with the right technology, strategy and people.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Service Card 1 -->
+                <div class="service-card group backdrop-blur-md bg-glass border border-glass-border rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:bg-white/15 hover:shadow-2xl hover:shadow-primary/20">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary to-yellow-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-robot text-2xl text-dark"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">Robotics Development</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed" data-mock="true">Advanced robotic solutions for offices and industrial applications with cutting-edge automation.</p>
+                    </div>
+                    <a href="#" class="inline-flex items-center text-primary font-medium group-hover:underline transition-all duration-300">
+                        Know More <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Service Card 2 -->
+                <div class="service-card group backdrop-blur-md bg-glass border border-glass-border rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:bg-white/15 hover:shadow-2xl hover:shadow-primary/20">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary to-yellow-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-brain text-2xl text-dark"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">AI/ML Development</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed" data-mock="true">Intelligent machine learning solutions that drive business growth through data-driven insights.</p>
+                    </div>
+                    <a href="#" class="inline-flex items-center text-primary font-medium group-hover:underline transition-all duration-300">
+                        Know More <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Service Card 3 -->
+                <div class="service-card group backdrop-blur-md bg-glass border border-glass-border rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:bg-white/15 hover:shadow-2xl hover:shadow-primary/20">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary to-yellow-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-chart-line text-2xl text-dark"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">Data Science</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed" data-mock="true">Transform raw data into actionable insights with advanced analytics and visualization.</p>
+                    </div>
+                    <a href="#" class="inline-flex items-center text-primary font-medium group-hover:underline transition-all duration-300">
+                        Know More <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Service Card 4 -->
+                <div class="service-card group backdrop-blur-md bg-glass border border-glass-border rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:bg-white/15 hover:shadow-2xl hover:shadow-primary/20">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary to-yellow-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-network-wired text-2xl text-dark"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">IoT Solutions</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed" data-mock="true">Connected device ecosystems that enable smart automation and real-time monitoring.</p>
+                    </div>
+                    <a href="#" class="inline-flex items-center text-primary font-medium group-hover:underline transition-all duration-300">
+                        Know More <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: ServicesSection -->
+
+    <!-- About Section -->
+    <!-- @COMPONENT: AboutSection [side-by-side layout with scroll animations] -->
+    <section id="about" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="about-content space-y-8">
+                    <div class="space-y-6">
+                        <h2 class="text-4xl sm:text-5xl font-bold leading-tight">
+                            <span class="text-white">It's not about money,</span><br>
+                            <span class="bg-gradient-to-r from-primary to-yellow-400 bg-clip-text text-transparent">it's about having the right solution</span><br>
+                            <span class="text-white">at the right time.</span>
+                        </h2>
+                        <p class="text-xl text-gray-300 leading-relaxed" data-mock="true">
+                            You can't afford to fall into the wrong hands. We ensure your digital success by providing the best possible solutions to your specific needs.
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 p-4 backdrop-blur-sm bg-glass rounded-xl border border-glass-border">
+                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                            <p class="text-gray-300" data-mock="true"><strong class="text-white">Designs that Make Sense</strong> - User-centered design that drives engagement</p>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 backdrop-blur-sm bg-glass rounded-xl border border-glass-border">
+                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                            <p class="text-gray-300" data-mock="true"><strong class="text-white">Solutions that Boost Business Growth</strong> - Strategic technology implementations</p>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 backdrop-blur-sm bg-glass rounded-xl border border-glass-border">
+                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                            <p class="text-gray-300" data-mock="true"><strong class="text-white">Digital Products that are Robust and Scalable</strong> - Built for the future</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-image relative">
+                    <!-- Innovation and technology workspace illustration -->
+                    <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=600" alt="Technology Innovation Workspace" class="rounded-3xl shadow-2xl w-full">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-primary/30 to-blue-500/30 rounded-3xl filter blur-2xl opacity-50 animate-pulse"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: AboutSection -->
+
+    <!-- Projects Section -->
+    <!-- @COMPONENT: ProjectsSection [grid layout with hover overlays] -->
+    <section id="projects" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-4xl sm:text-5xl font-bold mb-6">
+                    <span class="bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">Case Studies</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed" data-mock="true">
+                    Explore our innovative solutions that have transformed businesses across various industries.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <div class="project-card group relative overflow-hidden rounded-2xl backdrop-blur-md bg-glass border border-glass-border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
+                    <!-- Robotic office solution image -->
+                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300" alt="Dasher - Robotic Office Solution" class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-300">Dasher</h3>
+                        <p class="text-gray-300 mb-4 text-sm" data-mock="true">Robotic Solution for Offices - Advanced automation system for modern workplaces.</p>
+                        <a href="#" class="inline-flex items-center text-primary font-medium group-hover:underline transition-all duration-300">
+                            View Project <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project Card 2 -->
+                <div class="project-card group relative overflow-hidden rounded-2xl backdrop-blur-md bg-glass border border-glass-border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
+                    <!-- AI stock trading interface -->
+                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300" alt="AI Stock Trading App" class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-300">AI Stock Trading App</h3>
+                        <p class="text-gray-300 mb-4 text-sm" data-mock="true">Simplify Stock Trading for Everyone - Intelligent trading platform with AI insights.</p>
+                        <a href="#" class="inline-flex items-center text-primary font-medium group-hover:underline transition-all duration-300">
+                            View Project <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project Card 3 -->
+                <div class="project-card group relative overflow-hidden rounded-2xl backdrop-blur-md bg-glass border border-glass-border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
+                    <!-- Healthcare monitoring technology -->
+                    <img src="https://pixabay.com/get/gffdac26eb2c57c3723fbb946c4ff60d987c933e94eb3ba06cb3ba0929bb14908b7191500619f6a15eb1fe681975232519662f23fe22ab5c5b7ee1cd4f21efe2a_1280.jpg" alt="Elder Healthcare Solution" class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-300">Elder Healthcare Solution</h3>
+                        <p class="text-gray-300 mb-4 text-sm" data-mock="true">End-to-End Solution with Wearable App - Comprehensive healthcare monitoring system.</p>
+                        <a href="#" class="inline-flex items-center text-primary font-medium group-hover:underline transition-all duration-300">
+                            View Project <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center px-8 py-4 backdrop-blur-sm bg-glass border-2 border-primary text-primary font-semibold rounded-xl transition-all duration-300 hover:bg-primary hover:text-dark hover:scale-105">
+                    Checkout Our Work
+                    <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: ProjectsSection -->
+
+    <!-- Team Section -->
+    <!-- @COMPONENT: TeamSection [team member cards with hover effects] -->
+    <section id="team" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-4xl sm:text-5xl font-bold mb-6">
+                    <span class="bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">Our Team</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed" data-mock="true">
+                    Kody has a reputation as an egalitarian outsourcing company, and our management team stays in constant touch with Kody employees and clients.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+                <!-- Team Member 1 -->
+                <div class="team-card group backdrop-blur-md bg-glass border border-glass-border rounded-2xl p-6 text-center transition-all duration-500 hover:scale-105 hover:bg-white/15 hover:shadow-2xl hover:shadow-primary/20">
+                    <!-- Professional headshot of CEO -->
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150" alt="Manav Patel - Founder & CEO" class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-primary group-hover:scale-110 transition-transform duration-300">
+                    <h3 class="text-lg font-bold mb-1 group-hover:text-primary transition-colors duration-300">Manav Patel</h3>
+                    <p class="text-primary text-sm font-medium" data-mock="true">Founder & CEO</p>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="team-card group backdrop-blur-md bg-glass border border-glass-border rounded-2xl p-6 text-center transition-all duration-500 hover:scale-105 hover:bg-white/15 hover:shadow-2xl hover:shadow-primary/20">
+                    <!-- Professional headshot of CTO -->
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150" alt="Mihir Mistry - CTO" class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-primary group-hover:scale-110 transition-transform duration-300">
+                    <h3 class="text-lg font-bold mb-1 group-hover:text-primary transition-colors duration-300">Mihir Mistry</h3>
+                    <p class="text-primary text-sm font-medium" data-mock="true">CTO</p>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="team-card group backdrop-blur-md bg-glass border border-glass-border rounded-2xl p-6 text-center transition-all duration-500 hover:scale-105 hover:bg-white/15 hover:shadow-2xl hover:shadow-primary/20">
+                    <!-- Professional headshot of COO -->
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150" alt="Sanjay Kidecha - COO" class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-primary group-hover:scale-110 transition-transform duration-300">
+                    <h3 class="text-lg font-bold mb-1 group-hover:text-primary transition-colors duration-300">Sanjay Kidecha</h3>
+                    <p class="text-primary text-sm font-medium" data-mock="true">COO</p>
+                </div>
+                
+                <!-- Team Member 4 -->
+                <div class="team-card group backdrop-blur-md bg-glass border border-glass-border rounded-2xl p-6 text-center transition-all duration-500 hover:scale-105 hover:bg-white/15 hover:shadow-2xl hover:shadow-primary/20">
+                    <!-- Professional headshot of CMO -->
+                    <img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150" alt="Nirav Panchal - CMO" class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-primary group-hover:scale-110 transition-transform duration-300">
+                    <h3 class="text-lg font-bold mb-1 group-hover:text-primary transition-colors duration-300">Nirav Panchal</h3>
+                    <p class="text-primary text-sm font-medium" data-mock="true">CMO</p>
+                </div>
+                
+                <!-- Team Member 5 -->
+                <div class="team-card group backdrop-blur-md bg-glass border border-glass-border rounded-2xl p-6 text-center transition-all duration-500 hover:scale-105 hover:bg-white/15 hover:shadow-2xl hover:shadow-primary/20">
+                    <!-- Professional headshot of CGO -->
+                    <img src="https://pixabay.com/get/g366d2d9781ab00fc9d88870bf9fe1f896ee68452d3b903c5e11ee5718bdf37ca767c72ca6692372bfe60d295a337f19646d9e552506faf8b50192e49ce8f8fc8_1280.jpg" alt="Anchal Patel - CGO" class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-primary group-hover:scale-110 transition-transform duration-300">
+                    <h3 class="text-lg font-bold mb-1 group-hover:text-primary transition-colors duration-300">Anchal Patel</h3>
+                    <p class="text-primary text-sm font-medium" data-mock="true">CGO</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: TeamSection -->
+
+    <!-- Testimonials Carousel -->
+    <!-- @COMPONENT: TestimonialsSection [animated carousel with client feedback] -->
+    <section id="testimonials" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-4xl sm:text-5xl font-bold mb-6">
+                    <span class="bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">Client Success Stories</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed" data-mock="true">
+                    We take a little pride in our solutions contributing to their growth.
+                </p>
+            </div>
+            
+            <!-- Client Logo Ticker -->
+            <div class="mb-16 overflow-hidden">
+                <div class="client-ticker flex items-center space-x-8 animate-pulse">
+                    <!-- Tech company logos in grayscale with hover color -->
+                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=120&h=60" alt="Client Logo" class="h-12 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=120&h=60" alt="Client Logo" class="h-12 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=120&h=60" alt="Client Logo" class="h-12 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=120&h=60" alt="Client Logo" class="h-12 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=120&h=60" alt="Client Logo" class="h-12 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=120&h=60" alt="Client Logo" class="h-12 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+                </div>
+            </div>
+            
+            <!-- Testimonial Cards -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="testimonial-card backdrop-blur-md bg-glass border border-glass-border rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:bg-white/15 hover:shadow-2xl hover:shadow-primary/20">
+                    <div class="mb-6">
+                        <div class="flex text-primary mb-4">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 italic leading-relaxed mb-6" data-mock="true">
+                            "Kody Techno Lab transformed our business with their innovative robotics solution. The Dasher system has significantly improved our office efficiency and productivity."
+                        </p>
+                    </div>
+                    <div class="flex items-center">
+                        <!-- Professional client photo -->
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=60&h=60" alt="Client Testimonial" class="w-12 h-12 rounded-full mr-4 border-2 border-primary">
+                        <div>
+                            <h4 class="font-semibold" data-mock="true">John Anderson</h4>
+                            <p class="text-gray-400 text-sm" data-mock="true">CEO, TechCorp</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card backdrop-blur-md bg-glass border border-glass-border rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:bg-white/15 hover:shadow-2xl hover:shadow-primary/20">
+                    <div class="mb-6">
+                        <div class="flex text-primary mb-4">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 italic leading-relaxed mb-6" data-mock="true">
+                            "The AI stock trading app has revolutionized how we approach investments. The intelligent insights and user-friendly interface exceeded our expectations."
+                        </p>
+                    </div>
+                    <div class="flex items-center">
+                        <!-- Professional client photo -->
+                        <img src="https://pixabay.com/get/g2f3d9baee2df86abd921c54ddf46ba247d12a5cebfed93b5f090fb385634dd6c0397e7123bcc5dddfef6d660e136b8eb1e4f4f0367968eceacac788a8bede111_1280.jpg" alt="Client Testimonial" class="w-12 h-12 rounded-full mr-4 border-2 border-primary">
+                        <div>
+                            <h4 class="font-semibold" data-mock="true">Sarah Johnson</h4>
+                            <p class="text-gray-400 text-sm" data-mock="true">CTO, FinanceHub</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card backdrop-blur-md bg-glass border border-glass-border rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:bg-white/15 hover:shadow-2xl hover:shadow-primary/20">
+                    <div class="mb-6">
+                        <div class="flex text-primary mb-4">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 italic leading-relaxed mb-6" data-mock="true">
+                            "Their healthcare solution has made a tremendous impact on our patient care. The wearable integration and real-time monitoring capabilities are outstanding."
+                        </p>
+                    </div>
+                    <div class="flex items-center">
+                        <!-- Professional client photo -->
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=60&h=60" alt="Client Testimonial" class="w-12 h-12 rounded-full mr-4 border-2 border-primary">
+                        <div>
+                            <h4 class="font-semibold" data-mock="true">Dr. Michael Chen</h4>
+                            <p class="text-gray-400 text-sm" data-mock="true">Director, HealthTech Solutions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: TestimonialsSection -->
+
+    <!-- Contact Section -->
+    <!-- @COMPONENT: ContactSection [contact form with glowing elements] -->
+    <section id="contact" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-4xl sm:text-5xl font-bold mb-6">
+                    <span class="bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">Let's Grow and Get Famous Together</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed" data-mock="true">
+                    Ready to transform your business with cutting-edge technology? Get in touch with our team.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Contact Form -->
+                <div class="contact-form backdrop-blur-md bg-glass border border-glass-border rounded-2xl p-8">
+                    <form class="space-y-6">
+                        <div>
+                            <input type="text" placeholder="Your Name" class="w-full px-4 py-3 bg-dark-light border border-glass-border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300" data-mock="true">
+                        </div>
+                        <div>
+                            <input type="email" placeholder="Email" class="w-full px-4 py-3 bg-dark-light border border-glass-border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300" data-mock="true">
+                        </div>
+                        <div>
+                            <input type="tel" placeholder="Phone" class="w-full px-4 py-3 bg-dark-light border border-glass-border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300" data-mock="true">
+                        </div>
+                        <div>
+                            <select class="w-full px-4 py-3 bg-dark-light border border-glass-border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300" data-mock="true">
+                                <option value="">Select Service</option>
+                                <option value="software-development">Software Development</option>
+                                <option value="digital-transformation">Digital Transformation</option>
+                                <option value="hire-resources">Hire Resources</option>
+                                <option value="iot-solutions">IoT Solutions</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <textarea placeholder="Your Message" rows="4" class="w-full px-4 py-3 bg-dark-light border border-glass-border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 resize-none" data-mock="true"></textarea>
+                        </div>
+                        <button type="submit" class="w-full px-8 py-4 bg-gradient-to-r from-primary to-yellow-400 text-dark font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/50 hover:scale-105 animate-glow">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="space-y-8">
+                    <div class="contact-info backdrop-blur-md bg-glass border border-glass-border rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold mb-6 text-primary">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-phone text-primary"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-300 text-sm">Sales Inquiry</p>
+                                    <p class="text-white font-medium">+91 93167 56367</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-envelope text-primary"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-300 text-sm">Email ID</p>
+                                    <p class="text-white font-medium">sales@kodytechnolab.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
+                                    <i class="fab fa-skype text-primary"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-300 text-sm">Skype</p>
+                                    <p class="text-white font-medium">kodytechnolab</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Office Locations -->
+                    <div class="offices backdrop-blur-md bg-glass border border-glass-border rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold mb-6 text-primary">Global Offices</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center">
+                                <!-- India flag or office building -->
+                                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=60&h=40" alt="India Office" class="w-12 h-8 mx-auto mb-2 rounded">
+                                <p class="text-white font-medium text-sm">INDIA</p>
+                                <p class="text-gray-400 text-xs">Ahmedabad</p>
+                            </div>
+                            <div class="text-center">
+                                <!-- Canada flag or office building -->
+                                <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?ixlib=rb-4.0.3&auto=format&fit=crop&w=60&h=40" alt="Canada Office" class="w-12 h-8 mx-auto mb-2 rounded">
+                                <p class="text-white font-medium text-sm">CANADA</p>
+                                <p class="text-gray-400 text-xs">London, ON</p>
+                            </div>
+                            <div class="text-center">
+                                <!-- USA flag or office building -->
+                                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=60&h=40" alt="USA Office" class="w-12 h-8 mx-auto mb-2 rounded">
+                                <p class="text-white font-medium text-sm">USA</p>
+                                <p class="text-gray-400 text-xs">Fort Lauderdale</p>
+                            </div>
+                            <div class="text-center">
+                                <!-- UK flag or office building -->
+                                <img src="https://pixabay.com/get/g5b34fa0414d6501a52ff2960e192514b5c618d2fb4aa76c4db76231cc8d3696e70a07f7f60ebd8fa65022413742284c27198b8509ee381391d94b8b6a8a68ef8_1280.jpg" alt="UK Office" class="w-12 h-8 mx-auto mb-2 rounded">
+                                <p class="text-white font-medium text-sm">UK</p>
+                                <p class="text-gray-400 text-xs">London</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: ContactSection -->
+
+    <!-- Footer -->
+    <!-- @COMPONENT: Footer [dark footer with social links and newsletter] -->
+    <footer class="bg-dark-light border-t border-glass-border py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <!-- Company Info -->
+                <div class="space-y-4">
+                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=40" alt="Kody Techno Lab Logo" class="h-10 brightness-200">
+                    <p class="text-gray-400 text-sm leading-relaxed" data-mock="true">
+                        Digitizing the world with innovation. We help businesses achieve their objectives with the right technology, strategy and people.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="social-icon w-10 h-10 bg-glass border border-glass-border rounded-lg flex items-center justify-center text-gray-400 hover:text-primary hover:bg-primary/20 transition-all duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-icon w-10 h-10 bg-glass border border-glass-border rounded-lg flex items-center justify-center text-gray-400 hover:text-primary hover:bg-primary/20 transition-all duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon w-10 h-10 bg-glass border border-glass-border rounded-lg flex items-center justify-center text-gray-400 hover:text-primary hover:bg-primary/20 transition-all duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon w-10 h-10 bg-glass border border-glass-border rounded-lg flex items-center justify-center text-gray-400 hover:text-primary hover:bg-primary/20 transition-all duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Services -->
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300 text-sm">Robotics Development</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300 text-sm">AI/ML Development</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300 text-sm">Data Science</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300 text-sm">IoT Solutions</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300 text-sm">IT Consulting</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="text-gray-400 hover:text-primary transition-colors duration-300 text-sm">About Us</a></li>
+                        <li><a href="#projects" class="text-gray-400 hover:text-primary transition-colors duration-300 text-sm">Portfolio</a></li>
+                        <li><a href="#team" class="text-gray-400 hover:text-primary transition-colors duration-300 text-sm">Our Team</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-primary transition-colors duration-300 text-sm">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300 text-sm">Career</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Newsletter</h3>
+                    <p class="text-gray-400 text-sm mb-4" data-mock="true">Subscribe to our newsletter for the latest updates and insights.</p>
+                    <div class="space-y-3">
+                        <input type="email" placeholder="Enter your email" class="w-full px-4 py-3 bg-dark border border-glass-border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-sm" data-mock="true">
+                        <button class="w-full px-4 py-3 bg-gradient-to-r from-primary to-yellow-400 text-dark font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/50 hover:scale-105 text-sm animate-glow">
+                            Subscribe
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="border-t border-glass-border pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-gray-400 text-sm" data-mock="true">© 2024 Kody Techno Lab. All rights reserved.</p>
+                    <div class="flex gap-6">
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300 text-sm">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300 text-sm">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <!-- Floating CTA Button -->
+    <div id="floating-cta" class="fixed bottom-8 right-8 z-50">
+        <button class="floating-btn w-16 h-16 bg-gradient-to-r from-primary to-yellow-400 text-dark rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 animate-bounce-slow">
+            <i class="fas fa-comments text-xl"></i>
+        </button>
+    </div>
+
+    <script>
+        (() => {
+            // Scroll Progress Indicator
+            const scrollProgress = document.getElementById('scroll-progress');
+            const navbar = document.getElementById('navbar');
+            
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const progress = (scrollTop / scrollHeight) * 100;
+                
+                scrollProgress.style.width = progress + '%';
+                
+                // Navbar backdrop effect
+                if (scrollTop > 50) {
+                    navbar.classList.add('backdrop-blur-lg');
+                    navbar.firstElementChild.style.backgroundColor = 'rgba(17, 24, 39, 0.8)';
+                } else {
+                    navbar.classList.remove('backdrop-blur-lg');
+                    navbar.firstElementChild.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                }
+            });
+            
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerLines = document.querySelectorAll('.hamburger-line');
+            
+            mobileMenuButton.addEventListener('click', () => {
+                const isOpen = mobileMenu.classList.contains('translate-y-0');
+                
+                if (isOpen) {
+                    mobileMenu.classList.remove('translate-y-0');
+                    mobileMenu.classList.add('-translate-y-full');
+                    hamburgerLines[0].style.transform = 'rotate(0deg) translateY(0px)';
+                    hamburgerLines[1].style.opacity = '1';
+                    hamburgerLines[2].style.transform = 'rotate(0deg) translateY(0px)';
+                } else {
+                    mobileMenu.classList.remove('-translate-y-full');
+                    mobileMenu.classList.add('translate-y-0');
+                    hamburgerLines[0].style.transform = 'rotate(45deg) translateY(6px)';
+                    hamburgerLines[1].style.opacity = '0';
+                    hamburgerLines[2].style.transform = 'rotate(-45deg) translateY(-6px)';
+                }
+            });
+            
+            // Smooth Scrolling for Navigation Links
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (mobileMenu.classList.contains('translate-y-0')) {
+                            mobileMenuButton.click();
+                        }
+                    }
+                });
+            });
+            
+            // Intersection Observer for Animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '-50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-slide-up');
+                        entry.target.style.opacity = '1';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements for animation
+            const animatedElements = document.querySelectorAll('.service-card, .project-card, .team-card, .testimonial-card, .about-content, .about-image, .hero-title, .hero-subtitle, .section-title');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                observer.observe(el);
+            });
+            
+            // Add hover effects to navigation links
+            const navLinksHover = document.querySelectorAll('.nav-link');
+            navLinksHover.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    link.style.setProperty('--underline-width', '100%');
+                });
+                link.addEventListener('mouseleave', () => {
+                    link.style.setProperty('--underline-width', '0%');
+                });
+            });
+            
+            // Parallax effect for hero section
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const heroImage = document.querySelector('.hero-image');
+                const floatingBlobs = document.querySelectorAll('.floating-blob');
+                
+                if (heroImage) {
+                    heroImage.style.transform = `translateY(${scrolled * 0.2}px)`;
+                }
+                
+                floatingBlobs.forEach((blob, index) => {
+                    const speed = 0.1 + (index * 0.05);
+                    blob.style.transform = `translateY(${scrolled * speed}px)`;
+                });
+            });
+            
+            // Add glow effect to CTA buttons on hover
+            const ctaButtons = document.querySelectorAll('.cta-primary, .cta-secondary');
+            ctaButtons.forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    button.style.boxShadow = '0 0 20px rgba(255, 209, 2, 0.5)';
+                });
+                button.addEventListener('mouseleave', () => {
+                    button.style.boxShadow = 'none';
+                });
+            });
+            
+            // TODO: Implement business logic for form submissions
+            // TODO: Add API integration for contact form
+            // TODO: Implement real testimonials carousel with auto-play
+            // TODO: Add loading states for interactive elements
+        })();
+    </script>
+    
+    <style>
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: var(--underline-width, 0%);
+            height: 2px;
+            background: linear-gradient(90deg, #FFD102, #FCD34D);
+            transition: width 0.3s ease;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 20px #FFD102;
+        }
+        
+        .bg-300% {
+            background-size: 300% 300%;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .animate-gradient {
+            animation: gradient 8s ease infinite;
+        }
+        
+        .client-ticker {
+            animation: ticker 20s linear infinite;
+        }
+        
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .floating-btn:hover {
+            animation: none;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1F2937;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #FFD102, #FCD34D);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #FCD34D, #FFD102);
+        }
+    </style>
+</body>
+</html>

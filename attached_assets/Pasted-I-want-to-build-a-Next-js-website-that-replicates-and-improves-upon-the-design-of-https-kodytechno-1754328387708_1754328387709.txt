@@ -1,0 +1,96 @@
+I want to build a Next.js website that replicates and improves upon the design of https://kodytechnolab.com with modern, interactive UI and fluid animations.
+
+Use Tailwind CSS for styling, and Framer Motion or CSS transitions for animations. The app should be fully responsive and mobile-friendly.
+
+✅ Design Requirements:
+Color Palette:
+
+Background: #111827 (dark grey)
+
+Primary Accent: #FFD102 (bright yellow)
+
+Text: White (#FFFFFF), Light grey for secondary text
+
+Fonts:
+
+Use Inter, or other modern sans-serif font
+
+Header (Navbar):
+
+Sticky header with transparent background initially, becomes solid on scroll
+
+Includes logo on left and nav links on right with hover underline animation
+
+Hero Section:
+
+Full-screen hero with animated text using Framer Motion
+
+Subheading + CTA buttons ("Get in Touch", "Explore More")
+
+Include a Lottie or SVG illustration on the right
+
+Services Section:
+
+3-6 card components with icon, service title, and short description
+
+On hover: card elevation + color change animation
+
+About Section:
+
+Side-by-side layout: text on one side, image/illustration on the other
+
+Use scroll animations (e.g. fade in from left/right)
+
+Case Studies / Projects Section:
+
+Grid layout with images, project title, and hover overlay animation
+
+Testimonials Section:
+
+Carousel/slider of 3+ testimonials with client avatar, name, and feedback
+
+Use smooth slide animation and responsive layout
+
+Blog Section:
+
+3 cards with image, title, and short excerpt
+
+"Read More" button with hover underline effect
+
+Footer:
+
+Dark background, 3-4 columns (Links, Contact, Newsletter, Social)
+
+Newsletter input with glowing border on focus
+
+Social icons with hover effects
+
+⚙️ Tech Stack:
+Next.js
+
+Tailwind CSS
+
+Framer Motion (for scroll animations and interactions)
+
+React Icons
+
+📁 Folder Structure:
+/components: HeroSection, Services, About, Projects, Testimonials, Footer
+
+/pages: index.js
+
+/public/assets: images, icons, logos
+
+/styles/globals.css: for base Tailwind setup
+
+Make sure to include:
+
+Animation on scroll for each section (fade/slide)
+
+Reusable components
+
+SEO-friendly structure
+
+Clean and readable code
+
+Generate a starting project with these features. I’ll build and customize further on Replit.
