@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { FaBrain, FaCogs, FaRocket } from "react-icons/fa";
 import { useRef } from "react";
 import { FloatingNeuralNetwork, ParticleSystem } from "./ScrollAnimations";
+import { MorphingShapes, TypewriterText, ScrollReveal, MagneticElement } from "./AdvancedScrollAnimations";
 import image1 from "../../../attached_assets/1.svg";
 
 export default function Hero() {
@@ -19,6 +20,7 @@ export default function Hero() {
       {/* Scroll-based background animations */}
       <FloatingNeuralNetwork />
       <ParticleSystem />
+      <MorphingShapes />
       
       <motion.div 
         style={{ y, opacity }} 
@@ -31,7 +33,7 @@ export default function Hero() {
             transition={{ duration: 0.8 }}
           >
             <motion.h1 
-              className="text-5xl md:text-7xl font-black mb-6 leading-tight"
+              className="text-3xl md:text-5xl p-[2rem] font-black mb-6 leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
@@ -114,22 +116,26 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}
             >
-              <motion.button 
-                className="glassmorphism-strong px-8 py-4 rounded-full text-primary font-semibold hover:bg-primary hover:text-black transition-all duration-300 hover-glow animate-galaxy-pulse"
-                whileHover={{ scale: 1.05, rotateZ: 2 }}
-                whileTap={{ scale: 0.95 }}
-                data-testid="button-consultation"
-              >
-                🚀 Start Your AI Journey
-              </motion.button>
-              <motion.button 
-                className="border border-primary px-8 py-4 rounded-full text-primary font-semibold hover:bg-primary hover:text-black transition-all duration-300 animate-data-flow"
-                whileHover={{ scale: 1.05, rotateZ: -2 }}
-                whileTap={{ scale: 0.95 }}
-                data-testid="button-portfolio"
-              >
-                🎯 Explore Our Work
-              </motion.button>
+              <MagneticElement strength={0.2}>
+                <motion.button 
+                  className="glassmorphism-strong px-8 py-4 rounded-full text-primary font-semibold hover:bg-primary hover:text-black transition-all duration-300 hover-glow animate-galaxy-pulse"
+                  whileHover={{ scale: 1.05, rotateZ: 2 }}
+                  whileTap={{ scale: 0.95 }}
+                  data-testid="button-consultation"
+                >
+                  🚀 Start Your AI Journey
+                </motion.button>
+              </MagneticElement>
+              <MagneticElement strength={0.2}>
+                <motion.button 
+                  className="border border-primary px-8 py-4 rounded-full text-primary font-semibold hover:bg-primary hover:text-black transition-all duration-300 animate-data-flow"
+                  whileHover={{ scale: 1.05, rotateZ: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  data-testid="button-portfolio"
+                >
+                  🎯 Explore Our Work
+                </motion.button>
+              </MagneticElement>
             </motion.div>
           </motion.div>
 

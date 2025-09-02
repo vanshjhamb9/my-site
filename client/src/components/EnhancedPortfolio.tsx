@@ -76,7 +76,99 @@ const portfolioProjects = [
     results: "25% reduction in traffic congestion, 40% energy savings, 60% faster emergency response times.",
     features: ["Real-time Monitoring", "Energy Optimization", "Traffic Management", "Emergency Response"],
     color: "from-indigo-500/20 to-blue-500/20"
-  }
+  },
+  {
+    id: 6,
+    title: "Gaming & Live Streaming Commerce Platform",
+    shortDescription: "AI-powered marketplace for viewers, influencers, and vendors — blending entertainment with commerce.",
+    illustration: HolographicInterface,
+    category: "Design",
+    techStack: [SiNodedotjs, SiPython, SiMongodb, SiKubernetes],
+    fullDescription: "We built a streaming-first marketplace with AI at the core — combining personalization, creator growth, vendor matching, dynamic pricing, and trust & safety systems, all running in real time.",
+    challenges: "Balancing needs of viewers, influencers, and vendors simultaneously",
+    results: "Doctors saved 50% prep time per consultation., Patients avoided repeating history , Diagnostic accuracy improved significantly",
+   features: ["AI-powered recommendations & homepage ranking",
+     "Influencer growth engine with quality scoring",
+     "Vendor-influencer matching & LLM-based negotiation",
+     "Dynamic pricing and uplift modeling",
+     "Real-time multimodal moderation & fraud detection"],
+     color: "from-indigo-500/20 to-blue-500/20"
+  },
+  // {
+  //   id: 7,
+  //   title: "Smart City IoT Infrastructure",
+  //   shortDescription: "Comprehensive IoT network for urban optimization",
+  //   illustration: AbstractWaves,
+  //   category: "Media & Entertainment",
+  //   techStack: ["Collaborative Filtering", "Deep Sequence Models", "LLMs", "Two-Tower Retrieval", "Graph Models", "Online Feature Store"],
+  //   fullDescription: "We built a streaming-first marketplace with AI at the core — combining personalization, creator growth, vendor matching, dynamic pricing, and trust & safety systems, all running in real time.",
+  //   challenges: "Coordinating thousands of IoT devices while ensuring system reliability and scalability.",
+  //   results: "25% reduction in traffic congestion, 40% energy savings, 60% faster emergency response times.",
+  //   features: ["AI-powered recommendations & homepage ranking",
+  //    "Influencer growth engine with quality scoring",
+  //    "Vendor-influencer matching & LLM-based negotiation",
+  //    "Dynamic pricing and uplift modeling",
+  //    "Real-time multimodal moderation & fraud detection"],
+  //   color: "from-indigo-500/20 to-blue-500/20"
+  // },
+
+//   {
+//   id: 7,
+//   title: "Gaming & Live Streaming Commerce Platform",
+//   shortDescription: "AI-powered marketplace for viewers, influencers, and vendors — blending entertainment with commerce.",
+//   illustration: "HolographicInterface",
+//   category: "Media & Entertainment",
+//   techStack: ["Collaborative Filtering", "Deep Sequence Models", "LLMs", "Two-Tower Retrieval", "Graph Models", "Online Feature Store"],
+//   fullDescription: "We built a streaming-first marketplace with AI at the core — combining personalization, creator growth, vendor matching, dynamic pricing, and trust & safety systems, all running in real time.",
+//   challenges: [
+//     "Balancing needs of viewers, influencers, and vendors simultaneously",
+//     "Real-time personalization at scale",
+//     "Fraud detection without breaking user experience"
+//   ],
+//   results: [
+//     "Viewer engagement increased by 40%",
+//     "Influencer revenue/hour up by 30%",
+//     "Vendor deal cycle time reduced by half",
+//     "Checkout conversion improved by 18%"
+//   ],
+//   features: [
+//     "AI-powered recommendations & homepage ranking",
+//     "Influencer growth engine with quality scoring",
+//     "Vendor-influencer matching & LLM-based negotiation",
+//     "Dynamic pricing and uplift modeling",
+//     "Real-time multimodal moderation & fraud detection"
+//   ],
+//   color: "violet"
+// },
+// {
+//   id: 7,
+//   title: "Healthcare – AI-Powered Online Consultations",
+//   shortDescription: "AI assistant that prepares doctors by extracting insights from patient documents instantly.",
+//   illustration: "DataFlow",
+//   category: "Healthcare",
+//   techStack: ["OCR", "ClinicalBERT", "BioBERT", "Summarization Models", "Entity Linking"],
+//   fullDescription: "We automated pre-consultation prep for doctors with OCR, NLP pipelines, and contextual summarization — integrating results directly into the consultation workflow.",
+//   challenges: [
+//     "Unstructured medical data from scans, notes, and prescriptions",
+//     "Ensuring accuracy across multiple languages and terminologies",
+//     "Maintaining strict privacy compliance"
+//   ],
+//   results: [
+//     "Doctors saved 50% prep time per consultation",
+//     "Patients avoided repeating history",
+//     "Diagnostic accuracy improved significantly"
+//   ],
+//   features: [
+//     "Handwriting OCR for prescriptions",
+//     "Entity extraction for symptoms, diagnoses, and medications",
+//     "Summarized patient histories",
+//     "Seamless workflow integration"
+//   ],
+//   color: "emerald"
+// },
+
+  
+  
 ];
 
 const filters = ["All", "AI", "Design", "Web", "Mobile"];

@@ -1,13 +1,14 @@
 import Layout from "@/components/Layout";
 import Hero from "@/components/Hero";
 import { WhyChooseUsSection, StatsCounterSection, ProcessTimelineSection, SuccessStoriesSection } from "@/components/ScrollRevealSections";
-import UpdatedPortfolio from "@/components/UpdatedPortfolio";
-import Services from "@/components/Services";
-import About from "@/components/About";
+import EnhancedPortfolio from "@/components/EnhancedPortfolio";
+import EnhancedServices from "@/components/EnhancedServices";
+import EnhancedAbout from "@/components/EnhancedAbout";
 import ClientLogos from "@/components/ClientLogos";
 import Testimonials from "@/components/Testimonials";
 import Team from "@/components/Team";
 import Contact from "@/components/Contact";
+import Primodia from "@/components/Primodia";
 
 
 export default function Home() {
@@ -16,11 +17,12 @@ export default function Home() {
       <Hero />
       <StatsCounterSection />
       <WhyChooseUsSection />
-      <Services />
+      <EnhancedServices />
       <ProcessTimelineSection />
+      <Primodia />
       <SuccessStoriesSection />
-      <UpdatedPortfolio />
-      <About />
+      <EnhancedPortfolio />
+      <EnhancedAbout />
       <ClientLogos />
       <Testimonials />
       <Team />

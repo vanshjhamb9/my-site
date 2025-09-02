@@ -1,8 +1,9 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { FeatureCard, ProcessSteps } from "./CreativeAssets";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { TechConstellation, DataFlowVisualization } from "./ScrollAnimations";
 import { InteractiveServiceGrid } from "./InteractiveAssets";
+import { ScrollReveal, StaggeredGrid, MagneticElement } from "./AdvancedScrollAnimations";
 import { 
   FaMobile, 
   FaBrain, 
@@ -40,7 +41,7 @@ const services = [
   },
   {
     id: 3,
-    title: "Full-Stack Web Apps",
+    title: "Custom CRM and Web Application Solutions",
     description: "Complete web solutions built for performance, scalability, and user engagement.",
     icon: FaDatabase,
     special: false,
@@ -85,8 +86,36 @@ const services = [
     icon: FaCogs,
     special: false,
     colSpan: ""
-  }
+  },
+  {
+    id: 9,
+    title: "IoT Solutions for Connected Enterprises",
+    description: "Secure, scalable infrastructure with robust DevOps practices.",
+    icon: FaCogs,
+    special: false,
+    colSpan: ""
+  },
+  {
+    id: 10,
+    title: "Machine Learning & Predictive Analytics",
+    description: "Leverage data-driven models to forecast trends and optimize decisions.",
+    icon: FaCogs,
+    special: false,
+    colSpan: ""
+},
+{
+    id: 11,
+    title: "Computer Vision Implementation",
+    description: "Empower applications with real-time image and video analysis.",
+    icon: FaCogs,
+    special: false,
+    colSpan: ""
+}
+
 ];
+
+
+
 
 const industries = [
   { name: "HealthTech", icon: FaHeart, color: "text-red-400" },
