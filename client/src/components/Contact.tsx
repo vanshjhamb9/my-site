@@ -2,12 +2,51 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { FaPhone, FaEnvelope, FaPaperPlane, FaMapMarkerAlt } from "react-icons/fa";
 import LogoComponent from "./LogoComponent";
+import ind from "../image/india-flag-icon.svg";
+import us from "../image/united-states-flag-icon.svg";
+import uk from "../image/united-kingdom-flag-icon.svg";
+import uae from "../image/united-arab-emirates-flag-icon.svg";
+import ReactCountryFlag from "react-country-flag";
+
+
 
 const offices = [
-  { country: "INDIA", location: "Ahmedabad, Gujarat" },
-  { country: "UK", location: "London" },
-  { country: "UAE", location: "Dubai" },
-  { country: "USA", location: "New York" },
+  { 
+    code: "IN",
+    country: "INDIA", 
+    location: "Bangalore", 
+    address: "Unit, 101, Oxford Towers, 139, HAL Old Airport Rd, Kodihalli, Bengaluru, Karnataka 560008" 
+  },
+  { 
+    code: "IN",
+    country: "INDIA", 
+    location: "Gurgaon", 
+    address: "E-52, 1st Floor, Sushant Lok-3, Gurgaon, 122003"
+  },
+  { 
+    code: "IN",
+    country: "INDIA", 
+    location: "Chandigarh", 
+    address: "Sushma Infinium,Chandigarh-Delhi ,NH-22, Zirakpur" 
+  },
+  { 
+    code: "GB",
+    country: "UK", 
+    location: "London", 
+    address: "34-37 Liverpool St, London EC2M 7PP, United Kingdom" 
+  },
+  { 
+    code: "AE",
+    country: "UAE", 
+    location: "Dubai", 
+    address: "10th floor, Dubai World Trade Center Sheikh Zayed Road, P.O. Box 293816 Dubai, United Arab Emirates" 
+  },
+  { 
+    code: "US",
+    country: "USA", 
+    location: "San Francisco", 
+    address: "WeWork : 600 California St, San Francisco, CA 94108, United States" 
+  }
 ];
 
 const businessNeeds = [
@@ -180,32 +219,41 @@ export default function Contact() {
             viewport={{ once: true }}
           >
             {/* Global Offices */}
-            <div className="glassmorphism-strong rounded-3xl p-8">
-              <h3 className="text-2xl font-bold mb-6 text-primary flex items-center gap-3">
-                <FaMapMarkerAlt />
-                Global Offices
-              </h3>
-              <div className="grid grid-cols-2 gap-4">
-                {offices.map((office, index) => (
-                  <motion.div
-                    key={office.country}
-                    className="glassmorphism p-4 rounded-xl text-center hover-lift"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1, duration: 0.6 }}
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.05 }}
-                    data-testid={`office-${office.country.toLowerCase()}`}
-                  >
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/50 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-sm font-bold text-black">{office.country.charAt(0)}</span>
-                    </div>
-                    <h4 className="font-semibold text-primary text-sm">{office.country}</h4>
-                    <p className="text-xs text-muted-foreground">{office.location}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+<div className="glassmorphism-strong rounded-3xl p-8">
+      <h3 className="text-2xl font-bold mb-6 text-primary flex items-center gap-3">
+        <FaMapMarkerAlt />
+        Global Offices
+      </h3>
+      <div className="grid grid-cols-2 gap-4">
+        {offices.map((office, index) => (
+          <motion.div
+            key={office.country}
+            className="glassmorphism p-4 rounded-xl text-center hover-lift"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1, duration: 0.6 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.05 }}
+          >
+            <motion.div
+              className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 bg-white shadow-lg"
+              whileHover={{ rotate: 10, scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 200 }}
+            >
+              <ReactCountryFlag
+                countryCode={office.code} // pass ISO 2-letter code
+                svg
+                style={{ width: "3em", height: "3em", borderRadius: "50%" }}
+              />
+            </motion.div>
+
+            <h4 className="font-semibold text-primary text-sm">{office.country}</h4>
+            <p className="text-xs text-muted-foreground">{office.location}</p>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+
 
             {/* Direct Contact */}
             <div className="glassmorphism-strong rounded-3xl p-8">

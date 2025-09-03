@@ -3,42 +3,31 @@ import { TestimonialCard } from "./CreativeAssets";
 
 const testimonials = [
   {
-    quote: "Neural Coder AI transformed our business with their AI-powered inventory system. We've seen a 45% reduction in costs and 300% increase in efficiency. Their team's expertise is unmatched.",
-    author: "Michael Chen",
-    position: "CTO",
-    company: "TechFlow Solutions"
+    quote: "Working with Neural Coder AI completely changed how we approach product development. Instead of spending weeks prototyping, we now validate ideas in days. Isaac and his team don’t just deliver tools. They help you think sharper about the problem you’re solving. It feels like having an extension of our founding team.",
+    author: "Sarah Kim",
+    position: "Founder",
+    company: "Lumina Health (Digital Health)"
   },
   {
-    quote: "The mobile banking app they developed for us exceeded all expectations. The AI-driven fraud detection has saved us millions, and our customer satisfaction scores have never been higher.",
-    author: "Sarah Williams",
-    position: "VP of Digital Innovation", 
-    company: "Metro Bank"
+    quote: "In blockchain, trust comes from transparency. Neural Coder AI helped us analyze smart contract risks at scale, something we couldn’t have done manually without a large security team. The accuracy of those insights gave our investors and users confidence, which is priceless in the DeFi space.",
+    author: "Ragib Ali Khan",
+    position: "Founder",
+    company: "ChainSphere (Blockchain/DeFi)"
   },
   {
-    quote: "Working with Neural Coder AI was a game-changer. Their chatbot platform handles over 100k conversations daily with 95% accuracy. The ROI was visible within the first month.",
-    author: "David Rodriguez",
-    position: "Head of Customer Experience",
-    company: "Global Retail Corp"
+    quote: "The first few meetings with Neural Coder AI felt long, and honestly, I wasn’t sure if all the talk would lead anywhere. But once their system was in place, it proved its value right away. Engagement went up, sales followed, and all that early skepticism turned into relief that we stuck with it.",
+    author: "Omar Al-Mansoori",
+    position: "CEO",
+    company: "ZaytoonMart (E-commerce with AI)"
   },
   {
-    quote: "Their IoT solution for our smart city project has been phenomenal. Traffic optimization, energy savings, and emergency response times have all improved dramatically.",
-    author: "Lisa Thompson",
-    position: "Smart City Director",
-    company: "Metropolitan Council"
-  },
-  {
-    quote: "The healthcare analytics platform they built helps us predict patient outcomes with incredible accuracy. It's revolutionized how we approach treatment planning.",
-    author: "Dr. James Park",
-    position: "Chief Medical Officer",
-    company: "Advanced Healthcare Systems"
-  },
-  {
-    quote: "Neural Coder AI delivered our e-commerce transformation ahead of schedule and under budget. The AI recommendations system has tripled our conversion rates.",
-    author: "Emma Johnson",
-    position: "E-commerce Director",
-    company: "Fashion Forward"
+    quote: "Neural Coder AI helped me from starting till end. Even small things like domain, they guided. The process was simple, step by step, no confusion. Everything was done smooth, and system is working good now. I feel they are part of my team, not outside company.",
+    author: "Deepak M",
+    position: "",
+    company: "Chennai (Fleet Management AI)"
   }
 ];
+
 
 export default function Testimonials() {
   return (

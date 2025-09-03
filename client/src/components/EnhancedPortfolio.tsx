@@ -78,94 +78,113 @@ const portfolioProjects = [
     color: "from-indigo-500/20 to-blue-500/20"
   },
   {
-    id: 6,
-    title: "Gaming & Live Streaming Commerce Platform",
-    shortDescription: "AI-powered marketplace for viewers, influencers, and vendors — blending entertainment with commerce.",
-    illustration: HolographicInterface,
-    category: "Design",
-    techStack: [SiNodedotjs, SiPython, SiMongodb, SiKubernetes],
-    fullDescription: "We built a streaming-first marketplace with AI at the core — combining personalization, creator growth, vendor matching, dynamic pricing, and trust & safety systems, all running in real time.",
-    challenges: "Balancing needs of viewers, influencers, and vendors simultaneously",
-    results: "Doctors saved 50% prep time per consultation., Patients avoided repeating history , Diagnostic accuracy improved significantly",
-   features: ["AI-powered recommendations & homepage ranking",
-     "Influencer growth engine with quality scoring",
-     "Vendor-influencer matching & LLM-based negotiation",
-     "Dynamic pricing and uplift modeling",
-     "Real-time multimodal moderation & fraud detection"],
-     color: "from-indigo-500/20 to-blue-500/20"
-  },
-  // {
-  //   id: 7,
-  //   title: "Smart City IoT Infrastructure",
-  //   shortDescription: "Comprehensive IoT network for urban optimization",
-  //   illustration: AbstractWaves,
-  //   category: "Media & Entertainment",
-  //   techStack: ["Collaborative Filtering", "Deep Sequence Models", "LLMs", "Two-Tower Retrieval", "Graph Models", "Online Feature Store"],
-  //   fullDescription: "We built a streaming-first marketplace with AI at the core — combining personalization, creator growth, vendor matching, dynamic pricing, and trust & safety systems, all running in real time.",
-  //   challenges: "Coordinating thousands of IoT devices while ensuring system reliability and scalability.",
-  //   results: "25% reduction in traffic congestion, 40% energy savings, 60% faster emergency response times.",
-  //   features: ["AI-powered recommendations & homepage ranking",
-  //    "Influencer growth engine with quality scoring",
-  //    "Vendor-influencer matching & LLM-based negotiation",
-  //    "Dynamic pricing and uplift modeling",
-  //    "Real-time multimodal moderation & fraud detection"],
-  //   color: "from-indigo-500/20 to-blue-500/20"
-  // },
-
-//   {
-//   id: 7,
-//   title: "Gaming & Live Streaming Commerce Platform",
-//   shortDescription: "AI-powered marketplace for viewers, influencers, and vendors — blending entertainment with commerce.",
-//   illustration: "HolographicInterface",
-//   category: "Media & Entertainment",
-//   techStack: ["Collaborative Filtering", "Deep Sequence Models", "LLMs", "Two-Tower Retrieval", "Graph Models", "Online Feature Store"],
-//   fullDescription: "We built a streaming-first marketplace with AI at the core — combining personalization, creator growth, vendor matching, dynamic pricing, and trust & safety systems, all running in real time.",
-//   challenges: [
-//     "Balancing needs of viewers, influencers, and vendors simultaneously",
-//     "Real-time personalization at scale",
-//     "Fraud detection without breaking user experience"
-//   ],
-//   results: [
-//     "Viewer engagement increased by 40%",
-//     "Influencer revenue/hour up by 30%",
-//     "Vendor deal cycle time reduced by half",
-//     "Checkout conversion improved by 18%"
-//   ],
-//   features: [
-//     "AI-powered recommendations & homepage ranking",
-//     "Influencer growth engine with quality scoring",
-//     "Vendor-influencer matching & LLM-based negotiation",
-//     "Dynamic pricing and uplift modeling",
-//     "Real-time multimodal moderation & fraud detection"
-//   ],
-//   color: "violet"
-// },
-// {
-//   id: 7,
-//   title: "Healthcare – AI-Powered Online Consultations",
-//   shortDescription: "AI assistant that prepares doctors by extracting insights from patient documents instantly.",
-//   illustration: "DataFlow",
-//   category: "Healthcare",
-//   techStack: ["OCR", "ClinicalBERT", "BioBERT", "Summarization Models", "Entity Linking"],
-//   fullDescription: "We automated pre-consultation prep for doctors with OCR, NLP pipelines, and contextual summarization — integrating results directly into the consultation workflow.",
-//   challenges: [
-//     "Unstructured medical data from scans, notes, and prescriptions",
-//     "Ensuring accuracy across multiple languages and terminologies",
-//     "Maintaining strict privacy compliance"
-//   ],
-//   results: [
-//     "Doctors saved 50% prep time per consultation",
-//     "Patients avoided repeating history",
-//     "Diagnostic accuracy improved significantly"
-//   ],
-//   features: [
-//     "Handwriting OCR for prescriptions",
-//     "Entity extraction for symptoms, diagnoses, and medications",
-//     "Summarized patient histories",
-//     "Seamless workflow integration"
-//   ],
-//   color: "emerald"
-// },
+  id: 6,
+  title: "Gaming & Live Streaming Commerce Platform",
+  shortDescription: "AI-powered marketplace for viewers, influencers, and vendors — blending entertainment with commerce.",
+  illustration: HolographicInterface,
+  category: "Media & Entertainment",
+  techStack: [SiReact, SiNodedotjs, SiTensorflow, SiMongodb], 
+  fullDescription: "We built a streaming-first marketplace with AI at the core — combining personalization, creator growth, vendor matching, dynamic pricing, and trust & safety systems, all running in real time.",
+  challenges: [
+    "Balancing needs of viewers, influencers, and vendors simultaneously",
+    "Real-time personalization at scale",
+    "Fraud detection without breaking user experience"
+  ],
+  results: [
+    "Viewer engagement increased by 40%",
+    "Influencer revenue/hour up by 30%",
+    "Vendor deal cycle time reduced by half",
+    "Checkout conversion improved by 18%"
+  ],
+  features: [
+    "AI-powered recommendations & homepage ranking",
+    "Influencer growth engine with quality scoring",
+    "Vendor-influencer matching & LLM-based negotiation",
+    "Dynamic pricing and uplift modeling",
+    "Real-time multimodal moderation & fraud detection"
+  ],
+  color: "violet"
+},
+{
+  id: 7,
+  title: "Healthcare – AI-Powered Online Consultations",
+  shortDescription: "AI assistant that prepares doctors by extracting insights from patient documents instantly.",
+  illustration: DataFlow,
+  category: "Healthcare",
+  techStack: [SiReact, SiNodedotjs, SiTensorflow, SiMongodb],
+  fullDescription: "We automated pre-consultation prep for doctors with OCR, NLP pipelines, and contextual summarization — integrating results directly into the consultation workflow.",
+  challenges: [
+    "Unstructured medical data from scans, notes, and prescriptions",
+    "Ensuring accuracy across multiple languages and terminologies",
+    "Maintaining strict privacy compliance"
+  ],
+  results: [
+    "Doctors saved 50% prep time per consultation",
+    "Patients avoided repeating history",
+    "Diagnostic accuracy improved significantly"
+  ],
+  features: [
+    "Handwriting OCR for prescriptions",
+    "Entity extraction for symptoms, diagnoses, and medications",
+    "Summarized patient histories",
+    "Seamless workflow integration"
+  ],
+  color: "emerald"
+},
+{
+  id: 8,
+  title: "Automobile – Predictive Maintenance for Fleets",
+  shortDescription: "IoT-powered system predicting vehicle failures before they happen.",
+  illustration: CircuitBoard,
+  category: "Automotive",
+  techStack: [SiReact, SiNodedotjs, SiTensorflow, SiMongodb],
+  fullDescription: "We deployed an AI-driven predictive maintenance system using IoT telemetry, anomaly detection, and deep learning to forecast failures and reduce downtime.",
+  challenges: [
+    "Unpredictable breakdowns despite preventive schedules",
+    "Noisy sensor signals requiring preprocessing",
+    "Need for real-time actionable insights"
+  ],
+  results: [
+    "Breakdowns reduced by 40%",
+    "Warranty & repair costs cut significantly",
+    "Vehicle uptime and reliability improved"
+  ],
+  features: [
+    "Real-time telemetry ingestion",
+    "Deep learning for degradation trend detection",
+    "Anomaly detection on sensor data",
+    "Fleet dashboards with risk prioritization"
+  ],
+  color: "amber"
+},
+{
+  id: 4,
+  title: "Virtual Avatars – Human Interaction at Scale",
+  shortDescription: "AI-driven avatars delivering lifelike, domain-specific human interactions.",
+  illustration: AIBrainNetwork,
+  category: "Cross-Industry",
+  techStack: [SiReact, SiNodedotjs, SiTensorflow, SiMongodb],
+  fullDescription: "We built avatars with conversational AI, 3D neural rendering, multimodal understanding, and scalable infrastructure — enabling lifelike engagement across healthcare, retail, education, and entertainment.",
+  challenges: [
+    "Creating avatars that feel human, not scripted bots",
+    "Handling multimodal input (voice, text, images, documents)",
+    "Scaling across platforms from web to AR/VR"
+  ],
+  results: [
+    "Healthcare: Doctors saved hours/day via avatar assistants",
+    "Retail: Conversion rates boosted through digital sales avatars",
+    "Education: Improved satisfaction & retention with interactive tutors",
+    "Entertainment: Engaging avatars as companions & moderators"
+  ],
+  features: [
+    "Multilingual speech recognition & expressive TTS",
+    "GAN-powered facial realism & micro-expressions",
+    "Lip-sync aligned to speech in real time",
+    "Domain-specific knowledge grounding with RAG",
+    "Cross-platform deployment including AR/VR"
+  ],
+  color: "indigo"
+}
 
   
   
