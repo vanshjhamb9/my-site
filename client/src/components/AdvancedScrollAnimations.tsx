@@ -85,15 +85,7 @@ export const MagneticElement = ({
   };
 
   return (
-    <motion.div
-      ref={ref}
-      style={{ x, y }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="cursor-pointer"
-    >
-      {children}
-    </motion.div>
+   <div/>
   );
 };
 

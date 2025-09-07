@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll as useFramerScroll, useTransform } from "framer-motion";
 import { useScroll } from "@/hooks/use-scroll";
+import { Link, useLocation } from "wouter";
 import LogoComponent from "./LogoComponent";
 
 const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#services", label: "Offerings" },
-  { href: "#portfolio", label: "Portfolio" },
-  { href: "#primodia", label: "Primodia", special: true },
-  { href: "#contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Offerings" },
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/primodia", label: "Primodia", special: true },
+  { href: "/contact", label: "Contact" },
 ];
 
 // Floating illustration components
@@ -71,17 +72,16 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const scrollY = useScroll();
   const { scrollYProgress } = useFramerScroll();
+  const [location] = useLocation();
   
   // Transform scroll into header effects
   const headerScale = useTransform(scrollYProgress, [0, 0.1], [1, 0.95]);
   const headerOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
 
-  const handleScroll = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-    setMobileMenuOpen(false);
+  const isActiveLink = (href: string) => {
+    if (href === "/" && location === "/") return true;
+    if (href !== "/" && location === href) return true;
+    return false;
   };
 
   return (
@@ -103,21 +103,39 @@ export default function Header() {
             {/* Desktop Menu */}
             <div className="hidden md:flex space-x-8">
               {navLinks.map((link) => (
-                <motion.button
+                <Link
                   key={link.href}
-                  onClick={() => handleScroll(link.href)}
-                  className={`transition-colors duration-300 relative group ${
-                    link.special 
-                      ? "text-primary font-bold hover:text-secondary border border-primary/30 px-4 py-2 rounded-full hover:bg-primary/10" 
-                      : "hover:text-primary"
-                  }`}
-                  whileHover={{ y: -2, scale: link.special ? 1.05 : 1 }}
-                  data-testid={`nav-link-${link.label.toLowerCase()}`}
+                  href={link.href}
                 >
-                  {link.special && <span className="mr-2">👑</span>}
-                  {link.label}
-                  {!link.special && <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />}
-                </motion.button>
+                  <motion.div
+                    className={`transition-colors duration-300 relative group cursor-pointer ${
+                      link.special 
+                        ? `font-bold border px-4 py-2 rounded-full ${
+                            isActiveLink(link.href) 
+                              ? "text-secondary border-secondary/50 bg-secondary/10" 
+                              : "text-secondary border-secondary/30 hover:bg-secondary/10"
+                          }` 
+                        : `${
+                            isActiveLink(link.href) 
+                              ? "text-secondary" 
+                              : "text-white hover:text-secondary"
+                          }`
+                    }`}
+                    whileHover={{ y: -2, scale: link.special ? 1.05 : 1 }}
+                    data-testid={`nav-link-${link.label.toLowerCase()}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.special && <span className="mr-2">👑</span>}
+                    {link.label}
+                    {!link.special && (
+                      <span 
+                        className={`absolute bottom-0 left-0 h-0.5 bg-secondary transition-all duration-300 ${
+                          isActiveLink(link.href) ? "w-full" : "w-0 group-hover:w-full"
+                        }`} 
+                      />
+                    )}
+                  </motion.div>
+                </Link>
               ))}
             </div>
 
@@ -148,16 +166,23 @@ export default function Header() {
           >
             <div className="flex flex-col items-center justify-center h-full space-y-8 text-xl">
               {navLinks.map((link, index) => (
-                <motion.button
+                <Link
                   key={link.href}
-                  onClick={() => handleScroll(link.href)}
-                  className="hover:text-primary transition-colors duration-300"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  href={link.href}
                 >
-                  {link.label}
-                </motion.button>
+                  <motion.div
+                    className={`transition-colors duration-300 cursor-pointer ${
+                      isActiveLink(link.href) ? "text-secondary" : "text-white hover:text-secondary"
+                    }`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.special && <span className="mr-2">👑</span>}
+                    {link.label}
+                  </motion.div>
+                </Link>
               ))}
             </div>
           </motion.div>

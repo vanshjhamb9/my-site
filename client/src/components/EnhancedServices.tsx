@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { ScrollReveal, StaggeredGrid, MagneticElement } from "./AdvancedScrollAnimations";
+import { ScrollReveal, StaggeredGrid } from "./AdvancedScrollAnimations";
 import { 
   FaMobile, 
   FaBrain, 
@@ -304,9 +304,9 @@ export default function EnhancedServices() {
         {/* Enhanced Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {services.map((service, index) => (
-            <MagneticElement key={service.id} strength={0.1}>
+            
               <EnhancedServiceCard service={service} index={index} />
-            </MagneticElement>
+           
           ))}
         </div>
 
@@ -323,7 +323,7 @@ export default function EnhancedServices() {
               <p className="text-muted-foreground mb-6">
                 Let's discuss how our AI-powered solutions can accelerate your business growth.
               </p>
-              <MagneticElement strength={0.2}>
+             
                 <motion.button
                   className="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300"
                   whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(0, 71, 171, 0.5)" }}
@@ -332,7 +332,7 @@ export default function EnhancedServices() {
                 >
                   🚀 Start Your Project
                 </motion.button>
-              </MagneticElement>
+              
             </motion.div>
           </div>
         </ScrollReveal>

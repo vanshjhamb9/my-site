@@ -86,7 +86,7 @@ export default function About() {
                   className="text-lg font-bold text-gradient-visible"
                   whileHover={{ scale: 1.05 }}
                 >
-                  500+ Projects to 10 Countries
+                  150+ Projects to 10 Countries
                 </motion.p>
                 <motion.p 
                   className="text-base text-muted-foreground"

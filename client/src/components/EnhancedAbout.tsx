@@ -220,9 +220,9 @@ export default function EnhancedAbout() {
         <ScrollReveal direction="up" delay={0.4}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
             {stats.map((stat, index) => (
-              <MagneticElement key={stat.title} strength={0.1}>
+             
                 <StatCard stat={stat} index={index} />
-              </MagneticElement>
+              
             ))}
           </div>
         </ScrollReveal>
@@ -271,9 +271,9 @@ export default function EnhancedAbout() {
 
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           {values.map((value, index) => (
-            <MagneticElement key={value.title} strength={0.05}>
+           
               <ValueCard value={value} index={index} />
-            </MagneticElement>
+            
           ))}
         </div>
 
@@ -290,7 +290,7 @@ export default function EnhancedAbout() {
               <p className="text-muted-foreground mb-6">
                 Join us on a journey of innovation and technological excellence.
               </p>
-              <MagneticElement strength={0.2}>
+              
                 <motion.button
                   className="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300"
                   whileHover={{ 
@@ -302,7 +302,7 @@ export default function EnhancedAbout() {
                 >
                   💬 Get in Touch
                 </motion.button>
-              </MagneticElement>
+              
             </motion.div>
           </div>
         </ScrollReveal>

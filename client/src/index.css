@@ -13,22 +13,23 @@
   --card-foreground: hsl(0, 0%, 100%);
   --border: hsla(0, 0%, 76%, 0.2);
   --input: hsla(0, 0%, 90%, 0.2);
-  --primary: hsl(221, 100%, 34%);
+  --primary: hsl(194, 68%, 46%);
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(0, 0%, 75%);
+  --secondary: #0047AB;
   --secondary-foreground: hsl(0, 0%, 0%);
-  --accent: hsl(221, 100%, 50%);
-  --accent-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(45, 80%, 50%);
+  --accent-foreground: hsl(0, 0%, 0%);
   --destructive: hsl(0, 84%, 60%);
   --destructive-foreground: hsl(0, 0%, 100%);
-  --ring: hsl(221, 100%, 34%);
+  --ring: hsl(45, 80%, 50%);
   --radius: 1rem;
-  --royal-blue: hsl(221, 100%, 34%);
-  --silver: hsl(0, 0%, 75%);
-  --royal-blue-light: hsl(221, 100%, 50%);
-  --silver-dark: hsl(0, 0%, 60%);
-  --charcoal: hsl(0, 0%, 13%);
+  --charcoal: hsl(210, 15%, 15%);
+  --slate: hsl(210, 15%, 25%);
+  --slate-light: hsl(210, 10%, 35%);
+  --gold: hsl(45, 100%, 60%);
+  --gold-light: hsl(45, 80%, 70%);
   --platinum: hsl(0, 0%, 90%);
+  --warm-gray: hsl(210, 5%, 45%);
 }
 
 @layer base {
@@ -51,16 +52,16 @@
     @apply backdrop-blur-md border rounded-2xl;
     background: rgba(34, 34, 34, 0.8);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(192, 192, 192, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 71, 171, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    box-shadow: 0 8px 32px rgba(255, 215, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 
   .glassmorphism-strong {
     @apply backdrop-blur-xl border rounded-2xl;
     background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(0, 71, 171, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 71, 171, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 8px 32px rgba(255, 215, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 
   .gradient-border {
@@ -78,25 +79,25 @@
 
   .text-gradient {
     @apply text-white;
-    background: linear-gradient(45deg, var(--royal-blue), var(--silver));
+    background: linear-gradient(45deg, var(--gold), var(--slate));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .text-gradient-high-contrast {
-    color: hsl(221, 100%, 50%);
-    text-shadow: 0 0 20px rgba(0, 71, 171, 0.4);
+    color: hsl(45, 80%, 60%);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
   }
 
   .text-gradient-visible {
-    color: var(--primary);
-    text-shadow: 0 0 15px rgba(0, 71, 171, 0.3);
+    color: #0047AB;
+    text-shadow: 0 0 15px rgba(0, 76, 255, 0.3);
     font-weight: 700;
   }
 
   .logo-text {
-    background: linear-gradient(135deg, hsl(221, 100%, 50%) 0%, hsl(0, 0%, 75%) 100%);
+    background: linear-gradient(135deg, hsl(45, 80%, 60%) 0%, hsl(210, 15%, 35%) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -205,7 +206,7 @@
   }
 }
 
-@keyframes bounce-custom {
+/* @keyframes bounce-custom {
   0%, 20%, 50%, 80%, 100% { 
     transform: translateY(0); 
   }
@@ -215,16 +216,16 @@
   60% { 
     transform: translateY(-5px); 
   }
-}
+} */
 
-@keyframes ticker {
+/* @keyframes ticker {
   0% { 
     transform: translateX(100%); 
   }
   100% { 
     transform: translateX(-100%); 
   }
-}
+} */
 
 .ticker {
   animation: ticker 30s linear infinite;

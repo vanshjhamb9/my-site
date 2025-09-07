@@ -119,34 +119,47 @@ export const ProcessSteps = ({ steps }: { steps: { title: string; description: s
   </div>
 );
 
-// Creative Client Logo Display
-export const ClientLogoDisplay = ({ logos }: { logos: { name: string; logo: string }[] }) => (
-  <motion.div 
-    className="glassmorphism-strong p-8 rounded-3xl"
-    whileInView={{ opacity: 1, scale: 1 }}
-    initial={{ opacity: 0, scale: 0.9 }}
-    transition={{ duration: 0.8 }}
-    viewport={{ once: true }}
-  >
-    <div className="grid grid-cols-3 md:grid-cols-6 gap-8 items-center">
-      {logos.map((client, index) => (
-        <motion.div
-          key={client.name}
-          className="aspect-square flex items-center justify-center p-4 glassmorphism rounded-xl hover-lift group"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1, duration: 0.6 }}
-          viewport={{ once: true }}
-          whileHover={{ scale: 1.05, rotateY: 10 }}
-        >
-          <div className="w-full h-full bg-gradient-to-br from-white/10 to-white/5 rounded-lg flex items-center justify-center text-white/60 font-bold text-lg group-hover:text-primary transition-colors">
-            {client.logo}
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  </motion.div>
-);
+export const ClientLogoDisplay = ({ logos }: { logos: { name: string; logo: string }[] }) => {
+  // helper: check if logo looks like an image path
+  const isImage = (logo: string) => /\.(png|jpe?g|webp|svg)$/i.test(logo);
+
+  return (
+    <motion.div 
+      className="glassmorphism-strong p-8 rounded-3xl"
+      whileInView={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+    >
+      <div className="grid grid-cols-3 md:grid-cols-6 gap-8 items-center">
+        {logos.map((client, index) => (
+          <motion.div
+            key={client.name}
+            className="aspect-square flex items-center justify-center p-4 glassmorphism rounded-xl hover-lift group"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1, duration: 0.6 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.05, rotateY: 10 }}
+          >
+            <div className="w-full h-full bg-gradient-to-br from-white/10 to-white/5 rounded-lg flex items-center justify-center text-white/60 font-bold text-lg group-hover:text-primary transition-colors">
+              {isImage(client.logo) ? (
+                <img
+                  src={client.logo}
+                  alt={client.name}
+                  className="max-h-12 max-w-[80%] object-contain"
+                />
+              ) : (
+                client.logo
+              )}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+  );
+};
+
 
 // Technology Stack Visualization
 export const TechStackVisualization = ({ technologies }: { technologies: { name: string; icon: React.ComponentType<any>; level: number }[] }) => (

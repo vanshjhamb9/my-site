@@ -4,6 +4,10 @@ import { useRef, useState } from "react";
 import { TechConstellation, DataFlowVisualization } from "./ScrollAnimations";
 import { InteractiveServiceGrid } from "./InteractiveAssets";
 import { ScrollReveal, StaggeredGrid, MagneticElement } from "./AdvancedScrollAnimations";
+import { Icon } from "@iconify/react";
+
+
+
 import { 
   FaMobile, 
   FaBrain, 
@@ -19,104 +23,36 @@ import {
   FaHome,
   FaGraduationCap,
   FaHeart,
-  FaSeedling
+  FaSeedling,
+  FaIndustry,
+  FaUsers,
+  FaCar,
+  FaHandshake,
+  FaNewspaper,
+  FaTractor,
+  FaGlobe,
+  FaLandmark
 } from "react-icons/fa";
 
-const services = [
-  {
-    id: 1,
-    title: "AI Solutions & Integration",
-    description: "Transform your business with intelligent AI systems that automate, optimize, and scale.",
-    icon: FaBrain,
-    special: true,
-    colSpan: "lg:col-span-2"
-  },
-  {
-    id: 2,
-    title: "AI-Powered Mobile Apps",
-    description: "Smart mobile applications that learn, adapt, and deliver personalized experiences.",
-    icon: FaMobile,
-    special: false,
-    colSpan: ""
-  },
-  {
-    id: 3,
-    title: "Custom CRM and Web Application Solutions",
-    description: "Complete web solutions built for performance, scalability, and user engagement.",
-    icon: FaDatabase,
-    special: false,
-    colSpan: ""
-  },
-  {
-    id: 4,
-    title: "Custom SDKs for All Users",
-    description: "Developer-friendly SDKs that make integration seamless and powerful.",
-    icon: FaCubes,
-    special: false,
-    colSpan: ""
-  },
-  {
-    id: 5,
-    title: "Web3 & Blockchain Development",
-    description: "Next-generation decentralized applications with blockchain security.",
-    icon: FaLink,
-    special: false,
-    colSpan: ""
-  },
-  {
-    id: 6,
-    title: "Computer Vision & ML",
-    description: "Advanced visual recognition and machine learning capabilities.",
-    icon: FaEye,
-    special: false,
-    colSpan: ""
-  },
-  {
-    id: 7,
-    title: "Robotics & Automation",
-    description: "Intelligent robotic solutions for enhanced efficiency and precision.",
-    icon: FaRobot,
-    special: false,
-    colSpan: ""
-  },
-  {
-    id: 8,
-    title: "DevOps & Cyber Security",
-    description: "Secure, scalable infrastructure with robust DevOps practices.",
-    icon: FaCogs,
-    special: false,
-    colSpan: ""
-  },
-  {
-    id: 9,
-    title: "IoT Solutions for Connected Enterprises",
-    description: "Secure, scalable infrastructure with robust DevOps practices.",
-    icon: FaCogs,
-    special: false,
-    colSpan: ""
-  },
-  {
-    id: 10,
-    title: "Machine Learning & Predictive Analytics",
-    description: "Leverage data-driven models to forecast trends and optimize decisions.",
-    icon: FaCogs,
-    special: false,
-    colSpan: ""
-},
-{
-    id: 11,
-    title: "Computer Vision Implementation",
-    description: "Empower applications with real-time image and video analysis.",
-    icon: FaCogs,
-    special: false,
-    colSpan: ""
-}
 
+
+// Services
+const services = [
+  { id: 1, title: "AI Solutions & Integration", description: "Transform your business with intelligent AI systems that automate, optimize, and scale.", icon: "mdi:brain", color: "text-indigo-400", special: true, colSpan: "lg:col-span-2" },
+  { id: 2, title: "AI-Powered Mobile Apps", description: "Smart mobile applications that learn, adapt, and deliver personalized experiences.", icon: "mdi:cellphone-nfc", color: "text-blue-400" },
+  { id: 3, title: "Web3 & Blockchain Development", description: "Next-generation decentralized applications with blockchain security.", icon: "logos:ethereum", color: "text-purple-400" },
+  { id: 4, title: "Computer Vision & ML", description: "Advanced visual recognition and machine learning capabilities.", icon: "mdi:eye-scan", color: "text-cyan-400" },
+  { id: 5, title: "Robotics & Automation", description: "Intelligent robotic solutions for enhanced efficiency and precision.", icon: "mdi:robot-industrial", color: "text-pink-400" },
+  { id: 6, title: "DevOps & Cyber Security", description: "Secure, scalable infrastructure with robust DevOps practices.", icon: "mdi:shield-lock-outline", color: "text-red-400" },
+  { id: 7, title: "IoT Solutions for Connected Enterprises", description: "Smart, secure IoT ecosystems for businesses.", icon: "mdi:access-point-network", color: "text-green-400" },
+  { id: 8, title: "Machine Learning & Predictive Analytics", description: "Leverage data-driven models to forecast trends and optimize decisions.", icon: "mdi:chart-timeline-variant-shimmer", color: "text-yellow-400" },
+  { id: 9, title: "Computer Vision Implementation", description: "Empower applications with real-time image and video analysis.", icon: "mdi:camera-control", color: "text-orange-400" },
 ];
 
 
 
 
+// Industries Served
 const industries = [
   { name: "HealthTech", icon: FaHeart, color: "text-red-400" },
   { name: "Fintech & BFSI", icon: FaShoppingCart, color: "text-primary" },
@@ -124,8 +60,18 @@ const industries = [
   { name: "Real Estate", icon: FaHome, color: "text-accent" },
   { name: "EdTech", icon: FaGraduationCap, color: "text-purple-400" },
   { name: "Travel & Leisure", icon: FaGamepad, color: "text-cyan-400" },
-  { name: "Manufacturing", icon: FaCubes, color: "text-orange-400" },
-  { name: "AgriTech", icon: FaSeedling, color: "text-green-500" }
+  { name: "Manufacturing", icon: FaIndustry, color: "text-orange-400" },
+  { name: "AgriTech", icon: FaSeedling, color: "text-green-500" },
+
+  // New ones you asked for
+  { name: "Logistics", icon: FaTractor, color: "text-yellow-500" },
+  { name: "Government & PSU", icon: FaLandmark, color: "text-indigo-500" },
+  { name: "HR Tech & Job Portals", icon: FaUsers, color: "text-pink-500" },
+  { name: "Mobility & MAAS", icon: FaCar, color: "text-blue-500" },
+  { name: "Social & Relationship Tech", icon: FaHandshake, color: "text-emerald-500" },
+  { name: "Media & Entertainment", icon: FaNewspaper, color: "text-purple-500" },
+  { name: "Social Impact", icon: FaGlobe, color: "text-teal-500" },
+  { name: "Enabling Smarter Industries", icon: FaCogs, color: "text-gray-500" }
 ];
 
 export default function Services() {
@@ -173,53 +119,17 @@ export default function Services() {
           </motion.p>
         </motion.div>
 
+      
+
         {/* Services Grid */}
-        <div className="mb-16">
-          <InteractiveServiceGrid />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20" style={{ display: 'none' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {services.map((service, index) => (
-            <motion.div
-              key={service.id}
-              className={`glassmorphism-strong p-8 rounded-2xl hover-lift group ${service.colSpan} ${
-                service.special ? "lg:row-span-1" : ""
-              }`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.8 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.02 }}
-              data-testid={`card-service-${service.id}`}
-            >
-              <motion.div
-                className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 ${
-                  service.special 
-                    ? "bg-primary/20 border-2 border-primary" 
-                    : "glassmorphism"
-                }`}
-                whileHover={{ rotate: 10 }}
-              >
-                <service.icon className={`text-2xl ${
-                  service.special ? "text-primary" : "text-primary"
-                }`} />
+            <motion.div key={service.id} className={`glassmorphism-strong p-8 rounded-2xl hover-lift group ${service.colSpan || ""}`} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1, duration: 0.8 }} viewport={{ once: true }} whileHover={{ scale: 1.03 }}>
+              <motion.div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6 glassmorphism" whileHover={{ rotate: 10, scale: 1.1 }}>
+                <Icon icon={service.icon} className={`text-4xl ${service.color} group-hover:drop-shadow-glow animate-float`} />
               </motion.div>
-              <h3 className={`text-xl font-bold mb-4 ${
-                service.special ? "text-primary" : "text-foreground"
-              }`}>
-                {service.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                {service.description}
-              </p>
-              {service.special && (
-                <motion.button 
-                  className="mt-6 px-6 py-2 bg-primary text-black rounded-full font-semibold hover:bg-primary/80 transition-all"
-                  whileHover={{ scale: 1.05 }}
-                  data-testid="button-book-demo"
-                >
-                  Book a Demo
-                </motion.button>
-              )}
+              <h3 className="text-xl font-bold mb-4">{service.title}</h3>
+              <p className="text-muted-foreground leading-relaxed">{service.description}</p>
             </motion.div>
           ))}
         </div>

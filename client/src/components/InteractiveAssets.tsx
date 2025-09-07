@@ -220,27 +220,64 @@ export function FloatingCTA() {
   );
 }
 
+
+import {
+  SiReact,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPython,
+  SiTensorflow,
+  SiMongodb,
+  SiPostgresql,
+  SiDocker,
+  SiKubernetes,
+  SiTailwindcss,
+  SiTypescript,
+  SiJavascript,
+  SiGit,
+  SiGithub,
+  SiFirebase,
+  SiGraphql,
+  SiPrisma,
+  SiRedux,
+  SiVercel,
+  SiHtml5,
+  SiCss3,
+} from "react-icons/si";
+
 // Tech Stack Showcase
 export function TechStackShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
 
   const technologies = [
-    { name: "React", icon: "⚛️", category: "Frontend" },
-    { name: "Node.js", icon: "🟢", category: "Backend" },
-    { name: "Python", icon: "🐍", category: "AI/ML" },
-    { name: "AWS", icon: "☁️", category: "Cloud" },
-    { name: "Docker", icon: "🐳", category: "DevOps" },
-    { name: "TensorFlow", icon: "🧠", category: "AI/ML" },
-    { name: "React Native", icon: "📱", category: "Mobile" },
-    { name: "PostgreSQL", icon: "🐘", category: "Database" },
+    { name: "React", icon: <SiReact />, category: "Frontend" },
+    { name: "Next.js", icon: <SiNextdotjs />, category: "Frontend" },
+    { name: "Node.js", icon: <SiNodedotjs />, category: "Backend" },
+    { name: "Python", icon: <SiPython />, category: "AI/ML" },
+    { name: "TensorFlow", icon: <SiTensorflow />, category: "AI/ML" },
+    { name: "MongoDB", icon: <SiMongodb />, category: "Database" },
+    { name: "PostgreSQL", icon: <SiPostgresql />, category: "Database" },
+    { name: "Docker", icon: <SiDocker />, category: "DevOps" },
+    { name: "Kubernetes", icon: <SiKubernetes />, category: "DevOps" },
+    { name: "TailwindCSS", icon: <SiTailwindcss />, category: "Styling" },
+    { name: "TypeScript", icon: <SiTypescript />, category: "Language" },
+    { name: "JavaScript", icon: <SiJavascript />, category: "Language" },
+    { name: "Git", icon: <SiGit />, category: "Version Control" },
+    { name: "GitHub", icon: <SiGithub />, category: "Version Control" },
+    { name: "Firebase", icon: <SiFirebase />, category: "Backend" },
+    { name: "GraphQL", icon: <SiGraphql />, category: "API" },
+    { name: "Prisma", icon: <SiPrisma />, category: "ORM" },
+    { name: "Redux", icon: <SiRedux />, category: "State Management" },
+    { name: "Vercel", icon: <SiVercel />, category: "Deployment" },
+    { name: "HTML5", icon: <SiHtml5 />, category: "Frontend" },
+    { name: "CSS3", icon: <SiCss3 />, category: "Frontend" },
   ];
 
+  // Duplicate list for seamless infinite loop
+  const infiniteTechnologies = [...technologies, ...technologies];
+
   return (
-    <div ref={containerRef} className="py-16 overflow-hidden">
+    <div ref={containerRef} className="py-16 overflow-hidden bg-background">
       <div className="container mx-auto px-6">
         <motion.h3
           className="text-2xl font-bold text-center mb-12 text-gradient-visible"
@@ -250,34 +287,30 @@ export function TechStackShowcase() {
         >
           Our Technology Stack
         </motion.h3>
-        
-        <div className="relative">
+
+        <div className="relative w-full overflow-hidden">
           <motion.div
-            className="flex gap-6 will-change-transform"
-            style={{
-              x: useTransform(scrollYProgress, [0, 1], [200, -200]),
+            className="flex gap-6"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{
+              duration: 25, // adjust for speed
+              repeat: Infinity,
+              ease: "linear",
             }}
           >
-            {technologies.map((tech, index) => (
-              <motion.div
-                key={tech.name}
-                className="flex-shrink-0 glassmorphism p-6 rounded-xl text-center min-w-[120px] hover-lift"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                viewport={{ once: true }}
-                whileHover={{ 
-                  scale: 1.1,
-                  rotateY: 10,
-                  boxShadow: "0 20px 40px rgba(91, 206, 213, 0.2)"
-                }}
+            {infiniteTechnologies.map((tech, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center justify-center glassmorphism p-6 rounded-xl text-center min-w-[140px] hover-lift"
               >
-                <div className="text-3xl mb-2 animate-bounce" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div className="text-5xl flex items-center justify-center mb-3">
                   {tech.icon}
                 </div>
-                <h4 className="font-semibold text-foreground text-sm">{tech.name}</h4>
+                <h4 className="font-semibold text-foreground text-sm">
+                  {tech.name}
+                </h4>
                 <p className="text-xs text-primary">{tech.category}</p>
-              </motion.div>
+              </div>
             ))}
           </motion.div>
         </div>

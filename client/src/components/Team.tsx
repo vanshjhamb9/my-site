@@ -25,7 +25,7 @@ const teamMembers = [
 ];
 
 const companyStats = [
-  { label: "Projects Delivered", value: "500+", icon: "🚀" },
+  { label: "Projects Delivered", value: "150+", icon: "🚀" },
   { label: "Countries Reached", value: "10", icon: "🌍" },
   { label: "AI Solutions", value: "100+", icon: "🧠" },
   { label: "Expert Team", value: "25+", icon: "👥" }
@@ -59,7 +59,7 @@ export default function Team() {
         </motion.div>
 
         {/* Company Stats */}
-        <motion.div 
+        {/* <motion.div 
           className="mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -67,7 +67,7 @@ export default function Team() {
           viewport={{ once: true }}
         >
           <StatsDisplay stats={companyStats} />
-        </motion.div>
+        </motion.div> */}
 
         {/* Team Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">

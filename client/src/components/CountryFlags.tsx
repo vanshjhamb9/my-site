@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import ReactCountryFlag from "react-country-flag";
 
 // Country flags and data for global reach
 export const countriesData = [
@@ -43,7 +44,11 @@ export function AnimatedCountryFlags() {
               delay: index * 0.5
             }}
           >
-            {country.flag}
+           <ReactCountryFlag
+                countryCode={country.code} // pass ISO 2-letter code
+                svg
+                style={{ width: "3em", height: "3em", borderRadius: "50%" }}
+              />
           </motion.div>
           <div className="text-center">
             <div className="text-sm font-semibold text-foreground">{country.name}</div>

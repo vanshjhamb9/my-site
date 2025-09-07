@@ -1,14 +1,19 @@
 import { motion } from "framer-motion";
 import { ClientLogoDisplay, TechStackVisualization } from "./CreativeAssets";
 import { SiReact, SiNodedotjs, SiPython, SiTensorflow, SiMongodb, SiAmazon, SiDocker, SiKubernetes } from "react-icons/si";
+import ezbuzz from "../image/Easebuzz_Logo.jpg";
+import e2e from "../image/66f39d4fdfb2bfc1091c408a_e2e-logo-white.webp"
+import shopify from "../image/60ccab9786c6e542b5601be6_5f0439b0f26a5acaf2f50e1a_shopify.png"
+import aws from "../image/aws.png"
+import phonepay from "../image/PhonePe-Logo.wine.png"
 
 const clientLogos = [
-  { name: "TechFlow", logo: "TF" },
-  { name: "Metro Bank", logo: "MB" },
-  { name: "Global Retail", logo: "GR" },
-  { name: "Smart City", logo: "SC" },
-  { name: "Healthcare+", logo: "H+" },
-  { name: "Fashion Forward", logo: "FF" }
+  { name: "Easebuzz", logo: ezbuzz },
+  { name: "E2E Networks", logo: e2e },
+  { name: "aws", logo: aws },
+  { name: "shopify", logo: shopify },
+  { name: "phonepay", logo: phonepay },
+ 
 ];
 
 const technologies = [

@@ -1,6 +1,10 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef } from "react";
 import { FaCheck, FaArrowRight, FaStar, FaLightbulb, FaBullseye, FaUsers } from "react-icons/fa";
+import growth from "../image/4.png"
+import twentyseven from "../image/2.png"
+import satisfaction from "../image/1.png"
+import experience from "../image/3.png"
 
 // Why Choose Us Section
 export function WhyChooseUsSection() {
@@ -115,10 +119,10 @@ export function StatsCounterSection() {
   });
 
   const stats = [
-    { value: "500+", label: "Projects to 10 Countries", icon: "🚀" },
-    { value: "100%", label: "Client Satisfaction", icon: "⭐" },
-    { value: "24/7", label: "Expert Support", icon: "💡" },
-    { value: "10+", label: "Years Experience", icon: "🎯" }
+    { value: "150+", label: "Projects to 10 Countries", icon: growth},
+    { value: "100%", label: "Client Satisfaction", icon: satisfaction },
+    { value: "24/7", label: "Expert Support", icon: twentyseven },
+    { value: "10+", label: "Years Experience", icon: experience }
   ];
 
   return (
@@ -170,7 +174,10 @@ export function StatsCounterSection() {
                   viewport={{ once: true }}
                   whileHover={{ scale: 1.05 }}
                 >
-                  <div className="text-4xl mb-2 animate-bounce">{stat.icon}</div>
+                  <div className="mb-2 flex justify-center">
+  <img src={stat.icon} alt={stat.label} className="h-20 w-20 object-contain animate-bounce" />
+</div>
+
                   <div className="text-3xl font-bold text-primary mb-2">
                     {stat.value.includes('+') ? (
                       <motion.span>
