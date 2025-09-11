@@ -322,7 +322,7 @@ export default function EnhancedPortfolio() {
             transition={{ duration: 1.2 }}
             viewport={{ once: true }}
           >
-            Our <span className="text-gradient-visible relative">
+            Our <span className="text-accent relative">
               Projects
               <motion.div
                 className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-primary to-cyan-400"
@@ -466,7 +466,7 @@ export default function EnhancedPortfolio() {
                         layout
                       >
                         <motion.button
-                          className="w-full glassmorphism px-4 py-3 rounded-xl text-white font-semibold hover:bg-primary hover:text-black transition-all duration-300 group-hover:shadow-lg"
+                          className="w-full glassmorphism px-4 py-3 rounded-xl text-white font-semibold hover:bg-accent hover:text-black transition-all duration-300 group-hover:shadow-lg"
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                         >
@@ -489,7 +489,7 @@ export default function EnhancedPortfolio() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-cyan-500/5"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-cyan-500/5"></div>
           <div className="relative z-10">
             <h3 className="text-3xl font-bold mb-6 text-white">
               Ready to Transform Your Vision?
@@ -498,7 +498,7 @@ export default function EnhancedPortfolio() {
               From ideation to launch and beyond, we're your partners in digital transformation.
             </p>
             <motion.button 
-              className="glassmorphism-strong px-12 py-4 rounded-full text-primary font-semibold hover:bg-primary hover:text-black transition-all duration-300 hover-glow"
+              className="glassmorphism-strong px-12 py-4 rounded-full text-accent font-semibold hover:bg-accent hover:text-black transition-all duration-300 hover-glow"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               data-testid="button-start-project"
@@ -537,7 +537,7 @@ export default function EnhancedPortfolio() {
                     </div>
                     <div>
                       <h3 className="text-3xl font-bold text-white mb-2">{selectedProject.title}</h3>
-                      <p className="text-primary font-semibold">{selectedProject.category}</p>
+                      <p className="text-accent font-semibold">{selectedProject.category}</p>
                     </div>
                   </div>
                   <motion.button
@@ -554,24 +554,24 @@ export default function EnhancedPortfolio() {
                 <div className="grid lg:grid-cols-2 gap-8">
                   <div className="space-y-6">
                     <div>
-                      <h4 className="text-xl font-semibold text-primary mb-3">Project Overview</h4>
+                      <h4 className="text-xl font-semibold text-accent mb-3">Project Overview</h4>
                       <p className="text-white/80 leading-relaxed">{selectedProject.fullDescription}</p>
                     </div>
 
                     <div>
-                      <h4 className="text-xl font-semibold text-primary mb-3">Key Challenges</h4>
+                      <h4 className="text-xl font-semibold text-accent mb-3">Key Challenges</h4>
                       <p className="text-white/80 leading-relaxed">{selectedProject.challenges}</p>
                     </div>
 
                     <div>
-                      <h4 className="text-xl font-semibold text-primary mb-3">Results Achieved</h4>
+                      <h4 className="text-xl font-semibold text-accent mb-3">Results Achieved</h4>
                       <p className="text-white/80 leading-relaxed">{selectedProject.results}</p>
                     </div>
                   </div>
 
                   <div className="space-y-6">
                     <div>
-                      <h4 className="text-xl font-semibold text-primary mb-4">Technology Stack</h4>
+                      <h4 className="text-xl font-semibold text-accent mb-4">Technology Stack</h4>
                       <div className="flex flex-wrap gap-3">
                         {selectedProject.techStack.map((TechIcon, idx) => (
                           <motion.div
@@ -591,7 +591,7 @@ export default function EnhancedPortfolio() {
                     </div>
 
                     <div>
-                      <h4 className="text-xl font-semibold text-primary mb-4">Key Features</h4>
+                      <h4 className="text-xl font-semibold text-accent mb-4">Key Features</h4>
                       <div className="space-y-3">
                         {selectedProject.features.map((feature, idx) => (
                           <motion.div
@@ -610,7 +610,7 @@ export default function EnhancedPortfolio() {
 
                     <div className="pt-4">
                       <motion.button 
-                        className="w-full bg-primary text-black font-semibold py-4 rounded-xl hover:bg-primary/80 transition-all"
+                        className="w-full bg-accent text-black font-semibold py-4 rounded-xl hover:bg-accent/80 transition-all"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         data-testid="button-start-similar-project"

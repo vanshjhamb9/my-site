@@ -18,12 +18,12 @@ export default function FloatingCTA() {
     >
       <motion.button
         onClick={handleClick}
-        className="glassmorphism px-6 py-3 rounded-full text-primary font-semibold hover:bg-primary hover:text-white transition-all duration-300 animate-bounce-custom hover-glow"
+        className="glassmorphism px-6 py-3 rounded-full button-gold animate-bounce-custom hover-glow"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        <FaRocket className="inline mr-2" />
-        Get Started
+        <span className="mr-2">🎯</span>
+        Ready to Transform Your Vision?
       </motion.button>
     </motion.div>
   );

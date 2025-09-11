@@ -114,7 +114,7 @@ const services = [
 const EnhancedServiceCard = ({ service, index }: { service: any, index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.1 });
+  const isInView = useInView(ref, { once: true });
 
   return (
     <motion.div
@@ -139,7 +139,7 @@ const EnhancedServiceCard = ({ service, index }: { service: any, index: number }
     >
       {/* Animated Background Effects */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/10 to-primary/20 rounded-3xl"
+        className="absolute inset-0 bg-gradient-to-br from-accent/20 via-secondary/10 to-accent/20 rounded-3xl"
         animate={{
           scale: isHovered ? 1.1 : 1,
           opacity: isHovered ? 1 : 0.3
@@ -159,11 +159,11 @@ const EnhancedServiceCard = ({ service, index }: { service: any, index: number }
           animate={isHovered ? { y: -5 } : { y: 0 }}
         >
           <motion.div
-            className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center shadow-2xl"
+            className="w-16 h-16 bg-gradient-to-br from-accent to-secondary rounded-2xl flex items-center justify-center shadow-2xl"
             whileHover={{ 
               rotate: 360,
               scale: 1.1,
-              boxShadow: "0 0 30px rgba(0, 71, 171, 0.6)"
+              boxShadow: "0 0 30px rgba(165, 171, 0, 0.6)"
             }}
             transition={{ duration: 0.6 }}
           >
@@ -172,7 +172,7 @@ const EnhancedServiceCard = ({ service, index }: { service: any, index: number }
           
           {service.special && (
             <motion.div
-              className="bg-gradient-to-r from-primary to-secondary text-white px-4 py-2 rounded-full text-sm font-bold"
+              className="bg-gradient-to-r from-accent to-secondary text-white px-4 py-2 rounded-full text-sm font-bold"
               animate={{ 
                 scale: [1, 1.05, 1],
                 boxShadow: [
@@ -183,13 +183,13 @@ const EnhancedServiceCard = ({ service, index }: { service: any, index: number }
               }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              ✨ FEATURED
+              FEATURED
             </motion.div>
           )}
         </motion.div>
         
         <motion.h3
-          className="text-2xl font-bold text-white mb-4 group-hover:text-primary transition-colors duration-300"
+          className="text-2xl font-bold text-accent mb-4 group-hover:text-primary transition-colors duration-300"
           animate={isHovered ? { x: 5 } : { x: 0 }}
         >
           {service.title}
@@ -279,13 +279,13 @@ export default function EnhancedServices() {
               whileHover={{ scale: 1.05 }}
             >
               <motion.div
-                className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center"
+                className="w-12 h-12 bg-gradient-to-br from-accent to-secondary rounded-full flex items-center justify-center"
                 animate={{ rotate: [0, 360] }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               >
                 <FaCogs className="text-white text-xl" />
               </motion.div>
-              <h2 className="text-4xl md:text-6xl font-black text-gradient-visible">
+              <h2 className="text-4xl  md:text-6xl font-black text-accent">
                 Our Offerings
               </h2>
             </motion.div>
@@ -317,7 +317,7 @@ export default function EnhancedServices() {
               className="glassmorphism-strong p-8 rounded-3xl max-w-2xl mx-auto"
               whileHover={{ scale: 1.02, rotateX: 2 }}
             >
-              <h3 className="text-2xl font-bold text-primary mb-4">
+              <h3 className="text-2xl font-bold text-accent mb-4">
                 Ready to Transform Your Vision?
               </h3>
               <p className="text-muted-foreground mb-6">
@@ -325,12 +325,12 @@ export default function EnhancedServices() {
               </p>
              
                 <motion.button
-                  className="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300"
+                  className="bg-gradient-to-r from-accent to-secondary text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300"
                   whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(0, 71, 171, 0.5)" }}
                   whileTap={{ scale: 0.95 }}
                   data-testid="button-start-project"
                 >
-                  🚀 Start Your Project
+                 Start Your Project
                 </motion.button>
               
             </motion.div>

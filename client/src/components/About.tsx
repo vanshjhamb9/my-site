@@ -77,10 +77,10 @@ export default function About() {
               </div>
               <div className="space-y-6">
                 <motion.p 
-                  className="text-lg text-primary font-semibold animate-data-flow"
+                  className="text-lg font-semibold animate-data-flow indian-flag-text"
                   whileHover={{ scale: 1.05 }}
                 >
-                  🌏 Rooted in India, Reaching the World
+                  🇮🇳 Rooted in India, Reaching the World
                 </motion.p>
                 <motion.p 
                   className="text-lg font-bold text-gradient-visible"

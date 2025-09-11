@@ -169,7 +169,7 @@ export default function Portfolio() {
       <div className="container mx-auto px-6">
         {/* Title */}
         <motion.div className="text-center mb-16" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <h2 className="text-5xl font-bold mb-4">Our Portfolio</h2>
+          <h2 className="text-5xl font-bold mb-4">Our <span className="golden-text">Projects</span></h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Explore our curated projects spanning Web3, AI, Gaming, Health, Real Estate, and E-Commerce.
           </p>
@@ -234,11 +234,11 @@ export default function Portfolio() {
 
         {/* CTA Section */}
         <div className="text-center glassmorphism-strong p-12 rounded-3xl mt-20">
-          <h3 className="text-3xl font-bold mb-6 text-primary">Ready to Build Your Dream Project?</h3>
+          <h3 className="text-3xl font-bold mb-6 golden-text">Ready to Build Your Dream Project?</h3>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             We bring innovative ideas to life across Web3, AI, Gaming, Health, and E-Commerce.
           </p>
-          <button className="glassmorphism-strong px-12 py-4 rounded-full text-primary font-semibold hover:bg-primary hover:text-black transition-all duration-300">
+          <button className="glassmorphism-strong px-12 py-4 rounded-full button-gold">
             Start Your Project
           </button>
         </div>

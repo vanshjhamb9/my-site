@@ -105,7 +105,7 @@ export default function Services() {
             className="text-4xl md:text-5xl font-bold mb-6"
             whileHover={{ scale: 1.02 }}
           >
-            Our <span className="text-gradient-visible animate-aurora-wave">Services</span>
+            Our <span className="logo-text animate-aurora-wave">Services</span>
           </motion.h2>
           <motion.p 
             className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"

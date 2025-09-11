@@ -1,10 +1,31 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef } from "react";
 import { FaCheck, FaArrowRight, FaStar, FaLightbulb, FaBullseye, FaUsers } from "react-icons/fa";
-import growth from "../image/4.png"
-import twentyseven from "../image/2.png"
-import satisfaction from "../image/1.png"
-import experience from "../image/3.png"
+import growth from "../image/profit-growth.png"
+import twentyseven from "../image/24-7.png"
+import satisfaction from "../image/satisfaction-guaranteed.png"
+import experience from "../image/certification.png"
+import { 
+  Lightbulb, 
+  PenTool, 
+  Code, 
+  Bug, 
+  Rocket, 
+  LifeBuoy  
+} from "lucide-react";
+
+import { 
+  SiTensorflow, 
+  SiEthereum, 
+  SiAdobecreativecloud, 
+  SiAmazon, 
+  SiCoursera, 
+  SiAntdesign, 
+  SiRaspberrypi, 
+  SiVirtualbox, 
+  SiChainlink 
+} from "react-icons/si";
+
 
 // Why Choose Us Section
 export function WhyChooseUsSection() {
@@ -36,7 +57,8 @@ export function WhyChooseUsSection() {
       description: "Your data's safety is our priority — trusted, robust, and built with integrity.",
       icon: FaCheck,
       color: "text-accent"
-    }
+    },
+
   ];
 
   return (
@@ -136,9 +158,13 @@ export function StatsCounterSection() {
           viewport={{ once: true }}
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gradient-visible mb-4">
-              Rooted in India, Reaching the World
-            </h2>
+          <h2 className="text-3xl font-bold mb-4 bg-gradient-to-br from-[#FF671F] via-[#FFFFFF] to-[#046A38] text-transparent bg-clip-text">
+  Rooted in India, Reaching the World
+</h2>
+
+
+
+
             <p className="text-lg text-muted-foreground">
               Innovation that transforms ideas into impact
             </p>
@@ -174,7 +200,7 @@ export function StatsCounterSection() {
                   viewport={{ once: true }}
                   whileHover={{ scale: 1.05 }}
                 >
-                  <div className="mb-2 flex justify-center">
+                  <div className="mb-2 flex justify-center text-#FFFFFF">
   <img src={stat.icon} alt={stat.label} className="h-20 w-20 object-contain animate-bounce" />
 </div>
 
@@ -197,59 +223,68 @@ export function StatsCounterSection() {
     </div>
   );
 }
+"use client";
+
 
 // Process Timeline Section
 export function ProcessTimelineSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
   const steps = [
     {
       title: "Get the Gist",
-      description: "We dive deep into your vision and figure out exactly what you need — no guessing games.",
-      icon: "🔍",
-      phase: "Discover & Design"
+      description:
+        "We dive deep into your vision and figure out exactly what you need — no guessing games.",
+      icon: Lightbulb,
+      phase: "Discover & Design",
     },
     {
-      title: "Dream & Scheme", 
-      description: "Wireframes, blueprints, and bold plans come to life. Because great design is everything.",
-      icon: "🎨",
-      phase: "Design & Prototype"
+      title: "Dream & Scheme",
+      description:
+        "Wireframes, blueprints, and bold plans come to life. Because great design is everything.",
+      icon: PenTool,
+      phase: "Design & Prototype",
     },
     {
       title: "Robust Software Build",
-      description: "We build it, break it, and rebuild it until it's flawless. Agile? We run it flawlessly.",
-      icon: "⚡",
-      phase: "Develop & Integrate"
+      description:
+        "We build it, break it, and rebuild it until it's flawless. Agile? We run it flawlessly.",
+      icon: Code,
+      phase: "Develop & Integrate",
     },
     {
       title: "Test Till It's Tight",
-      description: "Bugs don't stand a chance. We stress-test, hack-test, and user-test till it's rock solid.",
-      icon: "🛡️",
-      phase: "Test & Refine"
+      description:
+        "Bugs don't stand a chance. We stress-test, hack-test, and user-test till it's rock solid.",
+      icon: Bug,
+      phase: "Test & Refine",
     },
     {
       title: "Launch, Love & Scale",
-      description: "Live and kicking! But we don't ghost — continuous tweaks and loving care keep it fresh.",
-      icon: "🚀",
-      phase: "Deploy & Evolve"
+      description:
+        "Live and kicking! But we don't ghost — continuous tweaks and loving care keep it fresh.",
+      icon: Rocket,
+      phase: "Deploy & Evolve",
     },
     {
       title: "Support & Evolve",
-      description: "Post-launch, we're your tech partner, offering support, updates, and upgrades that keep you ahead.",
-      icon: "📈",
-      phase: "Support & Grow"
-    }
+      description:
+        "Post-launch, we're your tech partner, offering support, updates, and upgrades that keep you ahead.",
+      icon: LifeBuoy,
+      phase: "Support & Grow",
+    },
   ];
 
-  const lineProgress = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const lineProgress = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <div ref={containerRef} className="py-20 relative">
       <div className="container mx-auto px-6">
+        {/* Section heading */}
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -258,61 +293,83 @@ export function ProcessTimelineSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Our <span className="text-gradient-visible animate-aurora-wave">Process</span>
+            Our{" "}
+            <span className="text-gradient-visible animate-aurora-wave">
+              Process
+            </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Our development approach blends structure with flexibility, ensuring clear milestones alongside continuous iteration.
+            Our development approach blends structure with flexibility,
+            ensuring clear milestones alongside continuous iteration.
           </p>
         </motion.div>
 
         <div className="relative">
-          {/* Progress line */}
+          {/* Static background line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-px bg-muted/20 transform -translate-x-1/2" />
-          <motion.div 
+          {/* Animated progress line */}
+          <motion.div
             className="absolute left-1/2 top-0 w-px bg-primary transform -translate-x-1/2"
-            style={{ height: `${lineProgress.get()}%` }}
-            animate={{ height: `${lineProgress.get()}%` }}
+            style={{ height: lineProgress }}
           />
 
           <div className="space-y-16">
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.title}
-                className={`flex items-center gap-8 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <div className={`flex-1 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
-                  <motion.div
-                    className="glassmorphism-strong p-6 rounded-2xl hover-lift"
-                    whileHover={{ scale: 1.02 }}
-                  >
-                    <div className="text-sm text-primary font-semibold mb-2">{step.phase}</div>
-                    <h3 className="text-xl font-bold mb-4 text-foreground">{step.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{step.description}</p>
-                  </motion.div>
-                </div>
-
-                {/* Center icon */}
+            {steps.map((step, index) => {
+              const Icon = step.icon;
+              return (
                 <motion.div
-                  className="relative z-10 w-16 h-16 bg-primary rounded-full flex items-center justify-center text-2xl"
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  whileInView={{ 
-                    scale: [1, 1.1, 1],
-                    rotate: [0, 5, 0]
-                  }}
-                  transition={{ delay: index * 0.1 + 0.3, duration: 0.6 }}
+                  key={step.title}
+                  className={`flex items-center gap-8 ${
+                    index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+                  }`}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.8 }}
                   viewport={{ once: true }}
                 >
-                  {step.icon}
-                  <div className="absolute inset-0 bg-primary rounded-full animate-ping opacity-20" />
-                </motion.div>
+                  <div
+                    className={`flex-1 ${
+                      index % 2 === 0 ? "text-right" : "text-left"
+                    }`}
+                  >
+                    <motion.div
+                      className="glassmorphism-strong p-6 rounded-2xl hover-lift"
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <div className="text-sm text-primary font-semibold mb-2">
+                        {step.phase}
+                      </div>
+                      <h3 className="text-xl font-bold mb-4 text-accent">
+                        {step.title}
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {step.description}
+                      </p>
+                    </motion.div>
+                  </div>
 
-                <div className="flex-1" /> {/* Spacer for opposite side */}
-              </motion.div>
-            ))}
+                  {/* Center icon */}
+                  <motion.div
+                    className="relative z-10 w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white"
+                    whileHover={{ scale: 1.2, rotate: 10 }}
+                    whileInView={{
+                      scale: [1, 1.1, 1],
+                      rotate: [0, 5, 0],
+                    }}
+                    transition={{
+                      delay: index * 0.1 + 0.3,
+                      duration: 0.6,
+                    }}
+                    viewport={{ once: true }}
+                  >
+                    <Icon className="w-8 h-8" />
+                    <div className="absolute inset-0 bg-primary rounded-full animate-ping opacity-20" />
+                  </motion.div>
+
+                  <div className="flex-1" /> {/* Spacer */}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -328,26 +385,72 @@ export function SuccessStoriesSection() {
     offset: ["start end", "end start"]
   });
 
-  const stories = [
-    {
-      title: "AI-Powered Health Assistant",
-      description: "500,000+ users getting personalized health insights daily",
-      tech: "Machine Learning • Mobile App",
-      impact: "500K+ Active Users"
-    },
-    {
-      title: "Blockchain Casino Platform", 
-      description: "Decentralized gaming with cryptocurrency integration",
-      tech: "Web3 • Blockchain • DeFi",
-      impact: "Secure Gaming"
-    },
-    {
-      title: "Creative AI Art Generator",
-      description: "AI-powered digital art creation for artists and hobbyists",
-      tech: "Computer Vision • AI Art",
-      impact: "Creative Innovation"
-    }
-  ];
+
+const stories = [
+  {
+    title: "AI-Powered Health Assistant",
+    description: "500,000+ users getting personalized health insights daily",
+    tech: "Machine Learning • Mobile App",
+    impact: "500K+ Active Users",
+    icon: SiTensorflow,
+  },
+  {
+    title: "Blockchain Casino Platform",
+    description: "Decentralized gaming with cryptocurrency integration",
+    tech: "Web3 • Blockchain • DeFi",
+    impact: "Secure Gaming",
+    icon: SiEthereum,
+  },
+  {
+    title: "Creative AI Art Generator",
+    description: "AI-powered digital art creation for artists and hobbyists",
+    tech: "Computer Vision • AI Art",
+    impact: "Creative Innovation",
+    icon: SiAdobecreativecloud,
+  },
+  {
+    title: "Smart Retail Analytics",
+    description: "Helping 1,000+ stores boost sales with AI-driven insights",
+    tech: "AI • Cloud • Big Data",
+    impact: "30% Revenue Growth",
+    icon: SiAmazon,
+  },
+  {
+    title: "EdTech Learning Platform",
+    description: "Interactive video courses with adaptive learning paths",
+    tech: "E-Learning • AI • Web Platform",
+    impact: "1M+ Students Trained",
+    icon: SiCoursera,
+  },
+  {
+    title: "FinTech Fraud Detection",
+    description: "AI engine reducing fraud detection time by 80%",
+    tech: "Big Data • AI • FinTech",
+    impact: "80% Faster Detection",
+    icon: SiAntdesign,
+  },
+  {
+    title: "IoT Smart Farming",
+    description: "Precision farming with smart sensors and automation",
+    tech: "IoT • Cloud • Agriculture",
+    impact: "40% Yield Increase",
+    icon: SiRaspberrypi, // used instead of non-existent SiIot
+  },
+  {
+    title: "AR/VR Fitness App",
+    description: "Immersive workouts with VR-powered fitness experiences",
+    tech: "AR/VR • Mobile App",
+    impact: "Engaging 200K+ Users",
+    icon: SiVirtualbox,
+  },
+  {
+    title: "Supply Chain Optimizer",
+    description: "Reducing logistics delays using AI-driven forecasting",
+    tech: "AI • Blockchain • SaaS",
+    impact: "25% Faster Deliveries",
+    icon: SiChainlink,
+  },
+];
 
   const x = useTransform(scrollYProgress, [0, 1], [0, -300]);
 

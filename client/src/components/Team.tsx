@@ -47,7 +47,7 @@ export default function Team() {
             className="text-4xl md:text-5xl font-bold mb-6"
             whileHover={{ scale: 1.02 }}
           >
-            Meet Our <span className="text-gradient-visible animate-aurora-wave">Team</span>
+            Meet Our <span className="golden-text animate-aurora-wave">Team</span>
           </motion.h2>
           <motion.p 
             className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"

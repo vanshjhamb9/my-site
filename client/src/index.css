@@ -97,12 +97,52 @@
   }
 
   .logo-text {
-    background: linear-gradient(135deg, hsl(45, 80%, 60%) 0%, hsl(210, 15%, 35%) 100%);
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 800;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 2px 8px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.3);
+    animation: golden-glow 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes golden-glow {
+    from {
+      filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+    }
+    to {
+      filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+    }
+  }
+
+  .indian-flag-text {
+    background: linear-gradient(90deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+
+  .golden-text {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    text-shadow: 0 2px 8px rgba(255, 215, 0, 0.6);
+  }
+
+  .button-gold {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: #000000;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+
+  .button-gold:hover {
+    background: linear-gradient(135deg, #FFA500 0%, #FFD700 100%);
+    transform: scale(1.05);
   }
 
   .sea-blue-accent {

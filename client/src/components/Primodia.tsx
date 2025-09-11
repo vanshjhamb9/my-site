@@ -78,7 +78,7 @@ const PrimordiaFeature = ({ icon: Icon, title, description, delay }: {
       data-testid={`primodia-feature-${title.toLowerCase().replace(/\s+/g, '-')}`}
     >
       <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        className="absolute inset-0 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
       />
       
       <motion.div 
@@ -86,14 +86,14 @@ const PrimordiaFeature = ({ icon: Icon, title, description, delay }: {
         whileHover={{ scale: 1.1 }}
       >
         <motion.div
-          className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center mb-6 group-hover:shadow-lg group-hover:shadow-primary/50 transition-all duration-300"
+          className="w-16 h-16 bg-gradient-to-br from-accent to-secondary rounded-2xl flex items-center justify-center mb-6 group-hover:shadow-lg group-hover:shadow-primary/50 transition-all duration-300"
           whileHover={{ rotate: 360 }}
           transition={{ duration: 0.6 }}
         >
           <Icon className="text-2xl text-white" />
         </motion.div>
         
-        <h3 className="text-xl font-bold text-primary mb-4 group-hover:text-white transition-colors duration-300">
+        <h3 className="text-xl font-bold text-accent mb-4 group-hover:text-white transition-colors duration-300">
           {title}
         </h3>
         
@@ -182,7 +182,7 @@ export default function Primodia() {
               <FaCrown className="text-4xl text-primary" />
             </motion.div>
             <motion.h2
-              className="text-5xl md:text-7xl font-black text-gradient-visible"
+              className="text-5xl md:text-7xl font-black text-accent"
               animate={{ 
                 textShadow: [
                   "0 0 20px rgba(0, 71, 171, 0.5)",
@@ -198,7 +198,7 @@ export default function Primodia() {
               animate={{ rotate: [0, -10, 10, 0] }}
               transition={{ duration: 2, repeat: Infinity, delay: 1 }}
             >
-              <FaGem className="text-4xl text-secondary" />
+               <FaCrown className="text-4xl text-accent" />
             </motion.div>
           </motion.div>
           
@@ -249,7 +249,7 @@ export default function Primodia() {
           />
           
           <motion.p
-            className="text-2xl md:text-3xl font-bold text-primary leading-relaxed relative z-10"
+            className="text-2xl md:text-3xl font-bold text-accent leading-relaxed relative z-10"
             animate={{
               scale: [1, 1.02, 1],
               textShadow: [
@@ -294,26 +294,7 @@ export default function Primodia() {
             </motion.span>
           </motion.button>
 
-          <motion.button
-            className="border-2 border-secondary px-12 py-6 rounded-full text-lg font-bold text-secondary hover:bg-secondary hover:text-black transition-all duration-300 relative overflow-hidden group"
-            whileHover={{ scale: 1.05, rotateZ: -1 }}
-            whileTap={{ scale: 0.95 }}
-            onHoverStart={() => setHoveredButton("mentorship")}
-            onHoverEnd={() => setHoveredButton(null)}
-            data-testid="button-request-mentorship"
-          >
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-l from-secondary/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            />
-            <motion.span
-              className="relative z-10 flex items-center gap-3"
-              animate={hoveredButton === "mentorship" ? { x: [0, -5, 0] } : {}}
-              transition={{ duration: 0.5 }}
-            >
-              <FaBrain className="text-xl" />
-              Request Mentorship
-            </motion.span>
-          </motion.button>
+          
         </motion.div>
       </div>
     </motion.section>

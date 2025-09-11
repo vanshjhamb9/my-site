@@ -68,7 +68,7 @@ export default function Hero() {
               transition={{ delay: 0.4, duration: 0.8 }}
             >
               <motion.p 
-                className="text-xl text-primary font-bold mb-2"
+                className="text-xl font-bold mb-2 logo-text"
                 whileHover={{ scale: 1.05 }}
               >
                 @ NEURAL CODER AI
@@ -103,7 +103,14 @@ export default function Hero() {
               </motion.div>
             </motion.div>
             <motion.p 
-              className="text-base text-primary font-semibold mb-8 animate-neural-network"
+              className="text-base font-semibold mb-8 animate-neural-network"
+              style={{ 
+                background: 'linear-gradient(135deg, #FFD700 0%, #FFFFFF 50%, #FFD700 100%)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                textShadow: '0 2px 4px rgba(255, 215, 0, 0.5)'
+              }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}
@@ -120,20 +127,20 @@ export default function Hero() {
                 <motion.button 
                   className="glassmorphism-strong px-8 py-4 rounded-full text-primary font-semibold hover:bg-primary hover:text-black transition-all duration-300 hover-glow animate-galaxy-pulse"
                   whileHover={{ scale: 1.05, rotateZ: 2 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileTap={{ scale: 0.45 }}
                   data-testid="button-consultation"
                 >
-                  🚀 Start Your AI Journey
+                  Start Your AI Journey
                 </motion.button>
               
             
                 <motion.button 
                   className="border border-primary px-8 py-4 rounded-full text-primary font-semibold hover:bg-primary hover:text-black transition-all duration-300 animate-data-flow"
                   whileHover={{ scale: 1.05, rotateZ: -2 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileTap={{ scale: 0.45 }}
                   data-testid="button-portfolio"
                 >
-                  🎯 Explore Our Work
+                  Explore Our Work
                 </motion.button>
              
             </motion.div>
