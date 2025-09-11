@@ -92,7 +92,7 @@ export default function Contact() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-8">
-            Ready to <span className="text-gradient-visible">Collaborate?</span>
+            Ready to <span className="text-accent">Collaborate?</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Let's build your next breakthrough together.
@@ -110,7 +110,7 @@ export default function Contact() {
           >
             <div className="flex items-center gap-3 mb-6">
               <LogoComponent size="sm" showText={false} animate={true} />
-              <h3 className="text-2xl font-bold text-primary">Quick Inquiry Form</h3>
+              <h3 className="text-2xl font-bold text-accent">Quick Inquiry Form</h3>
             </div>
             <form onSubmit={handleSubmit} className="space-y-6">
               <motion.div
@@ -126,7 +126,7 @@ export default function Contact() {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl glassmorphism border-0 focus:ring-2 focus:ring-primary text-foreground placeholder-muted-foreground"
+                  className="w-full px-4 py-3 rounded-xl glassmorphism border-0 focus:ring-2 focus:ring-accent text-foreground placeholder-muted-foreground"
                   placeholder="Your full name"
                   required
                   data-testid="input-name"
@@ -146,7 +146,7 @@ export default function Contact() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl glassmorphism border-0 focus:ring-2 focus:ring-primary text-foreground placeholder-muted-foreground"
+                  className="w-full px-4 py-3 rounded-xl glassmorphism border-0 focus:ring-2 focus:ring-accent text-foreground placeholder-muted-foreground"
                   placeholder="your.email@company.com"
                   required
                   data-testid="input-email"
@@ -165,7 +165,7 @@ export default function Contact() {
                   name="businessNeeds"
                   value={formData.businessNeeds}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl glassmorphism border-0 focus:ring-2 focus:ring-primary text-foreground"
+                  className="w-full px-4 py-3 rounded-xl glassmorphism border-0 focus:ring-2 focus:ring-accent text-foreground"
                   required
                   data-testid="select-business-needs"
                 >
@@ -191,7 +191,7 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   rows={4}
-                  className="w-full px-4 py-3 rounded-xl glassmorphism border-0 focus:ring-2 focus:ring-primary text-foreground placeholder-muted-foreground resize-none"
+                  className="w-full px-4 py-3 rounded-xl glassmorphism border-0 focus:ring-2 focus:ring-accent text-foreground placeholder-muted-foreground resize-none"
                   placeholder="Tell us about your project..."
                   data-testid="textarea-message"
                 />
@@ -199,7 +199,7 @@ export default function Contact() {
 
               <motion.button
                 type="submit"
-                className="w-full bg-primary text-black font-bold py-4 px-8 rounded-xl hover:bg-primary/80 transition-all duration-300 flex items-center justify-center gap-3 hover-glow"
+                className="w-full bg-accent text-black font-bold py-4 px-8 rounded-xl hover:bg-accent/80 transition-all duration-300 flex items-center justify-center gap-3 hover-glow"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 data-testid="button-send-inquiry"
@@ -220,7 +220,7 @@ export default function Contact() {
           >
             {/* Global Offices */}
 <div className="glassmorphism-strong rounded-3xl p-8">
-      <h3 className="text-2xl font-bold mb-6 text-primary flex items-center gap-3">
+      <h3 className="text-2xl font-bold mb-6 text-accent flex items-center gap-3">
         <FaMapMarkerAlt />
         Global Offices
       </h3>
@@ -247,7 +247,7 @@ export default function Contact() {
               />
             </motion.div>
 
-            <h4 className="font-semibold text-primary text-sm">{office.country}</h4>
+            <h4 className="font-semibold text-accent text-sm">{office.country}</h4>
             <p className="text-xs text-muted-foreground">{office.location}</p>
           </motion.div>
         ))}
@@ -257,7 +257,7 @@ export default function Contact() {
 
             {/* Direct Contact */}
             <div className="glassmorphism-strong rounded-3xl p-8">
-              <h3 className="text-2xl font-bold mb-6 text-primary">Direct Contact</h3>
+              <h3 className="text-2xl font-bold mb-6 text-accent">Direct Contact</h3>
               <div className="space-y-4">
                 <motion.div 
                   className="flex items-center gap-4 p-4 glassmorphism rounded-xl hover-lift"
@@ -285,7 +285,7 @@ export default function Contact() {
 
             {/* CTA Button */}
             <motion.button 
-              className="w-full border border-primary px-8 py-4 rounded-xl text-primary font-semibold hover:bg-primary hover:text-black transition-all duration-300"
+              className="w-full border border-accent px-8 py-4 rounded-xl text-accent font-semibold hover:bg-accent hover:text-black transition-all duration-300"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               data-testid="button-book-intro-call"

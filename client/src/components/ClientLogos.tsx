@@ -40,7 +40,7 @@ export default function ClientLogos() {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl font-bold text-center mb-12">
-            Trusted by <span className="text-gradient-visible">Leading Companies</span>
+            Trusted by <span className="text-accent">Leading Companies</span>
           </h2>
           <ClientLogoDisplay logos={clientLogos} />
         </motion.div>
@@ -54,14 +54,14 @@ export default function ClientLogos() {
             viewport={{ once: true }}
           >
             <h3 className="text-3xl font-bold mb-6">
-              Our <span className="text-gradient-visible">Technology Stack</span>
+              Our <span className="text-accent">Technology Stack</span>
             </h3>
             <p className="text-xl text-white/70 mb-8 leading-relaxed">
               We leverage cutting-edge technologies and frameworks to build scalable, 
               high-performance solutions that drive business growth and innovation.
             </p>
             <motion.button 
-              className="glassmorphism-strong px-8 py-4 rounded-full text-primary font-semibold hover:bg-primary hover:text-black transition-all duration-300 hover-glow"
+              className="glassmorphism-strong px-8 py-4 rounded-full text-accent font-semibold hover:bg-accent hover:text-black transition-all duration-300 hover-glow"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               data-testid="button-view-tech-stack"

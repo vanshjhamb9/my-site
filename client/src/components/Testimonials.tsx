@@ -48,7 +48,7 @@ export default function Testimonials() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            What Our <span className="text-gradient-visible">Clients Say</span>
+            What Our <span className="text-accent">Clients Say</span>
           </h2>
           <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
             Hear from industry leaders who have transformed their businesses with our AI solutions and development expertise.
@@ -96,13 +96,13 @@ export default function Testimonials() {
                 transition={{ delay: index * 0.1, duration: 0.5 }}
                 viewport={{ once: true }}
               >
-                <div className="text-3xl font-bold text-primary mb-2">{stat.metric}</div>
+                <div className="text-3xl font-bold text-accent mb-2">{stat.metric}</div>
                 <div className="text-white/70">{stat.label}</div>
               </motion.div>
             ))}
           </div>
           <motion.button 
-            className="glassmorphism px-8 py-4 rounded-full text-primary font-semibold hover:bg-primary hover:text-black transition-all duration-300 hover-glow"
+            className="glassmorphism px-8 py-4 rounded-full text-accent font-semibold hover:bg-accent hover:text-black transition-all duration-300 hover-glow"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             data-testid="button-view-case-studies"

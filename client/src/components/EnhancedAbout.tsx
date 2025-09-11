@@ -109,7 +109,7 @@ const StatCard = ({ stat, index }: { stat: any, index: number }) => {
       }}
     >
       <motion.div
-        className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center mx-auto mb-4"
+        className="w-16 h-16 bg-gradient-to-br from-accent to-secondary rounded-2xl flex items-center justify-center mx-auto mb-4"
         whileHover={{ rotate: 360 }}
         transition={{ duration: 0.8 }}
       >
@@ -117,7 +117,7 @@ const StatCard = ({ stat, index }: { stat: any, index: number }) => {
       </motion.div>
       
       <motion.div
-        className="text-4xl font-black text-primary mb-2"
+        className="text-4xl font-black text-accent mb-2"
         whileHover={{ scale: 1.1 }}
       >
         {isInView && <ScrollCounter end={stat.number} suffix={stat.suffix} />}
@@ -183,7 +183,7 @@ export default function EnhancedAbout() {
               whileHover={{ scale: 1.05 }}
             >
               <motion.div
-                className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center"
+                className="w-12 h-12 bg-gradient-to-br from-accent to-secondary rounded-full flex items-center justify-center"
                 animate={{
                   rotate: [0, 360],
                   scale: [1, 1.1, 1]
@@ -196,7 +196,7 @@ export default function EnhancedAbout() {
               >
                 <FaRocket className="text-white text-xl" />
               </motion.div>
-              <h2 className="text-4xl md:text-6xl font-black text-gradient-visible">
+              <h2 className="text-4xl md:text-6xl font-black text-accent">
                 About Us
               </h2>
             </motion.div>
@@ -231,7 +231,7 @@ export default function EnhancedAbout() {
         <ScrollReveal direction="left" delay={0.6}>
           <div className="glassmorphism-strong p-12 rounded-3xl mb-20 relative overflow-hidden">
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-primary/5 via-secondary/10 to-primary/5"
+              className="absolute inset-0 bg-gradient-to-r from-accent/5 via-secondary/10 to-primary/5"
               animate={{
                 backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
               }}
@@ -240,7 +240,7 @@ export default function EnhancedAbout() {
             
             <div className="relative z-10 text-center">
               <motion.h3
-                className="text-3xl md:text-4xl font-bold text-primary mb-6"
+                className="text-3xl md:text-4xl font-bold text-accent mb-6"
                 whileHover={{ scale: 1.05 }}
               >
                 Our Mission
@@ -284,7 +284,7 @@ export default function EnhancedAbout() {
               className="glassmorphism-strong p-8 rounded-3xl max-w-2xl mx-auto"
               whileHover={{ scale: 1.02, rotateX: 2 }}
             >
-              <h3 className="text-2xl font-bold text-primary mb-4">
+              <h3 className="text-2xl font-bold text-accent mb-4">
                 Ready to Build the Future Together?
               </h3>
               <p className="text-muted-foreground mb-6">
@@ -292,7 +292,7 @@ export default function EnhancedAbout() {
               </p>
               
                 <motion.button
-                  className="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300"
+                  className="bg-gradient-to-r from-accent to-secondary text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300"
                   whileHover={{ 
                     scale: 1.05, 
                     boxShadow: "0 0 30px rgba(0, 71, 171, 0.5)" 

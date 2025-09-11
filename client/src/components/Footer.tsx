@@ -74,7 +74,9 @@ export default function Footer() {
             <ul className="space-y-2 text-white/70">
               <li>hello@neuralcoder.ai</li>
               <li>Global Offices:</li>
-              <li>• India (Ahmedabad)</li>
+              <li>• India (Bangalore)</li>
+              <li>• India (Gurgaon)</li>
+              <li>• India (Chandigarh)</li>
               <li>• UK (London)</li>
               <li>• UAE (Dubai)</li>
               <li>• USA (New York)</li>
