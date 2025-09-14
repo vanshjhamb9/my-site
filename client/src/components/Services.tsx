@@ -5,6 +5,7 @@ import { TechConstellation, DataFlowVisualization } from "./ScrollAnimations";
 import { InteractiveServiceGrid } from "./InteractiveAssets";
 import { ScrollReveal, StaggeredGrid, MagneticElement } from "./AdvancedScrollAnimations";
 import { Icon } from "@iconify/react";
+  import { Search, Layout, Code , Rocket, BarChart3, TrendingUp } from "lucide-react";
 
 
 
@@ -173,50 +174,55 @@ export default function Services() {
           viewport={{ once: true }}
         >
           <h3 className="text-3xl font-bold text-center mb-12">
-            Our <span className="text-gradient-visible">Development Process</span>
+            Our <span className="text-accent">Development Process</span>
           </h3>
           <div className="grid md:grid-cols-2 gap-12">
             <div>
-              <ProcessSteps 
-                steps={[
-                  {
-                    title: "Discovery & Strategy",
-                    description: "We dive deep into your business needs, analyze requirements, and create a comprehensive strategy aligned with your goals.",
-                    icon: "🔍"
-                  },
-                  {
-                    title: "Design & Prototyping", 
-                    description: "Our team creates intuitive designs and interactive prototypes to visualize your solution before development begins.",
-                    icon: "🎨"
-                  },
-                  {
-                    title: "Development & Testing",
-                    description: "Using agile methodologies, we build your solution with rigorous testing at every stage to ensure quality and performance.",
-                    icon: "⚡"
-                  }
-                ]} 
-              />
+
+<ProcessSteps 
+  steps={[
+    {
+      title: "Discovery & Strategy",
+      description: "We dive deep into your business needs, analyze requirements, and create a comprehensive strategy aligned with your goals.",
+      icon: <Search className="w-6 h-6 text-blue-600" />
+    },
+    {
+      title: "Design & Prototyping", 
+      description: "Our team creates intuitive designs and interactive prototypes to visualize your solution before development begins.",
+      icon: <Layout className="w-6 h-6 text-purple-600" />
+    },
+    {
+      title: "Development & Testing",
+      description: "Using agile methodologies, we build your solution with rigorous testing at every stage to ensure quality and performance.",
+      icon: <Code className="w-6 h-6 text-green-600" />
+    }
+  ]}
+/>
+
+             
             </div>
             <div>
-              <ProcessSteps 
-                steps={[
-                  {
-                    title: "Deployment & Launch",
-                    description: "We handle the complete deployment process, ensuring smooth launch with minimal downtime and maximum performance.",
-                    icon: "🚀"
-                  },
-                  {
-                    title: "Support & Optimization",
-                    description: "Post-launch, we provide ongoing support, monitoring, and optimization to ensure your solution continues to excel.",
-                    icon: "📈"
-                  },
-                  {
-                    title: "Scale & Evolve",
-                    description: "As your business grows, we help scale your solution and add new features to meet evolving requirements.",
-                    icon: "🌟"
-                  }
-                ]} 
-              />
+            
+<ProcessSteps 
+  steps={[
+    {
+      title: "Deployment & Launch",
+      description: "We handle the complete deployment process, ensuring smooth launch with minimal downtime and maximum performance.",
+      icon: <Rocket className="w-6 h-6 text-orange-600" />
+    },
+    {
+      title: "Support & Optimization",
+      description: "Post-launch, we provide ongoing support, monitoring, and optimization to ensure your solution continues to excel.",
+      icon: <BarChart3 className="w-6 h-6 text-blue-600" />
+    },
+    {
+      title: "Scale & Evolve",
+      description: "As your business grows, we help scale your solution and add new features to meet evolving requirements.",
+      icon: <TrendingUp className="w-6 h-6 text-green-600" />
+    }
+  ]}
+/>
+
             </div>
           </div>
         </motion.div>
@@ -229,7 +235,7 @@ export default function Services() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-2xl font-bold mb-6 text-primary">
+          <h3 className="text-2xl font-bold mb-6 text-accent">
             Success Where It Matters Most
           </h3>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">

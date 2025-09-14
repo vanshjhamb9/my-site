@@ -12,7 +12,10 @@ export const countriesData = [
   { flag: "🇯🇵", name: "Japan", projects: 4, code: "JP" },
   { flag: "🇸🇬", name: "Singapore", projects: 3, code: "SG" },
   { flag: "🇰🇷", name: "South Korea", projects: 2, code: "KR" },
-  { flag: "🇫🇷", name: "France", projects: 3, code: "FR" }
+  { flag: "🇫🇷", name: "France", projects: 3, code: "FR" },
+  { flag: "🇦🇪", name: "United Arab Emirates", projects: 4, code: "AE" }, // UAE
+  { flag: "🇶🇦", name: "Qatar", projects: 2, code: "QA" }, // Qatar
+  
 ];
 
 export function AnimatedCountryFlags() {

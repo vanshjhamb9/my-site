@@ -35,7 +35,7 @@ export default function About() {
               <p className="text-muted-foreground leading-relaxed">
                 <strong className="text-primary">Expertise:</strong> Powered by top-tier talent, we engineer intelligent systems built to last.
                 <br /><br />
-                <strong className="text-primary">Security:</strong> Your data's safety is our priority — trusted, robust, and built with integrity.
+                <strong className="text-primary">Security:</strong> Your data's safety is our priority trusted, robust, and built with integrity.
               </p>
             </motion.div>
 
@@ -52,7 +52,7 @@ export default function About() {
                 className="text-lg text-accent font-bold italic animate-neural-network"
                 whileHover={{ scale: 1.05 }}
               >
-                "AI isn't the enemy — it's your advantage. Own it or fall behind."
+                "AI isn't the enemy it's your advantage. Own it or fall behind."
               </motion.p>
               <p className="text-sm text-muted-foreground mt-2">
                 - Isaac John, 2025
