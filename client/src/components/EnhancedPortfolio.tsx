@@ -80,11 +80,11 @@ const portfolioProjects = [
   {
   id: 6,
   title: "Gaming & Live Streaming Commerce Platform",
-  shortDescription: "AI-powered marketplace for viewers, influencers, and vendors — blending entertainment with commerce.",
+  shortDescription: "AI-powered marketplace for viewers, influencers, and vendors blending entertainment with commerce.",
   illustration: HolographicInterface,
   category: "Media & Entertainment",
   techStack: [SiReact, SiNodedotjs, SiTensorflow, SiMongodb], 
-  fullDescription: "We built a streaming-first marketplace with AI at the core — combining personalization, creator growth, vendor matching, dynamic pricing, and trust & safety systems, all running in real time.",
+  fullDescription: "We built a streaming-first marketplace with AI at the core combining personalization, creator growth, vendor matching, dynamic pricing, and trust & safety systems, all running in real time.",
   challenges: [
     "Balancing needs of viewers, influencers, and vendors simultaneously",
     "Real-time personalization at scale",
@@ -107,7 +107,7 @@ const portfolioProjects = [
 },
 {
   id: 7,
-  title: "Healthcare – AI-Powered Online Consultations",
+  title: "Healthcare AI-Powered Online Consultations",
   shortDescription: "AI assistant that prepares doctors by extracting insights from patient documents instantly.",
   illustration: DataFlow,
   category: "Healthcare",
@@ -133,7 +133,7 @@ const portfolioProjects = [
 },
 {
   id: 8,
-  title: "Automobile – Predictive Maintenance for Fleets",
+  title: "Automobile Predictive Maintenance for Fleets",
   shortDescription: "IoT-powered system predicting vehicle failures before they happen.",
   illustration: CircuitBoard,
   category: "Automotive",
@@ -159,7 +159,7 @@ const portfolioProjects = [
 },
 {
   id: 4,
-  title: "Virtual Avatars – Human Interaction at Scale",
+  title: "Virtual Avatars Human Interaction at Scale",
   shortDescription: "AI-driven avatars delivering lifelike, domain-specific human interactions.",
   illustration: AIBrainNetwork,
   category: "Cross-Industry",

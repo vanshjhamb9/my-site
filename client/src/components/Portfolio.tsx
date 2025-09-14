@@ -19,7 +19,7 @@ const portfolioData = [
     id: 2,
     title: "Tito ICO",
     category: "Web3 & Blockchain",
-    description: "Template-based ICO project showcasing token presales & investor info.",
+    description: "ICO project showcasing token presales & investor info.",
     link: "https://tito-ico-peach.vercel.app/",
     image: tito,
     techStack: [SiReact, SiNodedotjs],

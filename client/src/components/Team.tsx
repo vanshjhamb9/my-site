@@ -53,7 +53,7 @@ export default function Team() {
             className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
             whileHover={{ y: -2 }}
           >
-            <span className="text-primary font-semibold">Meet our team — seasoned professionals with deep expertise and rich experience,</span>
+            <span className="text-primary font-semibold">Meet our team seasoned professionals with deep expertise and rich experience,</span>
             <br />ready to bring your vision to life.
           </motion.p>
         </motion.div>
@@ -107,7 +107,7 @@ export default function Team() {
               className="text-2xl font-bold text-primary mb-6 animate-galaxy-pulse"
               whileHover={{ scale: 1.05 }}
             >
-              "AI isn't the enemy — it's your advantage. Own it or fall behind."
+              "AI isn't the enemy it's your advantage. Own it or fall behind."
             </motion.h3>
             <p className="text-sm text-muted-foreground mb-2">- Isaac John, 2025</p>
             <motion.p 
@@ -118,7 +118,7 @@ export default function Team() {
               <br /><br />
               <span className="text-primary font-semibold">Your success is our mission.</span>
               <br />
-              We're not just a vendor — we're your growth partner.
+              We're not just a vendor we're your growth partner.
             </motion.p>
             <div className="flex justify-center gap-4">
               <motion.button 

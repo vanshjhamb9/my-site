@@ -260,7 +260,7 @@ export default function Primodia() {
             }}
             transition={{ duration: 4, repeat: Infinity }}
           >
-            Primodia is the inner circle for founders who want more—
+            Primodia is the inner circle for founders who want more
             <br />
             <span className="text-secondary">more impact, more clarity, more network.</span>
           </motion.p>

@@ -74,7 +74,7 @@ export default function Hero() {
                 @ NEURAL CODER AI
               </motion.p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                We are more than coders — we are your AI partners.
+                We are more than coders we are your AI partners.
                 <br />
                 <span className="text-primary font-semibold">Together we create today and evolve for tomorrow.</span>
               </p>

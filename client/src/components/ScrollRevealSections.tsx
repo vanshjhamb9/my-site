@@ -266,7 +266,7 @@ export function ProcessTimelineSection() {
     {
       title: "Launch, Love & Scale",
       description:
-        "Live and kicking! But we don't ghost — continuous tweaks and loving care keep it fresh.",
+        "Live and kicking! But we don't ghost continuous tweaks and loving care keep it fresh.",
       icon: Rocket,
       phase: "Deploy & Evolve",
     },
