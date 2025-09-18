@@ -11,6 +11,9 @@ import PortfolioPage from "@/pages/portfolio";
 import TeamPage from "@/pages/team";
 import ContactPage from "@/pages/contact";
 import PrimodiaPage from "@/pages/primodia";
+import BlogPage from "@/pages/blog";
+import BlogDetailPage from "@/pages/blog-detail";
+import BlogAdminPage from "@/pages/blog-admin";
 
 function Router() {
   return (
@@ -22,6 +25,9 @@ function Router() {
       <Route path="/team" component={TeamPage} />
       <Route path="/contact" component={ContactPage} />
       <Route path="/primodia" component={PrimodiaPage} />
+      <Route path="/blog" component={BlogPage} />
+      <Route path="/blog/:slug" component={BlogDetailPage} />
+      <Route path="/admin/blog" component={BlogAdminPage} />
       <Route component={NotFound} />
     </Switch>
   );

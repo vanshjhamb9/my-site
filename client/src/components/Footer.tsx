@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8 mb-12">
           {/* Logo and Company Info */}
           <div className="md:col-span-2">
-            <LogoComponent size="lg" showText={true} animate={true} className="mb-4" />
+            <LogoComponent size="xl" showText={true} animate={true} className="mb-4" />
             <p className="text-white/70 mb-6 leading-relaxed">
               Empowering businesses with AI-driven solutions, innovative mobile applications, and transformative digital experiences. 
               Your trusted partner for intelligent technology solutions.

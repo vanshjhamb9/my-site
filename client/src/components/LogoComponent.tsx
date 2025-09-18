@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 interface LogoComponentProps {
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
   showText?: boolean;
   animate?: boolean;
   className?: string;
@@ -16,7 +16,8 @@ export default function LogoComponent({
   const sizes = {
     sm: "w-8 h-8",
     md: "w-12 h-12", 
-    lg: "w-16 h-16"
+    lg: "w-16 h-16",
+    xl: "w-20 h-20"
   };
 
   const textSizes = {

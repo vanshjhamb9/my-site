@@ -96,7 +96,7 @@ export default function About() {
                 </motion.p>
                 <div className="mt-8 pt-8 border-t border-accent/20">
                   <p className="text-xl font-bold text-foreground">
-                    We don't just build software—we invest our vision in your journey.
+                    We don't just build software we invest our vision in your journey.
                   </p>
                 </div>
               </div>

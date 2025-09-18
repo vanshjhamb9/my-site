@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/services", label: "Offerings" },
   { href: "/portfolio", label: "Portfolio" },
   { href: "/primodia", label: "Primodia", special: true },
+  { href: "/blog", label: "Blog", isRoute: true },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -98,7 +99,7 @@ export default function Header() {
         <HeaderIllustrations />
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <LogoComponent size="md" showText={true} animate={true} />
+            <LogoComponent size="lg" showText={true} animate={true} />
             
             {/* Desktop Menu */}
             <div className="hidden md:flex space-x-8">
