@@ -4,27 +4,37 @@ import { SiReact, SiNodedotjs, SiPython, SiTensorflow, SiMongodb, SiAmazon, SiDo
 import ezbuzz from "../image/Easebuzz_Logo.jpg";
 import e2e from "../image/66f39d4fdfb2bfc1091c408a_e2e-logo-white.webp"
 import shopify from "../image/60ccab9786c6e542b5601be6_5f0439b0f26a5acaf2f50e1a_shopify.png"
-import aws from "../image/aws.png"
 import phonepay from "../image/PhonePe-Logo.wine.png"
+import Node from "../image/Node.js.svg"
+import Python from "../image/Python.svg"
+import tensorflow from "../image/TensorFlow.svg"
+import Mongodb from "../image/MongoDB.svg"
+import Kubernet from "../image/Kubernetes.svg"
+import aws from "../image/AWS.svg"
+import docker from "../image/Docker.svg"
+import React from "../image/React.svg"
+import Aaws from "../image/AWS.svg";
+
+
 
 const clientLogos = [
   { name: "Easebuzz", logo: ezbuzz },
   { name: "E2E Networks", logo: e2e },
-  { name: "aws", logo: aws },
+  { name: "aws", logo: Aaws },
   { name: "shopify", logo: shopify },
   { name: "phonepay", logo: phonepay },
  
 ];
 
 const technologies = [
-  { name: "React & React Native", icon: SiReact, level: 95 },
-  { name: "Node.js & Express", icon: SiNodedotjs, level: 92 },
-  { name: "Python & Django", icon: SiPython, level: 90 },
-  { name: "TensorFlow & AI/ML", icon: SiTensorflow, level: 88 },
-  { name: "MongoDB & Databases", icon: SiMongodb, level: 85 },
-  { name: "AWS & Cloud Services", icon: SiAmazon, level: 87 },
-  { name: "Docker & Containerization", icon: SiDocker, level: 83 },
-  { name: "Kubernetes & DevOps", icon: SiKubernetes, level: 80 }
+  { name: "React & React Native", icon: React, level: 95 },
+  { name: "Node.js & Express", icon: Node, level: 92 },
+  { name: "Python & Django", icon: Python, level: 90 },
+  { name: "TensorFlow & AI/ML", icon: tensorflow, level: 88 },
+  { name: "MongoDB & Databases", icon: Mongodb, level: 85 },
+  { name: "AWS & Cloud Services", icon: aws, level: 87 },
+  { name: "Docker & Containerization", icon: docker, level: 83 },
+  { name: "Kubernetes & DevOps", icon: Kubernet, level: 80 },
 ];
 
 export default function ClientLogos() {

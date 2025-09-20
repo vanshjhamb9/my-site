@@ -160,9 +160,12 @@ export const ClientLogoDisplay = ({ logos }: { logos: { name: string; logo: stri
   );
 };
 
-
 // Technology Stack Visualization
-export const TechStackVisualization = ({ technologies }: { technologies: { name: string; icon: React.ComponentType<any>; level: number }[] }) => (
+export const TechStackVisualization = ({
+  technologies,
+}: {
+  technologies: { name: string; icon: React.ComponentType<any> | string; level: number }[];
+}) => (
   <div className="space-y-6">
     {technologies.map((tech, index) => (
       <motion.div
@@ -174,9 +177,14 @@ export const TechStackVisualization = ({ technologies }: { technologies: { name:
         viewport={{ once: true }}
       >
         <div className="flex items-center gap-4 mb-3">
-          <tech.icon className="text-2xl text-primary" />
+          {typeof tech.icon === "string" ? (
+            <img src={tech.icon} alt={tech.name} className="w-6 h-6 object-contain" />
+          ) : (
+            <tech.icon className="text-2xl text-primary" />
+          )}
           <span className="font-semibold text-white">{tech.name}</span>
         </div>
+
         <div className="relative h-2 bg-black/30 rounded-full overflow-hidden">
           <motion.div
             className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary to-primary/70 rounded-full"
