@@ -36,18 +36,28 @@ import {
 } from "react-icons/fa";
 
 
+import image1 from "../image/AI_solution-removebg-preview.png" 
+import image2 from "../image/AI-Powered_Mobile_Apps.png"
+import image5 from "../image/Computer_Vision_Implementation.png"
+import image7 from "../image/Robotics___Automation.png"
+import image8 from "../image/DevOps___Cyber_Security.png"
+import image9 from "../image/IoT_Solutions_for_Connected_Enterprises.png"
+import image10 from "../image/Machine_Learning___Predictive_Analytics.png"
+import image11 from "../image/Computer_Vision_Implementation.png";
+import image12 from "../image/Web3___Blockchain_Development.png"
+
 
 // Services
 const services = [
-  { id: 1, title: "AI Solutions & Integration", description: "Transform your business with intelligent AI systems that automate, optimize, and scale.", icon: "mdi:brain", color: "text-indigo-400", special: true, colSpan: "lg:col-span-2" },
-  { id: 2, title: "AI-Powered Mobile Apps", description: "Smart mobile applications that learn, adapt, and deliver personalized experiences.", icon: "mdi:cellphone-nfc", color: "text-blue-400" },
-  { id: 3, title: "Web3 & Blockchain Development", description: "Next-generation decentralized applications with blockchain security.", icon: "logos:ethereum", color: "text-purple-400" },
-  { id: 4, title: "Computer Vision & ML", description: "Advanced visual recognition and machine learning capabilities.", icon: "mdi:eye-scan", color: "text-cyan-400" },
-  { id: 5, title: "Robotics & Automation", description: "Intelligent robotic solutions for enhanced efficiency and precision.", icon: "mdi:robot-industrial", color: "text-pink-400" },
-  { id: 6, title: "DevOps & Cyber Security", description: "Secure, scalable infrastructure with robust DevOps practices.", icon: "mdi:shield-lock-outline", color: "text-red-400" },
-  { id: 7, title: "IoT Solutions for Connected Enterprises", description: "Smart, secure IoT ecosystems for businesses.", icon: "mdi:access-point-network", color: "text-green-400" },
-  { id: 8, title: "Machine Learning & Predictive Analytics", description: "Leverage data-driven models to forecast trends and optimize decisions.", icon: "mdi:chart-timeline-variant-shimmer", color: "text-yellow-400" },
-  { id: 9, title: "Computer Vision Implementation", description: "Empower applications with real-time image and video analysis.", icon: "mdi:camera-control", color: "text-orange-400" },
+  { id: 1, title: "AI Solutions & Integration", description: "Transform your business with intelligent AI systems that automate, optimize, and scale.", icon: image1, color: "text-indigo-400", special: true, colSpan: "lg:col-span-2" },
+  { id: 2, title: "AI-Powered Mobile Apps", description: "Smart mobile applications that learn, adapt, and deliver personalized experiences.", icon: image2, color: "text-blue-400" },
+  { id: 3, title: "Web3 & Blockchain Development", description: "Next-generation decentralized applications with blockchain security.", icon: image12 , color: "text-purple-400" },
+  { id: 4, title: "Computer Vision & ML", description: "Advanced visual recognition and machine learning capabilities.", icon:image5, color: "text-cyan-400" },
+  { id: 5, title: "Robotics & Automation", description: "Intelligent robotic solutions for enhanced efficiency and precision.", icon:image7, color: "text-pink-400" },
+  { id: 6, title: "DevOps & Cyber Security", description: "Secure, scalable infrastructure with robust DevOps practices.", icon: image8, color: "text-red-400" },
+  { id: 7, title: "IoT Solutions for Connected Enterprises", description: "Smart, secure IoT ecosystems for businesses.", icon:image9, color: "text-green-400" },
+  { id: 8, title: "Machine Learning & Predictive Analytics", description: "Leverage data-driven models to forecast trends and optimize decisions.", icon: image10, color: "text-yellow-400" },
+  { id: 9, title: "Computer Vision Implementation", description: "Empower applications with real-time image and video analysis.", icon:image11, color: "text-orange-400" },
 ];
 
 
@@ -123,17 +133,34 @@ export default function Services() {
       
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {services.map((service, index) => (
-            <motion.div key={service.id} className={`glassmorphism-strong p-8 rounded-2xl hover-lift group ${service.colSpan || ""}`} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1, duration: 0.8 }} viewport={{ once: true }} whileHover={{ scale: 1.03 }}>
-              <motion.div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6 glassmorphism" whileHover={{ rotate: 10, scale: 1.1 }}>
-                <Icon icon={service.icon} className={`text-4xl ${service.color} group-hover:drop-shadow-glow animate-float`} />
-              </motion.div>
-              <h3 className="text-xl font-bold mb-4">{service.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{service.description}</p>
-            </motion.div>
-          ))}
-        </div>
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+  {services.map((service, index) => (
+    <motion.div
+      key={service.id}
+      className={`glassmorphism-strong p-8 rounded-2xl hover-lift group ${service.colSpan || ""}`}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1, duration: 0.8 }}
+      viewport={{ once: true }}
+      whileHover={{ scale: 1.03 }}
+    >
+      <motion.div
+        className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6 glassmorphism"
+        whileHover={{ rotate: 10, scale: 1.1 }}
+      >
+       
+        <img
+          src={service.icon}
+          alt={service.title}
+          className="w-10 h-10 group-hover:drop-shadow-glow animate-float"
+        />
+      </motion.div>
+      <h3 className="text-xl font-bold mb-4">{service.title}</h3>
+      <p className="text-muted-foreground leading-relaxed">{service.description}</p>
+    </motion.div>
+  ))}
+</div>
+
 
         {/* Industries Served */}
         <motion.div

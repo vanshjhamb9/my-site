@@ -19,12 +19,24 @@ import {
   FaSeedling
 } from "react-icons/fa";
 
+import image1 from "../image/AI_solution-removebg-preview.png" 
+import image2 from "../image/AI-Powered_Mobile_Apps.png"
+import image3 from "../image/full_stack_developer.png"
+import image4 from "../image/IoT_Solutions_for_Connected_Enterprises.png"
+import image5 from "../image/Computer_Vision___ML.png"
+import image6 from "../image/API-removebg-preview.png"
+import image7 from "../image/Robotics___Automation.png"
+import image8 from "../image/DevOps___Cyber_Security.png"
+import image9 from "../image/IoT_Solutions_for_Connected_Enterprises.png"
+import image10 from "../image/Machine_Learning___Predictive_Analytics.png"
+import image11 from "../image/Computer Vision Implementation.svg";
+
 const services = [
   {
     id: 1,
     title: "AI Solutions & Integration",
     description: "Transform your business with intelligent AI systems that automate, optimize, and scale.",
-    icon: FaBrain,
+    icon: image1,
     special: true,
     colSpan: "lg:col-span-2"
   },
@@ -32,7 +44,7 @@ const services = [
     id: 2,
     title: "AI-Powered Mobile Apps",
     description: "Smart mobile applications that learn, adapt, and deliver personalized experiences.",
-    icon: FaMobile,
+    icon: image2,
     special: false,
     colSpan: ""
   },
@@ -40,7 +52,7 @@ const services = [
     id: 3,
     title: "Full-Stack Web Apps",
     description: "Complete web solutions built for performance, scalability, and user engagement.",
-    icon: FaDatabase,
+    icon: image3,
     special: false,
     colSpan: ""
   },
@@ -48,7 +60,7 @@ const services = [
     id: 4,
     title: "IoT Solutions",
     description: "Connect your devices and unlock the power of intelligent automation.",
-    icon: FaWifi,
+    icon: image4,
     special: false,
     colSpan: ""
   },
@@ -56,7 +68,7 @@ const services = [
     id: 5,
     title: "Computer Vision",
     description: "Advanced image processing and analysis powered by cutting-edge AI algorithms.",
-    icon: FaEye,
+    icon: image5,
     special: false,
     colSpan: ""
   },
@@ -64,7 +76,7 @@ const services = [
     id: 6,
     title: "API Development",
     description: "Robust and scalable APIs that power modern applications and integrations.",
-    icon: FaLink,
+    icon: image6,
     special: false,
     colSpan: ""
   },
@@ -72,7 +84,7 @@ const services = [
       id: 7,
       title: "Robotics & Automation",
       description: "Intelligent robotic solutions for enhanced efficiency and precision.",
-      icon: FaRobot,
+      icon: image7,
       special: false,
       colSpan: ""
     },
@@ -80,7 +92,7 @@ const services = [
       id: 8,
       title: "DevOps & Cyber Security",
       description: "Secure, scalable infrastructure with robust DevOps practices.",
-      icon: FaCogs,
+      icon: image8,
       special: false,
       colSpan: ""
     },
@@ -88,7 +100,7 @@ const services = [
       id: 9,
       title: "IoT Solutions for Connected Enterprises",
       description: "Secure, scalable infrastructure with robust DevOps practices.",
-      icon: FaCogs,
+      icon: image9,
       special: false,
       colSpan: ""
     },
@@ -96,7 +108,7 @@ const services = [
       id: 10,
       title: "Machine Learning & Predictive Analytics",
       description: "Leverage data-driven models to forecast trends and optimize decisions.",
-      icon: FaCogs,
+      icon: image10,
       special: false,
       colSpan: ""
   },
@@ -104,7 +116,7 @@ const services = [
       id: 11,
       title: "Computer Vision Implementation",
       description: "Empower applications with real-time image and video analysis.",
-      icon: FaCogs,
+      icon: image10,
       special: false,
       colSpan: ""
   }
@@ -149,26 +161,32 @@ const EnhancedServiceCard = ({ service, index }: { service: any, index: number }
       
       {/* Shimmer Effect */}
       <motion.div
-        className="absolute inset-0 shimmer-effect rounded-3xl opacity-0 group-hover:opacity-100"
+        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100"
         transition={{ duration: 0.3 }}
       />
       
       <div className="relative z-10">
         <motion.div
           className="flex items-center justify-between mb-6"
-          animate={isHovered ? { y: -5 } : { y: 0 }}
+          animate={isHovered ? { y: -3 } : { y: 0 }}
         >
           <motion.div
-            className="w-16 h-16 bg-gradient-to-br from-accent to-secondary rounded-2xl flex items-center justify-center shadow-2xl"
-            whileHover={{ 
-              rotate: 360,
-              scale: 1.1,
-              boxShadow: "0 0 30px rgba(165, 171, 0, 0.6)"
-            }}
-            transition={{ duration: 0.6 }}
-          >
-            <service.icon className="text-2xl text-white" />
-          </motion.div>
+  className="w-16 h-16 bg-gradient-to-br from-accent to-secondary rounded-2xl flex items-center justify-center shadow-2xl"
+  whileHover={{ 
+    rotate: 360,
+    scale: 1.1,
+    boxShadow: "0 0 30px rgba(165, 171, 0, 0.6)"
+  }}
+  transition={{ duration: 0.6 }}
+>
+  {/* ✅ render imported SVGs as images */}
+  <img
+    src={service.icon}
+    alt={service.title}
+    className="w-8 h-8"
+  />
+</motion.div>
+
           
           {service.special && (
             <motion.div
