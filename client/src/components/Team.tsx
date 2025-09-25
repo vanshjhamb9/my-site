@@ -1,27 +1,29 @@
 import { motion } from "framer-motion";
 import { TeamAvatar, StatsDisplay } from "./CreativeAssets";
+import isaacImage from "../image/john.jpg"
+import HelenImage from "../image/CFO.jpg"
+
 
 const teamMembers = [
   {
     name: "Isaac John",
     role: "Founder & CEO",
-    specialty: "Visionary Leader & AI Strategy"
+    specialty: "Visionary Leader & AI Strategy",
+    image: isaacImage,
   },
   {
-    name: "Nicholas R. Mallon",
+    name: "Vansh Jhamb",
     role: "Chief Technology Officer", 
-    specialty: "Technical Architecture & Innovation"
+    specialty: "Technical Architecture & Innovation",
+    image: isaacImage,
   },
   {
-    name: "George Wells",
+    name: "Helen Hemalatha",
     role: "Chief Financial Officer",
-    specialty: "Financial Strategy & Operations"
+    specialty: "Financial Strategy & Operations",
+    image: HelenImage,
   },
-  {
-    name: "Fannie Schoen",
-    role: "Chief Marketing Officer",
-    specialty: "Brand Strategy & Market Growth"
-  }
+
 ];
 
 const companyStats = [
@@ -70,7 +72,7 @@ export default function Team() {
         </motion.div> */}
 
         {/* Team Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
           {teamMembers.map((member, index) => (
             <motion.div
               key={member.name}

@@ -20,7 +20,6 @@ import Aaws from "../image/AWS.svg";
 const clientLogos = [
   { name: "Easebuzz", logo: ezbuzz },
   { name: "E2E Networks", logo: e2e },
-  { name: "aws", logo: Aaws },
   { name: "shopify", logo: shopify },
   { name: "phonepay", logo: phonepay },
  

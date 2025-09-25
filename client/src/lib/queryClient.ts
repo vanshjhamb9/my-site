@@ -14,7 +14,7 @@ export async function apiRequest(
 ): Promise<Response> {
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
-    "X-Admin-Password": "admin123", // Simple auth header - in production use proper tokens
+    "X-Admin-Password": "admin123", 
   };
 
   const res = await fetch(url, {

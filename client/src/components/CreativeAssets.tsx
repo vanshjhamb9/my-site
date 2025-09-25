@@ -39,7 +39,7 @@ export const TeamAvatar = ({ name, role, image }: { name: string; role: string; 
     <div className="w-24 h-24 mx-auto mb-4 relative">
       <div className="w-full h-full bg-gradient-to-br from-primary/30 to-primary/10 rounded-full flex items-center justify-center">
         {image ? (
-          <img src={image} alt={name} className="w-full h-full rounded-full object-cover" />
+         <img src={image} alt={name} className="w-full h-full rounded-full object-cover" />
         ) : (
           <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center">
             <span className="text-black font-bold text-xl">{name.charAt(0)}</span>

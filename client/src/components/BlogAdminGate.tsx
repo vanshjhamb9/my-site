@@ -7,8 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import BlogAdmin from "./BlogAdmin";
 
-// Simple admin gate - in production, use proper authentication
-const ADMIN_PASSWORD = "admin123"; // In production, this should be in environment variables
+const ADMIN_PASSWORD = "admin123";
 
 export default function BlogAdminGate() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
