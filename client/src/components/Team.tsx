@@ -12,7 +12,7 @@ const teamMembers = [
     image: isaacImage,
   },
   {
-    name: "Vansh Jhamb",
+    name: "Vansh Jhamb",    
     role: "Chief Technology Officer", 
     specialty: "Technical Architecture & Innovation",
     image: isaacImage,
