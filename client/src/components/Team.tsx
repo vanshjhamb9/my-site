@@ -12,7 +12,7 @@ const teamMembers = [
     image: isaacImage,
   },
   {
-    name: "Vansh Jhamb",    
+    name: "Harshit",    
     role: "Chief Technology Officer", 
     specialty: "Technical Architecture & Innovation",
     image: isaacImage,
@@ -21,6 +21,12 @@ const teamMembers = [
     name: "Helen Hemalatha",
     role: "Chief Financial Officer",
     specialty: "Financial Strategy & Operations",
+    image: HelenImage,
+  },
+  {
+    name: "Aniket Gupta",
+    role: "Chief Marketing officer",
+    specialty: "Marketing Strategy & Operations",
     image: HelenImage,
   },
 
