@@ -324,9 +324,7 @@ export default function EnhancedServices() {
         {/* Enhanced Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {services.map((service, index) => (
-            
-              <EnhancedServiceCard service={service} index={index} />
-           
+            <EnhancedServiceCard key={service.id} service={service} index={index} />
           ))}
         </div>
 

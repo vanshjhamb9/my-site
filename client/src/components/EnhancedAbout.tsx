@@ -222,9 +222,7 @@ export default function EnhancedAbout() {
         <ScrollReveal direction="up" delay={0.4}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
             {stats.map((stat, index) => (
-             
-                <StatCard stat={stat} index={index} />
-              
+              <StatCard key={stat.title} stat={stat} index={index} />
             ))}
           </div>
         </ScrollReveal>
@@ -273,9 +271,7 @@ export default function EnhancedAbout() {
 
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           {values.map((value, index) => (
-           
-              <ValueCard value={value} index={index} />
-            
+            <ValueCard key={value.title} value={value} index={index} />
           ))}
         </div>
 
