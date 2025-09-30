@@ -56,17 +56,10 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 5000 if not specified.
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = parseInt(process.env.PORT || '3000', 10);
-  server.listen({
-  port,
-  host: "127.0.0.1", // or "localhost"
-  reusePort: false,  // disable for Windows
-}, () => {
-  log(`serving on http://127.0.0.1:${port}`);
-});
+  // ALWAYS serve the app on port 5000 and bind to 0.0.0.0 for Replit
+  const port = 5000;
+  server.listen(port, "0.0.0.0", () => {
+    log(`serving on port ${port}`);
+  });
 
 })();
