@@ -293,7 +293,7 @@ export default function Contact() {
       <div className="grid grid-cols-2 gap-4">
         {offices.map((office, index) => (
           <motion.div
-            key={office.country}
+            key={`${office.country}-${office.location}-${index}`}
             className="glassmorphism p-4 rounded-xl text-center hover-lift"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

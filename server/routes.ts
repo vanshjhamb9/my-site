@@ -4,22 +4,23 @@ import { storage } from "./storage";
 import { insertBlogPostSchema, insertBlogCategorySchema, insertBlogMediaSchema, contactFormSchema } from "@shared/schema";
 import { getUncachableResendClient } from "./resend-client";
 
-// Simple admin authentication middleware
+// Admin authentication middleware using environment variables
 const adminAuth = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
   
-  // Check for Bearer token
+  // Check for Bearer token from environment
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.slice(7);
-    // Simple token check - in production use proper JWT validation
-    if (token === 'admin-token-123') {
+    const adminToken = process.env.ADMIN_TOKEN;
+    if (adminToken && token === adminToken) {
       return next();
     }
   }
   
-  // Check for session-based auth (simple password check)
+  // Check for session-based auth from environment
   const adminPassword = req.headers['x-admin-password'];
-  if (adminPassword === 'admin123') {
+  const envAdminPassword = process.env.ADMIN_PASSWORD;
+  if (envAdminPassword && adminPassword === envAdminPassword) {
     return next();
   }
   
