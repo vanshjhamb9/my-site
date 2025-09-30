@@ -1,12 +1,18 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { FaPhone, FaEnvelope, FaPaperPlane, FaMapMarkerAlt } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { FaPhone, FaEnvelope, FaPaperPlane, FaMapMarkerAlt, FaCheckCircle } from "react-icons/fa";
 import LogoComponent from "./LogoComponent";
 import ind from "../image/india-flag-icon.svg";
 import us from "../image/united-states-flag-icon.svg";
 import uk from "../image/united-kingdom-flag-icon.svg";
 import uae from "../image/united-arab-emirates-flag-icon.svg";
 import ReactCountryFlag from "react-country-flag";
+
+declare global {
+  interface Window {
+    Calendly?: any;
+  }
+}
 
 
 
@@ -68,10 +74,48 @@ export default function Contact() {
     businessNeeds: "",
     message: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{type: 'success' | 'error', message: string} | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    // Load Calendly script
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({ type: 'success', message: data.message });
+        setFormData({ name: "", email: "", businessNeeds: "", message: "" });
+      } else {
+        setSubmitStatus({ type: 'error', message: data.error || 'Failed to send message' });
+      }
+    } catch (error) {
+      setSubmitStatus({ type: 'error', message: 'Network error. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -79,6 +123,12 @@ export default function Contact() {
       ...prev,
       [e.target.name]: e.target.value
     }));
+  };
+
+  const openCalendly = () => {
+    if (window.Calendly) {
+      window.Calendly.initPopupWidget({ url: 'https://calendly.com/neuralcoderai' });
+    }
   };
 
   return (
@@ -197,15 +247,31 @@ export default function Contact() {
                 />
               </motion.div>
 
+              {submitStatus && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`p-4 rounded-xl flex items-center gap-3 ${
+                    submitStatus.type === 'success' 
+                      ? 'bg-green-500/20 text-green-400' 
+                      : 'bg-red-500/20 text-red-400'
+                  }`}
+                >
+                  {submitStatus.type === 'success' && <FaCheckCircle />}
+                  <p className="text-sm">{submitStatus.message}</p>
+                </motion.div>
+              )}
+
               <motion.button
                 type="submit"
-                className="w-full bg-accent text-black font-bold py-4 px-8 rounded-xl hover:bg-accent/80 transition-all duration-300 flex items-center justify-center gap-3 hover-glow"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                disabled={isSubmitting}
+                className="w-full bg-accent text-black font-bold py-4 px-8 rounded-xl hover:bg-accent/80 transition-all duration-300 flex items-center justify-center gap-3 hover-glow disabled:opacity-50 disabled:cursor-not-allowed"
+                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                 data-testid="button-send-inquiry"
               >
                 <FaPaperPlane />
-                Send Inquiry
+                {isSubmitting ? 'Sending...' : 'Send Inquiry'}
               </motion.button>
             </form>
           </motion.div>
@@ -283,8 +349,9 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* CTA Button */}
+            {/* CTA Button with Calendly */}
             <motion.button 
+              onClick={openCalendly}
               className="w-full border border-accent px-8 py-4 rounded-xl text-accent font-semibold hover:bg-accent hover:text-black transition-all duration-300"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -292,6 +359,7 @@ export default function Contact() {
             >
               Book Intro Call
             </motion.button>
+            <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
           </motion.div>
         </div>
       </div>

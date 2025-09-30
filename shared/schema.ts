@@ -95,3 +95,13 @@ export type BlogPost = typeof blogPosts.$inferSelect;
 
 export type InsertBlogMedia = z.infer<typeof insertBlogMediaSchema>;
 export type BlogMedia = typeof blogMedia.$inferSelect;
+
+// Contact Form Schema
+export const contactFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  businessNeeds: z.string().min(1, "Please select your business needs"),
+  message: z.string().optional(),
+});
+
+export type ContactFormData = z.infer<typeof contactFormSchema>;

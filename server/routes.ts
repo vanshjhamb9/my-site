@@ -1,7 +1,8 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertBlogPostSchema, insertBlogCategorySchema, insertBlogMediaSchema } from "@shared/schema";
+import { insertBlogPostSchema, insertBlogCategorySchema, insertBlogMediaSchema, contactFormSchema } from "@shared/schema";
+import { getUncachableResendClient } from "./resend-client";
 
 // Simple admin authentication middleware
 const adminAuth = (req: Request, res: Response, next: NextFunction) => {
@@ -192,6 +193,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ message: "Media deleted successfully" });
     } catch (error) {
       res.status(500).json({ error: "Failed to delete media" });
+    }
+  });
+
+  // Contact Form API
+  app.post("/api/contact", async (req, res) => {
+    try {
+      const result = contactFormSchema.safeParse(req.body);
+      if (!result.success) {
+        return res.status(400).json({ 
+          error: "Invalid form data", 
+          details: result.error.issues 
+        });
+      }
+
+      const { name, email, businessNeeds, message } = result.data;
+      
+      // Get Resend client and send email
+      const { client, fromEmail } = await getUncachableResendClient();
+      
+      // Send email to sales team
+      const emailResponse = await client.emails.send({
+        from: fromEmail || 'onboarding@resend.dev',
+        to: 'sales@neuralcoderai.com',
+        subject: `New Contact Inquiry from ${name}`,
+        html: `
+          <h2>New Contact Form Submission</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Business Needs:</strong> ${businessNeeds}</p>
+          <p><strong>Message:</strong> ${message || 'No message provided'}</p>
+          <hr>
+          <p><small>This email was sent from the contact form on your website.</small></p>
+        `,
+      });
+
+      res.status(200).json({ 
+        success: true, 
+        message: "Your message has been sent successfully! We'll get back to you soon." 
+      });
+    } catch (error: any) {
+      console.error("Contact form error:", error);
+      res.status(500).json({ 
+        error: "Failed to send message. Please try again later.",
+        details: error.message 
+      });
     }
   });
 
