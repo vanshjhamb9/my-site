@@ -127,7 +127,7 @@ export default function Contact() {
 
   const openCalendly = () => {
     if (window.Calendly) {
-      window.Calendly.initPopupWidget({ url: 'https://calendly.com/sales-neuralcoderai' });
+      window.Calendly.initPopupWidget({ url: 'https://calendly.com/vanshjhamb9/30min' });
     }
   };
 

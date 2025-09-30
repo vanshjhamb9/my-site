@@ -265,18 +265,57 @@ var insertBlogMediaSchema = createInsertSchema(blogMedia).omit({
   id: true,
   createdAt: true
 });
+var contactFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  businessNeeds: z.string().min(1, "Please select your business needs"),
+  message: z.string().optional()
+});
+
+// server/resend-client.ts
+import { Resend } from "resend";
+var connectionSettings;
+async function getCredentials() {
+  const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
+  const xReplitToken = process.env.REPL_IDENTITY ? "repl " + process.env.REPL_IDENTITY : process.env.WEB_REPL_RENEWAL ? "depl " + process.env.WEB_REPL_RENEWAL : null;
+  if (!xReplitToken) {
+    throw new Error("X_REPLIT_TOKEN not found for repl/depl");
+  }
+  connectionSettings = await fetch(
+    "https://" + hostname + "/api/v2/connection?include_secrets=true&connector_names=resend",
+    {
+      headers: {
+        "Accept": "application/json",
+        "X_REPLIT_TOKEN": xReplitToken
+      }
+    }
+  ).then((res) => res.json()).then((data) => data.items?.[0]);
+  if (!connectionSettings || !connectionSettings.settings.api_key) {
+    throw new Error("Resend not connected");
+  }
+  return { apiKey: connectionSettings.settings.api_key, fromEmail: connectionSettings.settings.from_email };
+}
+async function getUncachableResendClient() {
+  const credentials = await getCredentials();
+  return {
+    client: new Resend(credentials.apiKey),
+    fromEmail: connectionSettings.settings.from_email
+  };
+}
 
 // server/routes.ts
 var adminAuth = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader && authHeader.startsWith("Bearer ")) {
     const token = authHeader.slice(7);
-    if (token === "admin-token-123") {
+    const adminToken = process.env.ADMIN_TOKEN;
+    if (adminToken && token === adminToken) {
       return next();
     }
   }
   const adminPassword = req.headers["x-admin-password"];
-  if (adminPassword === "admin123") {
+  const envAdminPassword = process.env.ADMIN_PASSWORD;
+  if (envAdminPassword && adminPassword === envAdminPassword) {
     return next();
   }
   return res.status(401).json({ error: "Unauthorized: Admin access required" });
@@ -413,6 +452,43 @@ async function registerRoutes(app2) {
       res.json({ message: "Media deleted successfully" });
     } catch (error) {
       res.status(500).json({ error: "Failed to delete media" });
+    }
+  });
+  app2.post("/api/contact", async (req, res) => {
+    try {
+      const result = contactFormSchema.safeParse(req.body);
+      if (!result.success) {
+        return res.status(400).json({
+          error: "Invalid form data",
+          details: result.error.issues
+        });
+      }
+      const { name, email, businessNeeds, message } = result.data;
+      const { client, fromEmail } = await getUncachableResendClient();
+      const emailResponse = await client.emails.send({
+        from: fromEmail || "onboarding@resend.dev",
+        to: "sales@neuralcoderai.com",
+        subject: `New Contact Inquiry from ${name}`,
+        html: `
+          <h2>New Contact Form Submission</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Business Needs:</strong> ${businessNeeds}</p>
+          <p><strong>Message:</strong> ${message || "No message provided"}</p>
+          <hr>
+          <p><small>This email was sent from the contact form on your website.</small></p>
+        `
+      });
+      res.status(200).json({
+        success: true,
+        message: "Your message has been sent successfully! We'll get back to you soon."
+      });
+    } catch (error) {
+      console.error("Contact form error:", error);
+      res.status(500).json({
+        error: "Failed to send message. Please try again later.",
+        details: error.message
+      });
     }
   });
   const httpServer = createServer(app2);
@@ -571,14 +647,8 @@ app.use((req, res, next) => {
   } else {
     serveStatic(app);
   }
-  const port = parseInt(process.env.PORT || "3000", 10);
-  server.listen({
-    port,
-    host: "127.0.0.1",
-    // or "localhost"
-    reusePort: false
-    // disable for Windows
-  }, () => {
-    log(`serving on http://127.0.0.1:${port}`);
+  const port = 5e3;
+  server.listen(port, "0.0.0.0", () => {
+    log(`serving on port ${port}`);
   });
 })();
