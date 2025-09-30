@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { useLocation } from "wouter";
 import { ScrollReveal, StaggeredGrid } from "./AdvancedScrollAnimations";
 import { 
   FaMobile, 
@@ -265,6 +266,7 @@ const FloatingTechIcons = () => (
 
 export default function EnhancedServices() {
   const containerRef = useRef<HTMLElement>(null);
+  const [, setLocation] = useLocation();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -343,6 +345,7 @@ export default function EnhancedServices() {
               </p>
              
                 <motion.button
+                  onClick={() => setLocation('/contact')}
                   className="bg-gradient-to-r from-accent to-secondary text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300"
                   whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(0, 71, 171, 0.5)" }}
                   whileTap={{ scale: 0.95 }}

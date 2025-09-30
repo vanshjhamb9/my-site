@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { useLocation } from "wouter";
 import { ScrollReveal, ScrollCounter, MagneticElement, TypewriterText } from "./AdvancedScrollAnimations";
 import { FaRocket, FaUsers, FaAward, FaGlobe, FaCode, FaBrain, FaHeart, FaStar } from "react-icons/fa";
 
@@ -130,6 +131,7 @@ const StatCard = ({ stat, index }: { stat: any, index: number }) => {
 
 export default function EnhancedAbout() {
   const containerRef = useRef<HTMLElement>(null);
+  const [, setLocation] = useLocation();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -292,6 +294,7 @@ export default function EnhancedAbout() {
               </p>
               
                 <motion.button
+                  onClick={() => setLocation('/contact')}
                   className="bg-gradient-to-r from-accent to-secondary text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300"
                   whileHover={{ 
                     scale: 1.05, 
