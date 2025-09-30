@@ -1,10 +1,12 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
+import { useLocation } from "wouter";
 import { FaCode, FaMobile, FaBrain, FaCloud, FaShieldAlt, FaRocket } from "react-icons/fa";
 
 // Interactive Service Cards with Hover Effects
 export function InteractiveServiceGrid() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [, setLocation] = useLocation();
 
   const services = [
     {
@@ -136,6 +138,7 @@ export function InteractiveServiceGrid() {
             
             {/* Call to action that appears on hover */}
             <motion.button
+              onClick={() => setLocation('/services')}
               className="mt-4 w-full py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-lg font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 hover:shadow-lg"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -182,6 +185,7 @@ export function AnimatedCounter({ value, suffix = "", duration = 2 }: { value: n
 export function FloatingCTA() {
   const [isVisible, setIsVisible] = useState(false);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const [, setLocation] = useLocation();
   
   const { scrollYProgress } = useScroll();
   
@@ -209,6 +213,7 @@ export function FloatingCTA() {
             <p className="text-xs text-muted-foreground">Let's build something amazing</p>
           </div>
           <motion.button
+            onClick={() => setLocation('/contact')}
             className="px-4 py-2 bg-primary text-black rounded-lg text-sm font-semibold hover:bg-primary/80 transition-colors"
             whileHover={{ x: 5 }}
           >

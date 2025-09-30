@@ -1,12 +1,14 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FaBrain, FaCogs, FaRocket } from "react-icons/fa";
 import { useRef } from "react";
+import { useLocation } from "wouter";
 import { FloatingNeuralNetwork, ParticleSystem } from "./ScrollAnimations";
 import { MorphingShapes, TypewriterText, ScrollReveal,  } from "./AdvancedScrollAnimations";
 import image1 from "../../../attached_assets/1.svg";
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
+  const [, setLocation] = useLocation();
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"]
@@ -125,6 +127,7 @@ export default function Hero() {
             >
               
                 <motion.button 
+                  onClick={() => setLocation('/contact')}
                   className="glassmorphism-strong px-8 py-4 rounded-full text-primary font-semibold hover:bg-primary hover:text-black transition-all duration-300 hover-glow animate-galaxy-pulse"
                   whileHover={{ scale: 1.05, rotateZ: 2 }}
                   whileTap={{ scale: 0.45 }}
@@ -135,6 +138,7 @@ export default function Hero() {
               
             
                 <motion.button 
+                  onClick={() => setLocation('/portfolio')}
                   className="border border-primary px-8 py-4 rounded-full text-primary font-semibold hover:bg-primary hover:text-black transition-all duration-300 animate-data-flow"
                   whileHover={{ scale: 1.05, rotateZ: -2 }}
                   whileTap={{ scale: 0.45 }}
