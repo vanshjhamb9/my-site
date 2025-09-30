@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { TeamAvatar, StatsDisplay } from "./CreativeAssets";
 import isaacImage from "../image/john.jpg"
 import HelenImage from "../image/CFO.jpg"
+import CTO from "../image/image2.jpeg"
+import CMO from "../image/CMO.jpeg"
 
 
 const teamMembers = [
@@ -15,7 +17,7 @@ const teamMembers = [
     name: "Harshit",    
     role: "Chief Technology Officer", 
     specialty: "Technical Architecture & Innovation",
-    image: isaacImage,
+    image: CTO,
   },
   {
     name: "Helen Hemalatha",
@@ -27,7 +29,7 @@ const teamMembers = [
     name: "Aniket Gupta",
     role: "Chief Marketing officer",
     specialty: "Marketing Strategy & Operations",
-    image: HelenImage,
+    image: CMO,
   },
 
 ];
