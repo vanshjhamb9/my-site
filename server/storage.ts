@@ -6,9 +6,16 @@ import {
   type BlogCategory,
   type InsertBlogCategory,
   type BlogMedia,
-  type InsertBlogMedia
+  type InsertBlogMedia,
+  users,
+  blogCategories,
+  blogPosts,
+  blogMedia
 } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
+import { eq, and, desc, sql as drizzleSql } from "drizzle-orm";
 
 // modify the interface with any CRUD methods
 // you might need
@@ -254,4 +261,192 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+// PostgreSQL Database Storage Implementation
+export class DatabaseStorage implements IStorage {
+  private db;
+
+  constructor() {
+    if (!process.env.DATABASE_URL) {
+      throw new Error("DATABASE_URL is not set");
+    }
+    const queryClient = neon(process.env.DATABASE_URL);
+    this.db = drizzle(queryClient);
+    
+    // Initialize default categories
+    this.initializeDefaultCategories();
+  }
+
+  private async initializeDefaultCategories() {
+    try {
+      const existingCategories = await this.db.select().from(blogCategories);
+      if (existingCategories.length === 0) {
+        const defaultCategories = [
+          {
+            name: "Technology",
+            slug: "technology",
+            description: "Latest trends in technology and AI",
+            color: "#3B82F6",
+          },
+          {
+            name: "Innovation",
+            slug: "innovation",
+            description: "Breakthrough innovations and case studies",
+            color: "#8B5CF6",
+          },
+          {
+            name: "Industry Insights",
+            slug: "industry-insights",
+            description: "Deep dives into industry trends",
+            color: "#10B981",
+          }
+        ];
+        
+        for (const category of defaultCategories) {
+          await this.db.insert(blogCategories).values(category);
+        }
+      }
+    } catch (error) {
+      console.error("Error initializing default categories:", error);
+    }
+  }
+
+  // User operations
+  async getUser(id: string): Promise<User | undefined> {
+    const result = await this.db.select().from(users).where(eq(users.id, id));
+    return result[0];
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const result = await this.db.select().from(users).where(eq(users.username, username));
+    return result[0];
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const result = await this.db.insert(users).values(insertUser).returning();
+    return result[0];
+  }
+
+  // Blog Category operations
+  async getAllCategories(): Promise<BlogCategory[]> {
+    return await this.db.select().from(blogCategories);
+  }
+
+  async getCategory(id: string): Promise<BlogCategory | undefined> {
+    const result = await this.db.select().from(blogCategories).where(eq(blogCategories.id, id));
+    return result[0];
+  }
+
+  async getCategoryBySlug(slug: string): Promise<BlogCategory | undefined> {
+    const result = await this.db.select().from(blogCategories).where(eq(blogCategories.slug, slug));
+    return result[0];
+  }
+
+  async createCategory(category: InsertBlogCategory): Promise<BlogCategory> {
+    const result = await this.db.insert(blogCategories).values(category).returning();
+    return result[0];
+  }
+
+  async updateCategory(id: string, category: Partial<InsertBlogCategory>): Promise<BlogCategory | undefined> {
+    const result = await this.db
+      .update(blogCategories)
+      .set(category)
+      .where(eq(blogCategories.id, id))
+      .returning();
+    return result[0];
+  }
+
+  async deleteCategory(id: string): Promise<boolean> {
+    const result = await this.db.delete(blogCategories).where(eq(blogCategories.id, id));
+    return result.rowCount ? result.rowCount > 0 : false;
+  }
+
+  // Blog Post operations
+  async getAllPosts(filters?: { published?: boolean; categoryId?: string; featured?: boolean }): Promise<BlogPost[]> {
+    let query = this.db.select().from(blogPosts);
+    
+    const conditions = [];
+    if (filters?.published !== undefined) {
+      conditions.push(eq(blogPosts.published, filters.published));
+    }
+    if (filters?.categoryId) {
+      conditions.push(eq(blogPosts.categoryId, filters.categoryId));
+    }
+    if (filters?.featured !== undefined) {
+      conditions.push(eq(blogPosts.featuredPost, filters.featured));
+    }
+
+    if (conditions.length > 0) {
+      query = query.where(and(...conditions)) as any;
+    }
+
+    const result = await query.orderBy(desc(blogPosts.createdAt));
+    return result;
+  }
+
+  async getPost(id: string): Promise<BlogPost | undefined> {
+    const result = await this.db.select().from(blogPosts).where(eq(blogPosts.id, id));
+    return result[0];
+  }
+
+  async getPostBySlug(slug: string): Promise<BlogPost | undefined> {
+    const result = await this.db.select().from(blogPosts).where(eq(blogPosts.slug, slug));
+    return result[0];
+  }
+
+  async createPost(post: InsertBlogPost): Promise<BlogPost> {
+    const result = await this.db.insert(blogPosts).values({
+      ...post,
+      publishedAt: post.published ? new Date() : null
+    }).returning();
+    return result[0];
+  }
+
+  async updatePost(id: string, post: Partial<InsertBlogPost>): Promise<BlogPost | undefined> {
+    const existing = await this.getPost(id);
+    if (!existing) return undefined;
+
+    const result = await this.db
+      .update(blogPosts)
+      .set({
+        ...post,
+        updatedAt: new Date(),
+        publishedAt: post.published && !existing.published ? new Date() : existing.publishedAt
+      })
+      .where(eq(blogPosts.id, id))
+      .returning();
+    return result[0];
+  }
+
+  async deletePost(id: string): Promise<boolean> {
+    // Delete associated media first
+    await this.db.delete(blogMedia).where(eq(blogMedia.blogPostId, id));
+    
+    const result = await this.db.delete(blogPosts).where(eq(blogPosts.id, id));
+    return result.rowCount ? result.rowCount > 0 : false;
+  }
+
+  async incrementViewCount(id: string): Promise<void> {
+    await this.db
+      .update(blogPosts)
+      .set({ viewCount: drizzleSql`${blogPosts.viewCount} + 1` })
+      .where(eq(blogPosts.id, id));
+  }
+
+  // Blog Media operations
+  async getMediaByPostId(postId: string): Promise<BlogMedia[]> {
+    return await this.db.select().from(blogMedia).where(eq(blogMedia.blogPostId, postId));
+  }
+
+  async createMedia(media: InsertBlogMedia): Promise<BlogMedia> {
+    const result = await this.db.insert(blogMedia).values(media).returning();
+    return result[0];
+  }
+
+  async deleteMedia(id: string): Promise<boolean> {
+    const result = await this.db.delete(blogMedia).where(eq(blogMedia.id, id));
+    return result.rowCount ? result.rowCount > 0 : false;
+  }
+}
+
+// Use DatabaseStorage if DATABASE_URL is available, otherwise use MemStorage
+export const storage = process.env.DATABASE_URL ? new DatabaseStorage() : new MemStorage();
