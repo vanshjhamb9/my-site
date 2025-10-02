@@ -4,8 +4,94 @@ import express2 from "express";
 // server/routes.ts
 import { createServer } from "http";
 
+// shared/schema.ts
+import { sql } from "drizzle-orm";
+import { pgTable, text, varchar, timestamp, boolean, integer } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
+var users = pgTable("users", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  username: text("username").notNull().unique(),
+  password: text("password").notNull()
+});
+var insertUserSchema = createInsertSchema(users).pick({
+  username: true,
+  password: true
+});
+var blogCategories = pgTable("blog_categories", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull().unique(),
+  slug: text("slug").notNull().unique(),
+  description: text("description"),
+  color: text("color").default("#3B82F6"),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
+var blogPosts = pgTable("blog_posts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  excerpt: text("excerpt").notNull(),
+  content: text("content").notNull(),
+  coverImage: text("cover_image"),
+  categoryId: varchar("category_id").references(() => blogCategories.id),
+  authorId: varchar("author_id").references(() => users.id).notNull(),
+  published: boolean("published").default(false).notNull(),
+  featuredPost: boolean("featured_post").default(false).notNull(),
+  readTime: integer("read_time").default(5).notNull(),
+  // in minutes
+  viewCount: integer("view_count").default(0).notNull(),
+  tags: text("tags").array().default(sql`'{}'::text[]`),
+  metaTitle: text("meta_title"),
+  metaDescription: text("meta_description"),
+  socialImage: text("social_image"),
+  publishedAt: timestamp("published_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull()
+});
+var blogMedia = pgTable("blog_media", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  blogPostId: varchar("blog_post_id").references(() => blogPosts.id).notNull(),
+  type: text("type").notNull(),
+  // 'image', 'video', 'document'
+  url: text("url").notNull(),
+  title: text("title"),
+  description: text("description"),
+  altText: text("alt_text"),
+  fileSize: integer("file_size"),
+  // in bytes
+  mimeType: text("mime_type"),
+  width: integer("width"),
+  height: integer("height"),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
+var insertBlogCategorySchema = createInsertSchema(blogCategories).omit({
+  id: true,
+  createdAt: true
+});
+var insertBlogPostSchema = createInsertSchema(blogPosts).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  viewCount: true
+}).extend({
+  tags: z.array(z.string()).optional()
+});
+var insertBlogMediaSchema = createInsertSchema(blogMedia).omit({
+  id: true,
+  createdAt: true
+});
+var contactFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  businessNeeds: z.string().min(1, "Please select your business needs"),
+  message: z.string().optional()
+});
+
 // server/storage.ts
 import { randomUUID } from "crypto";
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
+import { eq, and, desc, sql as drizzleSql } from "drizzle-orm";
 var MemStorage = class {
   users;
   blogCategories;
@@ -187,90 +273,151 @@ var MemStorage = class {
     return this.blogMedia.delete(id);
   }
 };
-var storage = new MemStorage();
-
-// shared/schema.ts
-import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, boolean, integer } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
-import { z } from "zod";
-var users = pgTable("users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  username: text("username").notNull().unique(),
-  password: text("password").notNull()
-});
-var insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true
-});
-var blogCategories = pgTable("blog_categories", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  name: text("name").notNull().unique(),
-  slug: text("slug").notNull().unique(),
-  description: text("description"),
-  color: text("color").default("#3B82F6"),
-  createdAt: timestamp("created_at").defaultNow().notNull()
-});
-var blogPosts = pgTable("blog_posts", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  title: text("title").notNull(),
-  slug: text("slug").notNull().unique(),
-  excerpt: text("excerpt").notNull(),
-  content: text("content").notNull(),
-  coverImage: text("cover_image"),
-  categoryId: varchar("category_id").references(() => blogCategories.id),
-  authorId: varchar("author_id").references(() => users.id).notNull(),
-  published: boolean("published").default(false).notNull(),
-  featuredPost: boolean("featured_post").default(false).notNull(),
-  readTime: integer("read_time").default(5).notNull(),
-  // in minutes
-  viewCount: integer("view_count").default(0).notNull(),
-  tags: text("tags").array().default(sql`'{}'::text[]`),
-  metaTitle: text("meta_title"),
-  metaDescription: text("meta_description"),
-  socialImage: text("social_image"),
-  publishedAt: timestamp("published_at"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull()
-});
-var blogMedia = pgTable("blog_media", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  blogPostId: varchar("blog_post_id").references(() => blogPosts.id).notNull(),
-  type: text("type").notNull(),
-  // 'image', 'video', 'document'
-  url: text("url").notNull(),
-  title: text("title"),
-  description: text("description"),
-  altText: text("alt_text"),
-  fileSize: integer("file_size"),
-  // in bytes
-  mimeType: text("mime_type"),
-  width: integer("width"),
-  height: integer("height"),
-  createdAt: timestamp("created_at").defaultNow().notNull()
-});
-var insertBlogCategorySchema = createInsertSchema(blogCategories).omit({
-  id: true,
-  createdAt: true
-});
-var insertBlogPostSchema = createInsertSchema(blogPosts).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-  viewCount: true
-}).extend({
-  tags: z.array(z.string()).optional()
-});
-var insertBlogMediaSchema = createInsertSchema(blogMedia).omit({
-  id: true,
-  createdAt: true
-});
-var contactFormSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  businessNeeds: z.string().min(1, "Please select your business needs"),
-  message: z.string().optional()
-});
+var DatabaseStorage = class {
+  db;
+  constructor() {
+    if (!process.env.DATABASE_URL) {
+      throw new Error("DATABASE_URL is not set");
+    }
+    const queryClient = neon(process.env.DATABASE_URL);
+    this.db = drizzle(queryClient);
+    this.initializeDefaultCategories();
+  }
+  async initializeDefaultCategories() {
+    try {
+      const existingCategories = await this.db.select().from(blogCategories);
+      if (existingCategories.length === 0) {
+        const defaultCategories = [
+          {
+            name: "Technology",
+            slug: "technology",
+            description: "Latest trends in technology and AI",
+            color: "#3B82F6"
+          },
+          {
+            name: "Innovation",
+            slug: "innovation",
+            description: "Breakthrough innovations and case studies",
+            color: "#8B5CF6"
+          },
+          {
+            name: "Industry Insights",
+            slug: "industry-insights",
+            description: "Deep dives into industry trends",
+            color: "#10B981"
+          }
+        ];
+        for (const category of defaultCategories) {
+          await this.db.insert(blogCategories).values(category);
+        }
+      }
+    } catch (error) {
+      console.error("Error initializing default categories:", error);
+    }
+  }
+  // User operations
+  async getUser(id) {
+    const result = await this.db.select().from(users).where(eq(users.id, id));
+    return result[0];
+  }
+  async getUserByUsername(username) {
+    const result = await this.db.select().from(users).where(eq(users.username, username));
+    return result[0];
+  }
+  async createUser(insertUser) {
+    const result = await this.db.insert(users).values(insertUser).returning();
+    return result[0];
+  }
+  // Blog Category operations
+  async getAllCategories() {
+    return await this.db.select().from(blogCategories);
+  }
+  async getCategory(id) {
+    const result = await this.db.select().from(blogCategories).where(eq(blogCategories.id, id));
+    return result[0];
+  }
+  async getCategoryBySlug(slug) {
+    const result = await this.db.select().from(blogCategories).where(eq(blogCategories.slug, slug));
+    return result[0];
+  }
+  async createCategory(category) {
+    const result = await this.db.insert(blogCategories).values(category).returning();
+    return result[0];
+  }
+  async updateCategory(id, category) {
+    const result = await this.db.update(blogCategories).set(category).where(eq(blogCategories.id, id)).returning();
+    return result[0];
+  }
+  async deleteCategory(id) {
+    const result = await this.db.delete(blogCategories).where(eq(blogCategories.id, id));
+    return result.rowCount ? result.rowCount > 0 : false;
+  }
+  // Blog Post operations
+  async getAllPosts(filters) {
+    let query = this.db.select().from(blogPosts);
+    const conditions = [];
+    if (filters?.published !== void 0) {
+      conditions.push(eq(blogPosts.published, filters.published));
+    }
+    if (filters?.categoryId) {
+      conditions.push(eq(blogPosts.categoryId, filters.categoryId));
+    }
+    if (filters?.featured !== void 0) {
+      conditions.push(eq(blogPosts.featuredPost, filters.featured));
+    }
+    if (conditions.length > 0) {
+      query = query.where(and(...conditions));
+    }
+    const result = await query.orderBy(desc(blogPosts.createdAt));
+    return result;
+  }
+  async getPost(id) {
+    const result = await this.db.select().from(blogPosts).where(eq(blogPosts.id, id));
+    return result[0];
+  }
+  async getPostBySlug(slug) {
+    const result = await this.db.select().from(blogPosts).where(eq(blogPosts.slug, slug));
+    return result[0];
+  }
+  async createPost(post) {
+    const result = await this.db.insert(blogPosts).values({
+      ...post,
+      publishedAt: post.published ? /* @__PURE__ */ new Date() : null
+    }).returning();
+    return result[0];
+  }
+  async updatePost(id, post) {
+    const existing = await this.getPost(id);
+    if (!existing) return void 0;
+    const result = await this.db.update(blogPosts).set({
+      ...post,
+      updatedAt: /* @__PURE__ */ new Date(),
+      publishedAt: post.published && !existing.published ? /* @__PURE__ */ new Date() : existing.publishedAt
+    }).where(eq(blogPosts.id, id)).returning();
+    return result[0];
+  }
+  async deletePost(id) {
+    await this.db.delete(blogMedia).where(eq(blogMedia.blogPostId, id));
+    const result = await this.db.delete(blogPosts).where(eq(blogPosts.id, id));
+    return result.rowCount ? result.rowCount > 0 : false;
+  }
+  async incrementViewCount(id) {
+    await this.db.update(blogPosts).set({ viewCount: drizzleSql`${blogPosts.viewCount} + 1` }).where(eq(blogPosts.id, id));
+  }
+  // Blog Media operations
+  async getMediaByPostId(postId) {
+    return await this.db.select().from(blogMedia).where(eq(blogMedia.blogPostId, postId));
+  }
+  async createMedia(media) {
+    const result = await this.db.insert(blogMedia).values(media).returning();
+    return result[0];
+  }
+  async deleteMedia(id) {
+    const result = await this.db.delete(blogMedia).where(eq(blogMedia.id, id));
+    return result.rowCount ? result.rowCount > 0 : false;
+  }
+};
+var storage = process.env.DATABASE_URL ? new DatabaseStorage() : new MemStorage();
 
 // server/resend-client.ts
 import { Resend } from "resend";

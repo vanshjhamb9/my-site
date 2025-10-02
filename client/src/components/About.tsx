@@ -5,6 +5,8 @@ import { AIBrainNetwork, CircuitBoard, HolographicInterface } from "./CustomIllu
 import { useRef } from "react";
 import { TechStackShowcase } from "./InteractiveAssets";
 import { AnimatedCountryFlags } from "./CountryFlags";
+import { useLocation } from "wouter";
+
 
 export default function About() {
   const aboutRef = useRef<HTMLElement>(null);
@@ -14,6 +16,8 @@ export default function About() {
   });
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
+  const [, setLocation] = useLocation();
 
   return (
     <section ref={aboutRef} id="about" className="py-20 relative overflow-hidden">
@@ -139,14 +143,17 @@ export default function About() {
         >
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.button 
+              onClick={() => setLocation("/team")}
               className="glassmorphism-strong px-8 py-4 rounded-full text-accent font-semibold hover:bg-accent hover:text-black transition-all duration-300 hover-glow animate-galaxy-pulse"
               whileHover={{ scale: 1.05, rotateZ: 2 }}
               whileTap={{ scale: 0.95 }}
               data-testid="button-meet-team"
+              
             >
               Meet Our Team
             </motion.button>
             <motion.button 
+              onClick={() => setLocation("/contact")}
               className="border border-accent px-8 py-4 rounded-full text-accent font-semibold hover:bg-accent hover:text-black transition-all duration-300 animate-data-flow"
               whileHover={{ scale: 1.05, rotateZ: -2 }}
               whileTap={{ scale: 0.95 }}
