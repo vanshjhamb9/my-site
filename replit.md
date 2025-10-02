@@ -1,8 +1,16 @@
 # Overview
 
-This is a modern portfolio website for KodyTechnoLab, built as a full-stack web application. The project replicates and enhances a technology company's website with advanced visual design, interactive animations, and modern UI components. The site features sections for services, portfolio, team, testimonials, and contact information, all designed with a dark theme and purple/violet accent colors.
+This is a modern portfolio website for KodyTechnoLab (branded as "Neural Coder AI"), built as a full-stack web application. The project replicates and enhances a technology company's website with advanced visual design, interactive animations, and modern UI components. The site features sections for services, portfolio, team, testimonials, blog, and contact information, all designed with a dark theme and purple/violet accent colors.
 
 The application uses a monorepo structure with separate client and server directories, sharing common schema definitions. It's designed as a single-page application with smooth scrolling navigation and rich animations throughout.
+
+## Recent Changes (October 2, 2025)
+- **Replit Environment Setup**: Configured the project to run in Replit environment
+  - Fixed dev script from Windows `set NODE_ENV=development` to Unix-compatible `NODE_ENV=development`
+  - Configured workflow to run on port 5000 with webview output
+  - Server properly configured to bind to `0.0.0.0:5000` with `allowedHosts: true` for Replit proxy
+  - Updated `.gitignore` to include `/dist` directory
+  - Application now successfully running and serving the frontend
 
 # User Preferences
 
