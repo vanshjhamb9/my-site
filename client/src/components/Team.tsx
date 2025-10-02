@@ -4,6 +4,7 @@ import isaacImage from "../image/john.jpg"
 import HelenImage from "../image/CFO.jpg"
 import CTO from "../image/image2.jpeg"
 import CMO from "../image/CMO.jpeg"
+import { useLocation } from "wouter";
 
 
 const teamMembers = [
@@ -42,6 +43,8 @@ const companyStats = [
 ];
 
 export default function Team() {
+  const [, setLocation] = useLocation();
+  
   return (
     <section id="team" className="py-20 relative">
       <div className="container mx-auto px-6">
@@ -132,6 +135,7 @@ export default function Team() {
             </motion.p>
             <div className="flex justify-center gap-4">
               <motion.button 
+                onClick={() => setLocation('/contact')}
                 className="glassmorphism px-8 py-3 rounded-full text-primary font-semibold hover:bg-primary hover:text-black transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -140,6 +144,10 @@ export default function Team() {
                 Join Our Team
               </motion.button>
               <motion.button 
+                onClick={() => {
+                  const element = document.getElementById('team');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                }}
                 className="border border-primary px-8 py-3 rounded-full text-primary font-semibold hover:bg-primary hover:text-black transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

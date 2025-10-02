@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { TestimonialCard } from "./CreativeAssets";
+import { useLocation } from "wouter";
 
 const testimonials = [
   {
@@ -30,6 +31,8 @@ const testimonials = [
 
 
 export default function Testimonials() {
+  const [, setLocation] = useLocation();
+  
   return (
     <section id="testimonials" className="py-20 relative overflow-hidden">
       {/* Background Elements */}
@@ -102,6 +105,7 @@ export default function Testimonials() {
             ))}
           </div>
           <motion.button 
+            onClick={() => setLocation('/portfolio')}
             className="glassmorphism px-8 py-4 rounded-full text-accent font-semibold hover:bg-accent hover:text-black transition-all duration-300 hover-glow"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

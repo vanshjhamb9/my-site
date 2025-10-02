@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { FaCrown, FaRocket, FaNetworkWired, FaBrain, FaGem, FaLightbulb } from "react-icons/fa";
+import { useLocation } from "wouter";
 
 // Premium animated background component
 const PremiumBackground = () => (
@@ -115,6 +116,7 @@ const PrimordiaFeature = ({ icon: Icon, title, description, delay }: {
 
 export default function Primodia() {
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
+  const [, setLocation] = useLocation();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -274,6 +276,7 @@ export default function Primodia() {
           transition={{ duration: 0.8, delay: 0.7 }}
         >
           <motion.button
+            onClick={() => setLocation('/contact')}
             className="glassmorphism-strong px-12 py-6 rounded-full text-lg font-bold text-primary border-2 border-primary relative overflow-hidden group"
             whileHover={{ scale: 1.05, rotateZ: 1 }}
             whileTap={{ scale: 0.95 }}
