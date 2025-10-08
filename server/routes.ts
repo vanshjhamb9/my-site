@@ -1,7 +1,8 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertBlogPostSchema, insertBlogCategorySchema, insertBlogMediaSchema, contactFormSchema } from "@shared/schema";
+import { insertBlogPostSchema, insertBlogCategorySchema, insertBlogMediaSchema, contactFormSchema, insertLeadSchema, updateLeadSchema, insertAdminUserSchema } from "@shared/schema";
+import bcrypt from "bcrypt";
 import { getUncachableResendClient } from "./resend-client";
 
 // Admin authentication middleware using environment variables
@@ -210,6 +211,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const { name, email, businessNeeds, message } = result.data;
       
+      // Save lead to database
+      await storage.createLead({
+        name,
+        email,
+        businessNeeds,
+        message: message || null,
+        status: "new",
+        source: "website"
+      });
+
       // Get Resend client and send email
       const { client, fromEmail } = await getUncachableResendClient();
       
@@ -239,6 +250,135 @@ export async function registerRoutes(app: Express): Promise<Server> {
         error: "Failed to send message. Please try again later.",
         details: error.message 
       });
+    }
+  });
+
+  // Admin Authentication API
+  app.post("/api/admin/login", async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      
+      const admin = await storage.getAdminUserByUsername(username);
+      if (!admin) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+
+      const isValid = await bcrypt.compare(password, admin.password);
+      if (!isValid) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+
+      res.json({ 
+        success: true, 
+        admin: { id: admin.id, username: admin.username, role: admin.role }
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Login failed" });
+    }
+  });
+
+  app.post("/api/admin/register", async (req, res) => {
+    try {
+      const result = insertAdminUserSchema.safeParse(req.body);
+      if (!result.success) {
+        return res.status(400).json({ error: "Invalid admin data", details: result.error.issues });
+      }
+
+      const hashedPassword = await bcrypt.hash(result.data.password, 10);
+      const admin = await storage.createAdminUser({
+        ...result.data,
+        password: hashedPassword
+      });
+
+      res.status(201).json({ 
+        success: true, 
+        admin: { id: admin.id, username: admin.username, role: admin.role }
+      });
+    } catch (error: any) {
+      if (error.message?.includes('unique')) {
+        return res.status(409).json({ error: "Username or email already exists" });
+      }
+      res.status(500).json({ error: "Failed to create admin" });
+    }
+  });
+
+  // Leads Management API
+  app.get("/api/admin/leads", adminAuth, async (req, res) => {
+    try {
+      const { status } = req.query;
+      const filters: any = {};
+      if (status) filters.status = status as string;
+
+      const leads = await storage.getAllLeads(filters);
+      res.json(leads);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch leads" });
+    }
+  });
+
+  app.get("/api/admin/leads/stats", adminAuth, async (req, res) => {
+    try {
+      const stats = await storage.getLeadStats();
+      res.json(stats);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch lead stats" });
+    }
+  });
+
+  app.get("/api/admin/leads/:id", adminAuth, async (req, res) => {
+    try {
+      const lead = await storage.getLead(req.params.id);
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+      res.json(lead);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch lead" });
+    }
+  });
+
+  app.post("/api/admin/leads", adminAuth, async (req, res) => {
+    try {
+      const result = insertLeadSchema.safeParse(req.body);
+      if (!result.success) {
+        return res.status(400).json({ error: "Invalid lead data", details: result.error.issues });
+      }
+
+      const lead = await storage.createLead(result.data);
+      res.status(201).json(lead);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to create lead" });
+    }
+  });
+
+  app.patch("/api/admin/leads/:id", adminAuth, async (req, res) => {
+    try {
+      const result = updateLeadSchema.safeParse(req.body);
+      if (!result.success) {
+        return res.status(400).json({ error: "Invalid lead data", details: result.error.issues });
+      }
+
+      const lead = await storage.updateLead(req.params.id, result.data);
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+
+      res.json(lead);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update lead" });
+    }
+  });
+
+  app.delete("/api/admin/leads/:id", adminAuth, async (req, res) => {
+    try {
+      const success = await storage.deleteLead(req.params.id);
+      if (!success) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+
+      res.json({ message: "Lead deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to delete lead" });
     }
   });
 

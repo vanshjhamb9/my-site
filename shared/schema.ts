@@ -105,3 +105,53 @@ export const contactFormSchema = z.object({
 });
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;
+
+// Leads Table (for storing contact form submissions)
+export const leads = pgTable("leads", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  businessNeeds: text("business_needs").notNull(),
+  message: text("message"),
+  status: text("status").default("new").notNull(), // new, contacted, qualified, converted, closed, rejected
+  source: text("source").default("website").notNull(), // website, referral, etc.
+  assignedTo: varchar("assigned_to").references(() => users.id),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  contactedAt: timestamp("contacted_at"),
+  closedAt: timestamp("closed_at"),
+});
+
+export const insertLeadSchema = createInsertSchema(leads).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const updateLeadSchema = createInsertSchema(leads).omit({
+  id: true,
+  createdAt: true,
+}).partial();
+
+export type InsertLead = z.infer<typeof insertLeadSchema>;
+export type UpdateLead = z.infer<typeof updateLeadSchema>;
+export type Lead = typeof leads.$inferSelect;
+
+// Admin Users - extend users table with role
+export const adminUsers = pgTable("admin_users", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  username: text("username").notNull().unique(),
+  password: text("password").notNull(),
+  email: text("email").notNull().unique(),
+  role: text("role").default("admin").notNull(), // admin, superadmin
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertAdminUserSchema = createInsertSchema(adminUsers).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;
+export type AdminUser = typeof adminUsers.$inferSelect;

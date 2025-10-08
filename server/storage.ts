@@ -7,10 +7,17 @@ import {
   type InsertBlogCategory,
   type BlogMedia,
   type InsertBlogMedia,
+  type Lead,
+  type InsertLead,
+  type UpdateLead,
+  type AdminUser,
+  type InsertAdminUser,
   users,
   blogCategories,
   blogPosts,
-  blogMedia
+  blogMedia,
+  leads,
+  adminUsers
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { drizzle } from "drizzle-orm/neon-http";
@@ -47,6 +54,27 @@ export interface IStorage {
   getMediaByPostId(postId: string): Promise<BlogMedia[]>;
   createMedia(media: InsertBlogMedia): Promise<BlogMedia>;
   deleteMedia(id: string): Promise<boolean>;
+
+  // Lead operations
+  getAllLeads(filters?: { status?: string }): Promise<Lead[]>;
+  getLead(id: string): Promise<Lead | undefined>;
+  createLead(lead: InsertLead): Promise<Lead>;
+  updateLead(id: string, lead: UpdateLead): Promise<Lead | undefined>;
+  deleteLead(id: string): Promise<boolean>;
+  getLeadStats(): Promise<{
+    total: number;
+    new: number;
+    contacted: number;
+    qualified: number;
+    converted: number;
+    closed: number;
+    rejected: number;
+  }>;
+
+  // Admin User operations
+  getAdminUser(id: string): Promise<AdminUser | undefined>;
+  getAdminUserByUsername(username: string): Promise<AdminUser | undefined>;
+  createAdminUser(admin: InsertAdminUser): Promise<AdminUser>;
 }
 
 export class MemStorage implements IStorage {
@@ -54,12 +82,16 @@ export class MemStorage implements IStorage {
   private blogCategories: Map<string, BlogCategory>;
   private blogPosts: Map<string, BlogPost>;
   private blogMedia: Map<string, BlogMedia>;
+  private leads: Map<string, Lead>;
+  private adminUsers: Map<string, AdminUser>;
 
   constructor() {
     this.users = new Map();
     this.blogCategories = new Map();
     this.blogPosts = new Map();
     this.blogMedia = new Map();
+    this.leads = new Map();
+    this.adminUsers = new Map();
 
     // Add some default categories
     this.initializeDefaultCategories();
@@ -259,6 +291,102 @@ export class MemStorage implements IStorage {
   async deleteMedia(id: string): Promise<boolean> {
     return this.blogMedia.delete(id);
   }
+
+  // Lead methods
+  async getAllLeads(filters?: { status?: string }): Promise<Lead[]> {
+    let leadsArray = Array.from(this.leads.values());
+    
+    if (filters?.status) {
+      leadsArray = leadsArray.filter(lead => lead.status === filters.status);
+    }
+
+    return leadsArray.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
+
+  async getLead(id: string): Promise<Lead | undefined> {
+    return this.leads.get(id);
+  }
+
+  async createLead(insertLead: InsertLead): Promise<Lead> {
+    const id = randomUUID();
+    const now = new Date();
+    const lead: Lead = { 
+      ...insertLead, 
+      id, 
+      message: insertLead.message || null,
+      status: insertLead.status || "new",
+      source: insertLead.source || "website",
+      assignedTo: insertLead.assignedTo || null,
+      notes: insertLead.notes || null,
+      contactedAt: insertLead.contactedAt || null,
+      closedAt: insertLead.closedAt || null,
+      createdAt: now,
+      updatedAt: now
+    };
+    this.leads.set(id, lead);
+    return lead;
+  }
+
+  async updateLead(id: string, updateData: UpdateLead): Promise<Lead | undefined> {
+    const lead = this.leads.get(id);
+    if (!lead) return undefined;
+    
+    const updatedLead = { 
+      ...lead, 
+      ...updateData, 
+      updatedAt: new Date()
+    };
+    this.leads.set(id, updatedLead);
+    return updatedLead;
+  }
+
+  async deleteLead(id: string): Promise<boolean> {
+    return this.leads.delete(id);
+  }
+
+  async getLeadStats(): Promise<{
+    total: number;
+    new: number;
+    contacted: number;
+    qualified: number;
+    converted: number;
+    closed: number;
+    rejected: number;
+  }> {
+    const leadsArray = Array.from(this.leads.values());
+    return {
+      total: leadsArray.length,
+      new: leadsArray.filter(l => l.status === "new").length,
+      contacted: leadsArray.filter(l => l.status === "contacted").length,
+      qualified: leadsArray.filter(l => l.status === "qualified").length,
+      converted: leadsArray.filter(l => l.status === "converted").length,
+      closed: leadsArray.filter(l => l.status === "closed").length,
+      rejected: leadsArray.filter(l => l.status === "rejected").length,
+    };
+  }
+
+  // Admin User methods
+  async getAdminUser(id: string): Promise<AdminUser | undefined> {
+    return this.adminUsers.get(id);
+  }
+
+  async getAdminUserByUsername(username: string): Promise<AdminUser | undefined> {
+    return Array.from(this.adminUsers.values()).find(
+      (admin) => admin.username === username,
+    );
+  }
+
+  async createAdminUser(insertAdmin: InsertAdminUser): Promise<AdminUser> {
+    const id = randomUUID();
+    const admin: AdminUser = { 
+      ...insertAdmin, 
+      id, 
+      role: insertAdmin.role || "admin",
+      createdAt: new Date() 
+    };
+    this.adminUsers.set(id, admin);
+    return admin;
+  }
 }
 
 // PostgreSQL Database Storage Implementation
@@ -445,6 +573,79 @@ export class DatabaseStorage implements IStorage {
   async deleteMedia(id: string): Promise<boolean> {
     const result = await this.db.delete(blogMedia).where(eq(blogMedia.id, id));
     return result.rowCount ? result.rowCount > 0 : false;
+  }
+
+  // Lead operations
+  async getAllLeads(filters?: { status?: string }): Promise<Lead[]> {
+    let query = this.db.select().from(leads);
+    
+    if (filters?.status) {
+      query = query.where(eq(leads.status, filters.status)) as any;
+    }
+
+    const result = await query.orderBy(desc(leads.createdAt));
+    return result;
+  }
+
+  async getLead(id: string): Promise<Lead | undefined> {
+    const result = await this.db.select().from(leads).where(eq(leads.id, id));
+    return result[0];
+  }
+
+  async createLead(lead: InsertLead): Promise<Lead> {
+    const result = await this.db.insert(leads).values(lead).returning();
+    return result[0];
+  }
+
+  async updateLead(id: string, lead: UpdateLead): Promise<Lead | undefined> {
+    const result = await this.db
+      .update(leads)
+      .set({ ...lead, updatedAt: new Date() })
+      .where(eq(leads.id, id))
+      .returning();
+    return result[0];
+  }
+
+  async deleteLead(id: string): Promise<boolean> {
+    const result = await this.db.delete(leads).where(eq(leads.id, id));
+    return result.rowCount ? result.rowCount > 0 : false;
+  }
+
+  async getLeadStats(): Promise<{
+    total: number;
+    new: number;
+    contacted: number;
+    qualified: number;
+    converted: number;
+    closed: number;
+    rejected: number;
+  }> {
+    const allLeads = await this.getAllLeads();
+    return {
+      total: allLeads.length,
+      new: allLeads.filter(l => l.status === "new").length,
+      contacted: allLeads.filter(l => l.status === "contacted").length,
+      qualified: allLeads.filter(l => l.status === "qualified").length,
+      converted: allLeads.filter(l => l.status === "converted").length,
+      closed: allLeads.filter(l => l.status === "closed").length,
+      rejected: allLeads.filter(l => l.status === "rejected").length,
+    };
+  }
+
+  // Admin User operations
+  async getAdminUser(id: string): Promise<AdminUser | undefined> {
+    const result = await this.db.select().from(adminUsers).where(eq(adminUsers.id, id));
+    return result[0];
+  }
+
+  async getAdminUserByUsername(username: string): Promise<AdminUser | undefined> {
+    const result = await this.db.select().from(adminUsers).where(eq(adminUsers.username, username));
+    return result[0];
+  }
+
+  async createAdminUser(admin: InsertAdminUser): Promise<AdminUser> {
+    const result = await this.db.insert(adminUsers).values(admin).returning();
+    return result[0];
   }
 }
 
