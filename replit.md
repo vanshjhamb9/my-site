@@ -4,13 +4,27 @@ This is a modern portfolio website for KodyTechnoLab (branded as "Neural Coder A
 
 The application uses a monorepo structure with separate client and server directories, sharing common schema definitions. It's designed as a single-page application with smooth scrolling navigation and rich animations throughout.
 
-## Recent Changes (October 2, 2025)
-- **Replit Environment Setup**: Configured the project to run in Replit environment
-  - Fixed dev script from Windows `set NODE_ENV=development` to Unix-compatible `NODE_ENV=development`
+## Recent Changes (October 8, 2025)
+- **Admin CRM System**: Complete admin panel for lead management and analytics
+  - Admin authentication system with bcrypt password hashing
+  - Leads management with full CRUD operations
+  - Lead status tracking (new, contacted, qualified, converted, closed, rejected)
+  - Analytics dashboard with interactive charts (recharts)
+  - Blog management integrated into admin panel
+  - Contact form now automatically saves leads to database
+  - Admin routes protected with authentication middleware
+  - Access admin panel at `/admin/login`
+
+- **Database Schema Updates**: 
+  - Added `leads` table for contact form submissions
+  - Added `adminUsers` table for admin authentication
+  - Enhanced blog system with categories and media support
+
+- **Replit Environment Setup** (October 2, 2025):
+  - Fixed dev script from Windows to Unix-compatible
   - Configured workflow to run on port 5000 with webview output
-  - Server properly configured to bind to `0.0.0.0:5000` with `allowedHosts: true` for Replit proxy
-  - Updated `.gitignore` to include `/dist` directory
-  - Application now successfully running and serving the frontend
+  - Server properly configured to bind to `0.0.0.0:5000`
+  - Application successfully running and serving the frontend
 
 # User Preferences
 
@@ -42,8 +56,37 @@ Preferred communication style: Simple, everyday language.
 
 ## Authentication and Authorization
 - **User Management**: Basic user schema with username/password fields
+- **Admin System**: Separate admin user authentication with role-based access
+  - Password hashing with bcrypt
+  - Admin-only routes protected by middleware
+  - Role support (admin, superadmin)
 - **Session Handling**: Express session middleware with PostgreSQL session store (connect-pg-simple)
 - **Validation**: Zod schemas for input validation and type safety
+
+## Admin CRM Features
+- **Lead Management**: 
+  - Automatic lead capture from contact form
+  - Full CRUD operations on leads
+  - Status tracking and updates
+  - Lead assignment capability
+  - Notes and follow-up tracking
+  
+- **Analytics Dashboard**:
+  - Visual statistics cards for lead metrics
+  - Bar charts for lead distribution by status
+  - Pie charts for conversion funnel
+  - Real-time lead stats API
+  
+- **Blog Management**:
+  - Create, edit, and delete blog posts
+  - Category management with color coding
+  - SEO fields (meta title, description, social images)
+  - Published/Draft status toggle
+  - Featured posts support
+  - Tag system for posts
+  
+- **Access**: Admin panel accessible at `/admin/login`
+- **Setup**: Run `npm run setup-admin` to create first admin user
 
 ## External Dependencies
 - **Database**: Neon Database (serverless PostgreSQL)

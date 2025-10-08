@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useLocation, Link } from "wouter";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Users, BarChart3, FileText, LogOut } from "lucide-react";
+import { Users, BarChart3, FileText, LogOut } from "lucide-react";
 import LeadsManagement from "./LeadsManagement";
 import Analytics from "./Analytics";
+import BlogManagement from "./BlogManagement";
 
 type TabType = "leads" | "analytics" | "blogs";
 
@@ -60,15 +61,18 @@ export default function AdminDashboard() {
             <span>Analytics</span>
           </button>
 
-          <Link href="/admin/blog">
-            <a
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
-              data-testid="link-nav-blogs"
-            >
-              <FileText className="h-5 w-5" />
-              <span>Blogs</span>
-            </a>
-          </Link>
+          <button
+            onClick={() => setActiveTab("blogs")}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+              activeTab === "blogs"
+                ? "bg-accent text-accent-foreground"
+                : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700"
+            }`}
+            data-testid="button-nav-blogs"
+          >
+            <FileText className="h-5 w-5" />
+            <span>Blogs</span>
+          </button>
         </nav>
 
         <div className="p-4 border-t border-slate-200 dark:border-slate-700">
@@ -88,6 +92,7 @@ export default function AdminDashboard() {
       <main className="flex-1 overflow-auto">
         {activeTab === "leads" && <LeadsManagement />}
         {activeTab === "analytics" && <Analytics />}
+        {activeTab === "blogs" && <BlogManagement />}
       </main>
     </div>
   );
