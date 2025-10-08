@@ -594,7 +594,7 @@ import bcrypt from "bcrypt";
 // server/resend-client.ts
 import { Resend } from "resend";
 var connectionSettings;
-async function getCredentials() {
+async function getCredentialsFromReplit() {
   const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
   const xReplitToken = process.env.REPL_IDENTITY ? "repl " + process.env.REPL_IDENTITY : process.env.WEB_REPL_RENEWAL ? "depl " + process.env.WEB_REPL_RENEWAL : null;
   if (!xReplitToken) {
@@ -610,15 +610,36 @@ async function getCredentials() {
     }
   ).then((res) => res.json()).then((data) => data.items?.[0]);
   if (!connectionSettings || !connectionSettings.settings.api_key) {
-    throw new Error("Resend not connected");
+    throw new Error("Resend not connected via Replit");
   }
-  return { apiKey: connectionSettings.settings.api_key, fromEmail: connectionSettings.settings.from_email };
+  return {
+    apiKey: connectionSettings.settings.api_key,
+    fromEmail: connectionSettings.settings.from_email
+  };
+}
+async function getCredentialsFromEnv() {
+  const apiKey = process.env.RESEND_API_KEY;
+  const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY not found in environment variables");
+  }
+  return { apiKey, fromEmail };
+}
+async function getCredentials() {
+  if (process.env.REPLIT_CONNECTORS_HOSTNAME) {
+    try {
+      return await getCredentialsFromReplit();
+    } catch (error) {
+      console.warn("Replit Connectors not available, falling back to environment variables");
+    }
+  }
+  return await getCredentialsFromEnv();
 }
 async function getUncachableResendClient() {
   const credentials = await getCredentials();
   return {
     client: new Resend(credentials.apiKey),
-    fromEmail: connectionSettings.settings.from_email
+    fromEmail: credentials.fromEmail
   };
 }
 
