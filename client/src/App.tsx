@@ -14,6 +14,8 @@ import PrimodiaPage from "@/pages/primodia";
 import BlogPage from "@/pages/blog";
 import BlogDetailPage from "@/pages/blog-detail";
 import BlogAdminPage from "@/pages/blog-admin";
+import AdminLogin from "@/pages/admin/AdminLogin";
+import AdminDashboard from "@/pages/admin/AdminDashboard";
 
 
 function Router() {
@@ -29,6 +31,8 @@ function Router() {
       <Route path="/blog" component={BlogPage} />
       <Route path="/blog/:slug" component={BlogDetailPage} />
       <Route path="/admin/blog" component={BlogAdminPage} />
+      <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/admin/dashboard" component={AdminDashboard} />
       <Route component={NotFound} />
     </Switch>
   );
