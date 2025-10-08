@@ -86,6 +86,45 @@ var contactFormSchema = z.object({
   businessNeeds: z.string().min(1, "Please select your business needs"),
   message: z.string().optional()
 });
+var leads = pgTable("leads", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  businessNeeds: text("business_needs").notNull(),
+  message: text("message"),
+  status: text("status").default("new").notNull(),
+  // new, contacted, qualified, converted, closed, rejected
+  source: text("source").default("website").notNull(),
+  // website, referral, etc.
+  assignedTo: varchar("assigned_to").references(() => users.id),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  contactedAt: timestamp("contacted_at"),
+  closedAt: timestamp("closed_at")
+});
+var insertLeadSchema = createInsertSchema(leads).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true
+});
+var updateLeadSchema = createInsertSchema(leads).omit({
+  id: true,
+  createdAt: true
+}).partial();
+var adminUsers = pgTable("admin_users", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  username: text("username").notNull().unique(),
+  password: text("password").notNull(),
+  email: text("email").notNull().unique(),
+  role: text("role").default("admin").notNull(),
+  // admin, superadmin
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
+var insertAdminUserSchema = createInsertSchema(adminUsers).omit({
+  id: true,
+  createdAt: true
+});
 
 // server/storage.ts
 import { randomUUID } from "crypto";
@@ -97,11 +136,15 @@ var MemStorage = class {
   blogCategories;
   blogPosts;
   blogMedia;
+  leads;
+  adminUsers;
   constructor() {
     this.users = /* @__PURE__ */ new Map();
     this.blogCategories = /* @__PURE__ */ new Map();
     this.blogPosts = /* @__PURE__ */ new Map();
     this.blogMedia = /* @__PURE__ */ new Map();
+    this.leads = /* @__PURE__ */ new Map();
+    this.adminUsers = /* @__PURE__ */ new Map();
     this.initializeDefaultCategories();
   }
   initializeDefaultCategories() {
@@ -272,6 +315,82 @@ var MemStorage = class {
   async deleteMedia(id) {
     return this.blogMedia.delete(id);
   }
+  // Lead methods
+  async getAllLeads(filters) {
+    let leadsArray = Array.from(this.leads.values());
+    if (filters?.status) {
+      leadsArray = leadsArray.filter((lead) => lead.status === filters.status);
+    }
+    return leadsArray.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
+  async getLead(id) {
+    return this.leads.get(id);
+  }
+  async createLead(insertLead) {
+    const id = randomUUID();
+    const now = /* @__PURE__ */ new Date();
+    const lead = {
+      ...insertLead,
+      id,
+      message: insertLead.message || null,
+      status: insertLead.status || "new",
+      source: insertLead.source || "website",
+      assignedTo: insertLead.assignedTo || null,
+      notes: insertLead.notes || null,
+      contactedAt: insertLead.contactedAt || null,
+      closedAt: insertLead.closedAt || null,
+      createdAt: now,
+      updatedAt: now
+    };
+    this.leads.set(id, lead);
+    return lead;
+  }
+  async updateLead(id, updateData) {
+    const lead = this.leads.get(id);
+    if (!lead) return void 0;
+    const updatedLead = {
+      ...lead,
+      ...updateData,
+      updatedAt: /* @__PURE__ */ new Date()
+    };
+    this.leads.set(id, updatedLead);
+    return updatedLead;
+  }
+  async deleteLead(id) {
+    return this.leads.delete(id);
+  }
+  async getLeadStats() {
+    const leadsArray = Array.from(this.leads.values());
+    return {
+      total: leadsArray.length,
+      new: leadsArray.filter((l) => l.status === "new").length,
+      contacted: leadsArray.filter((l) => l.status === "contacted").length,
+      qualified: leadsArray.filter((l) => l.status === "qualified").length,
+      converted: leadsArray.filter((l) => l.status === "converted").length,
+      closed: leadsArray.filter((l) => l.status === "closed").length,
+      rejected: leadsArray.filter((l) => l.status === "rejected").length
+    };
+  }
+  // Admin User methods
+  async getAdminUser(id) {
+    return this.adminUsers.get(id);
+  }
+  async getAdminUserByUsername(username) {
+    return Array.from(this.adminUsers.values()).find(
+      (admin) => admin.username === username
+    );
+  }
+  async createAdminUser(insertAdmin) {
+    const id = randomUUID();
+    const admin = {
+      ...insertAdmin,
+      id,
+      role: insertAdmin.role || "admin",
+      createdAt: /* @__PURE__ */ new Date()
+    };
+    this.adminUsers.set(id, admin);
+    return admin;
+  }
 };
 var DatabaseStorage = class {
   db;
@@ -416,8 +535,61 @@ var DatabaseStorage = class {
     const result = await this.db.delete(blogMedia).where(eq(blogMedia.id, id));
     return result.rowCount ? result.rowCount > 0 : false;
   }
+  // Lead operations
+  async getAllLeads(filters) {
+    let query = this.db.select().from(leads);
+    if (filters?.status) {
+      query = query.where(eq(leads.status, filters.status));
+    }
+    const result = await query.orderBy(desc(leads.createdAt));
+    return result;
+  }
+  async getLead(id) {
+    const result = await this.db.select().from(leads).where(eq(leads.id, id));
+    return result[0];
+  }
+  async createLead(lead) {
+    const result = await this.db.insert(leads).values(lead).returning();
+    return result[0];
+  }
+  async updateLead(id, lead) {
+    const result = await this.db.update(leads).set({ ...lead, updatedAt: /* @__PURE__ */ new Date() }).where(eq(leads.id, id)).returning();
+    return result[0];
+  }
+  async deleteLead(id) {
+    const result = await this.db.delete(leads).where(eq(leads.id, id));
+    return result.rowCount ? result.rowCount > 0 : false;
+  }
+  async getLeadStats() {
+    const allLeads = await this.getAllLeads();
+    return {
+      total: allLeads.length,
+      new: allLeads.filter((l) => l.status === "new").length,
+      contacted: allLeads.filter((l) => l.status === "contacted").length,
+      qualified: allLeads.filter((l) => l.status === "qualified").length,
+      converted: allLeads.filter((l) => l.status === "converted").length,
+      closed: allLeads.filter((l) => l.status === "closed").length,
+      rejected: allLeads.filter((l) => l.status === "rejected").length
+    };
+  }
+  // Admin User operations
+  async getAdminUser(id) {
+    const result = await this.db.select().from(adminUsers).where(eq(adminUsers.id, id));
+    return result[0];
+  }
+  async getAdminUserByUsername(username) {
+    const result = await this.db.select().from(adminUsers).where(eq(adminUsers.username, username));
+    return result[0];
+  }
+  async createAdminUser(admin) {
+    const result = await this.db.insert(adminUsers).values(admin).returning();
+    return result[0];
+  }
 };
 var storage = process.env.DATABASE_URL ? new DatabaseStorage() : new MemStorage();
+
+// server/routes.ts
+import bcrypt from "bcrypt";
 
 // server/resend-client.ts
 import { Resend } from "resend";
@@ -611,6 +783,14 @@ async function registerRoutes(app2) {
         });
       }
       const { name, email, businessNeeds, message } = result.data;
+      await storage.createLead({
+        name,
+        email,
+        businessNeeds,
+        message: message || null,
+        status: "new",
+        source: "website"
+      });
       const { client, fromEmail } = await getUncachableResendClient();
       const emailResponse = await client.emails.send({
         from: fromEmail || "onboarding@resend.dev",
@@ -636,6 +816,115 @@ async function registerRoutes(app2) {
         error: "Failed to send message. Please try again later.",
         details: error.message
       });
+    }
+  });
+  app2.post("/api/admin/login", async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      const admin = await storage.getAdminUserByUsername(username);
+      if (!admin) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+      const isValid = await bcrypt.compare(password, admin.password);
+      if (!isValid) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+      res.json({
+        success: true,
+        admin: { id: admin.id, username: admin.username, role: admin.role }
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Login failed" });
+    }
+  });
+  app2.post("/api/admin/register", async (req, res) => {
+    try {
+      const result = insertAdminUserSchema.safeParse(req.body);
+      if (!result.success) {
+        return res.status(400).json({ error: "Invalid admin data", details: result.error.issues });
+      }
+      const hashedPassword = await bcrypt.hash(result.data.password, 10);
+      const admin = await storage.createAdminUser({
+        ...result.data,
+        password: hashedPassword
+      });
+      res.status(201).json({
+        success: true,
+        admin: { id: admin.id, username: admin.username, role: admin.role }
+      });
+    } catch (error) {
+      if (error.message?.includes("unique")) {
+        return res.status(409).json({ error: "Username or email already exists" });
+      }
+      res.status(500).json({ error: "Failed to create admin" });
+    }
+  });
+  app2.get("/api/admin/leads", adminAuth, async (req, res) => {
+    try {
+      const { status } = req.query;
+      const filters = {};
+      if (status) filters.status = status;
+      const leads2 = await storage.getAllLeads(filters);
+      res.json(leads2);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch leads" });
+    }
+  });
+  app2.get("/api/admin/leads/stats", adminAuth, async (req, res) => {
+    try {
+      const stats = await storage.getLeadStats();
+      res.json(stats);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch lead stats" });
+    }
+  });
+  app2.get("/api/admin/leads/:id", adminAuth, async (req, res) => {
+    try {
+      const lead = await storage.getLead(req.params.id);
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+      res.json(lead);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch lead" });
+    }
+  });
+  app2.post("/api/admin/leads", adminAuth, async (req, res) => {
+    try {
+      const result = insertLeadSchema.safeParse(req.body);
+      if (!result.success) {
+        return res.status(400).json({ error: "Invalid lead data", details: result.error.issues });
+      }
+      const lead = await storage.createLead(result.data);
+      res.status(201).json(lead);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to create lead" });
+    }
+  });
+  app2.patch("/api/admin/leads/:id", adminAuth, async (req, res) => {
+    try {
+      const result = updateLeadSchema.safeParse(req.body);
+      if (!result.success) {
+        return res.status(400).json({ error: "Invalid lead data", details: result.error.issues });
+      }
+      const lead = await storage.updateLead(req.params.id, result.data);
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+      res.json(lead);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update lead" });
+    }
+  });
+  app2.delete("/api/admin/leads/:id", adminAuth, async (req, res) => {
+    try {
+      const success = await storage.deleteLead(req.params.id);
+      if (!success) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+      res.json({ message: "Lead deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to delete lead" });
     }
   });
   const httpServer = createServer(app2);
