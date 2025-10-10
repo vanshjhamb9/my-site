@@ -57,7 +57,7 @@ export default function Footer() {
               {['AI Development', 'Mobile Apps', 'Web Applications', 'IoT Solutions', 'Machine Learning'].map((service) => (
                 <li key={service}>
                   <a 
-                    href="#" 
+                    href="#services" 
                     className="text-white/70 hover:text-primary transition-colors"
                     data-testid={`link-service-${service.toLowerCase().replace(' ', '-')}`}
                   >

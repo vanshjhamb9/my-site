@@ -9,9 +9,15 @@ import Testimonials from "@/components/Testimonials";
 import Team from "@/components/Team";
 import Contact from "@/components/Contact";
 import Primodia from "@/components/Primodia";
+import { useEffect } from "react";
 
 
 export default function Home() {
+
+   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Layout>
       <Hero />

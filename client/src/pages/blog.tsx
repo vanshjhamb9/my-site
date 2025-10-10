@@ -1,8 +1,14 @@
 import Layout from "@/components/Layout";
 import BlogListing from "@/components/BlogListing";
 import { useDocumentMeta } from "@/hooks/use-document-title";
+import { useEffect } from "react";
 
 export default function BlogPage() {
+
+  useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
   // Set document meta for SEO
   useDocumentMeta({
     title: "Blog | Neural Coder AI - AI Technology Insights",
